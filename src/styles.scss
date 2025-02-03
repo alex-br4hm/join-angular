@@ -1,0 +1,70 @@
+@use "@angular/material" as mat;
+
+html {
+  @include mat.theme(
+      (
+        color: mat.$azure-palette,
+        typography: Inter,
+      )
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background-color: #F6F7F8;
+  color: #2A3647;
+  --mat-sys-primary: #F6F7F8;
+  transition: all 500ms ease-in-out;
+}
+
+.mat-mdc-button {
+  background: #2A3647 !important;
+}
+
+.dark-mode {
+  background-color: #222;
+  color: #F6F7F8;
+
+  .mat-mdc-button {
+    --mat-sys-primary: #2A3647;
+    background: #F6F7F8 !important;
+    --mat-sys-label-large-weight: 700;
+  }
+}
+
+
+/* ############# */
+/*     FONTS     */
+/* ############# */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/inter/Inter_18pt-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/inter/Inter_18pt-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/inter/Inter_18pt-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
