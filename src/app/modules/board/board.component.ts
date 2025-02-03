@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-board',
   imports: [],
   templateUrl: './board.component.html',
-  styleUrl: './board.component.css'
+  styleUrl: './board.component.scss'
 })
 export class BoardComponent {
 

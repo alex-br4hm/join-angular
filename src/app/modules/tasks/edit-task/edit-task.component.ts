@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-edit-task',
   imports: [],
   templateUrl: './edit-task.component.html',
-  styleUrl: './edit-task.component.css'
+  styleUrl: './edit-task.component.scss'
 })
 export class EditTaskComponent {
 
