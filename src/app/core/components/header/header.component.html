@@ -1,6 +1,28 @@
-<!--<button mat-button (click)="applyDarkMode()">Dark mode</button>-->
-<!--<button mat-button (click)="applyLightMode()">Light mode</button>-->
+<div class="app-title">
+  Kanban Project Management Tool
+</div>
 
-<button mat-button>Dark mode</button>
-<button mat-button>Light mode</button>
+<div class="header-end-wrapper">
+  <div class="dark-light-wrapper" >
+      <mat-icon [ngClass]="{ 'moon': mode === 'dark' }">dark_mode</mat-icon>
+        <div class="toggle-btn"
+             [ngClass]="{ 'light-mode': mode === 'light' }"
+             (click)="switchMode()"
+        ></div>
+      <mat-icon [ngClass]="{ 'sun': mode === 'light' }">light_mode</mat-icon>
+  </div>
 
+
+  @if (this.route != '/help') {
+    <mat-icon [matTooltip]="'help'" routerLink="help">help_outlined</mat-icon>
+  }
+
+  <div class="user-avater" [matMenuTriggerFor]="menu">
+    <span>GN</span>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="legal">Legal Notice</button>
+      <button mat-menu-item routerLink="privacy">Privacy Policy</button>
+      <button mat-menu-item routerLink="">Log out</button>
+    </mat-menu>
+  </div>
+</div>

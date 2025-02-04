@@ -1,12 +1,96 @@
 :host {
   width: 100%;
   height: 96px;
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 3px var(--font-color-primary);
   position: fixed;
   top: 0;
   display: flex;
   align-items: center;
   gap:8px;
   z-index: 0;
-  justify-content: end;
 }
+
+.app-title {
+  margin-left: 328px;
+  font-size: 18px;
+  text-wrap: nowrap;
+}
+
+.header-end-wrapper {
+  width: 100%;
+  padding-right: 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap:16px;
+
+  mat-icon {
+    opacity: .5;
+  }
+
+  .user-avater {
+    border:2px solid var(--font-color-primary);
+    background-color: rgba(0, 0, 0, 0.1);
+    font-weight: 550;
+    cursor: pointer;
+    padding:.6em;
+    border-radius: 50%;
+    span {
+      text-transform: uppercase;
+      color: var(--accent-color);
+    }
+  }
+}
+
+.dark-light-wrapper {
+  display: flex;
+  gap:4px;
+
+  .toggle-btn {
+    width: 40px;
+    height: 24px;
+    background-color: #333;
+    border-radius: 32px;
+    position: relative;
+    cursor: pointer;
+    transition: all 125ms ease;
+
+
+    &::before {
+      content:"";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      top:4px;
+      left:4px;
+      border-radius: 50%;
+      transition: all 125ms ease;
+    }
+  }
+
+  .light-mode {
+      background-color: rgba(51, 51, 51, 0.5);
+
+      &::before {
+        left: 20px;
+      }
+  }
+
+  .moon {
+    color:white;
+    opacity: .9;
+  }
+
+  .sun {
+    color: orange;
+    opacity: .9;
+  }
+}
+
+
+
+.mat-mdc-menu-item {
+  padding: 0px 24px;
+}
+
