@@ -46,5 +46,12 @@ export const routes: Routes = [
       import('./modules/legal-and-help/legal-notice/legal-notice.component').then(
         m => m.LegalNoticeComponent
       ),
+  },
+  {
+    path: 'help',
+    loadComponent: () =>
+      import('./modules/legal-and-help/help-page/help-page.component').then(
+        m => m.HelpPageComponent
+      ),
   }
 ];
