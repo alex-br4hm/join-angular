@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, effect} from '@angular/core';
 import {RouterLink} from '@angular/router';
-import {MatIcon} from '@angular/material/icon';
+import {ActiveRouteService} from '../../services/active-route.service';
+import {NgClass} from '@angular/common';
 
 export interface NavLink {
   name: string;
@@ -12,12 +13,14 @@ export interface NavLink {
   selector: 'app-side-nav',
   imports: [
     RouterLink,
-    MatIcon
+    NgClass
   ],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss'
 })
 export class SideNavComponent {
+  currentRoute!: string;
+
   navLinks: NavLink[] = [
     {
       name: 'Summary',
@@ -40,5 +43,12 @@ export class SideNavComponent {
       icon: '/icons/contacts.svg',
     },
   ]
+
+  constructor(private activeRouteService: ActiveRouteService) {
+    effect(() => {
+      this.currentRoute = this.activeRouteService.currentRoute();
+      console.log(this.currentRoute);
+    });
+  }
 
 }

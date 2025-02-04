@@ -16,6 +16,7 @@
   justify-content: space-between;
   height: 100%;
   padding: 25% 0 25% 0;
+  color: var(--font-color-secondary);
 }
 
 img {
@@ -35,35 +36,60 @@ img {
     align-items: center;
     justify-content: center;
     text-wrap: nowrap;
-  }
-
-  .link-inside {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 0;
-    user-select: none;
     cursor: pointer;
 
     &:hover {
-      span {
-        opacity: 1;
-      };
+      background-color: #555;
     }
+  }
+}
+
+.link-inside {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  user-select: none;
+
+  &:hover {
+    span {
+      opacity: 1;
+    };
   }
 }
 
 .legal-help-links-wrapper {
   display: flex;
+  align-items: center;
   flex-direction: column;
-  gap:16px;
+  gap:4px;
+  width: 100%;
+
+  span {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    &:hover {
+      background-color: #555;
+    }
+  }
 }
 
 span {
-  opacity: .75;
+  opacity: .9;
   cursor: pointer;
   &:hover {
     opacity: 1;
+  }
+}
+
+.active-route {
+  background-color: var(--active-color);
+
+  span {
+    opacity: 1;
+    font-weight: 500;
   }
 }
