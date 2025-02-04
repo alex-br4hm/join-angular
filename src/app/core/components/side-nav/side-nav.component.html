@@ -1,1 +1,21 @@
-<p>side-nav works!</p>
+<div class="side-nav-content">
+  <img src="join_logo.svg" alt="join logo">
+
+  <div class="nav-links-wrapper">
+    @for (link of navLinks; track $index) {
+      <div class="link" [routerLink]="link.link">
+        <span class="link-inside">
+          <img src="{{ link.icon }}" alt=" {{ link.name }} icon">
+          <span>{{ link.name }}</span>
+        </span>
+      </div>
+    }
+  </div>
+
+  <div class="legal-help-links-wrapper">
+    <span [routerLink]="'privacy'">Privacy Policy</span>
+    <span [routerLink]="'legal'">Legal notice</span>
+  </div>
+</div>
+
+

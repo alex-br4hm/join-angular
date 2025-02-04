@@ -6,10 +6,12 @@ import {ref} from '@angular/fire/storage';
 import {objectVal, onValue} from '@angular/fire/database';
 import {Observable} from 'rxjs';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
+import {SideNavComponent} from './core/components/side-nav/side-nav.component';
+import {HeaderComponent} from './core/components/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatButton, AngularFirestoreModule],
+  imports: [RouterOutlet, MatButton, AngularFirestoreModule, SideNavComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
