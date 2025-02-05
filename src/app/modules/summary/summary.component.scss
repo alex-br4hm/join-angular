@@ -1,0 +1,149 @@
+.headline-container {
+  display: flex;
+  align-items: center;
+  gap:24px;
+
+  h1 {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .subline {
+    font-weight: normal;
+    font-size: 24px;
+  }
+}
+
+.divider {
+  display: inline-block;
+  width: 2px;
+  height: 52px;
+  background-color: var(--accent-color);
+}
+
+.content-container {
+  display: flex;
+  padding: 24px 0;
+  height: 90%;
+  width: 100%;
+}
+
+.summary-container {
+  height: 100%;
+  width: 50%;
+  max-width: 30vw;
+  min-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .row {
+    display: flex;
+    width: 100%;
+    gap: 24px;
+    min-width: 520px;
+  }
+
+  .summary-element {
+    flex:1;
+    height: 20vh;
+    border-radius:28px;
+    padding: 16px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 75ms ease;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    &:hover {
+      scale:1.02;
+    }
+
+    mat-icon {
+      background-color: var(--font-color-primary);
+      border-radius: 50%;
+      padding: 12px;
+      color: var(--primary-color);
+      width: 64px;
+      height: 64px;
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .urgent {
+      background-color: var(--warn);
+      rotate: (-90deg);
+      color: #F0F0F0;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      span {
+        font-weight: 500;
+        font-size: 20px;
+        text-align: center;
+        &:first-child {
+          font-size: 48px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.summary-element:has(.upcoming-deadline) {
+  .divider {
+    height: 90%;
+    margin: 0 7%;
+    background-color: rgba(128, 128, 128, 0.25);
+  }
+}
+
+.upcoming-deadline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  span:first-child {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+
+.welcome-container {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    font-size:36px;
+    span {
+      color: var(--accent-color);
+      word-break: break-word;
+    }
+  }
+}
+
+.loading-container {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+

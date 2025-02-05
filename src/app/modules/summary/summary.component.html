@@ -1,1 +1,77 @@
-<h1>Summary</h1>
+<div class="headline-container">
+    <h1>Join 360</h1>
+    <span class="divider"></span>
+    <span class="subline">Key Metrics at a Glance</span>
+</div>
+
+@if (!isLoading) {
+<div class="content-container">
+  <div class="summary-container">
+      <div class="row">
+          <div class="summary-element" [routerLink]="'/board'">
+              <mat-icon>edit</mat-icon>
+              <div class="info">
+                  <span>{{ todoCount }}</span>
+                  <span>To-do</span>
+              </div>
+          </div>
+          <div class="summary-element" [routerLink]="'/board'">
+              <mat-icon>check</mat-icon>
+              <div class="info">
+                  <span>{{ doneCount }}</span>
+                  <span>Done</span>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="summary-element" [routerLink]="'/board'">
+            <mat-icon class="urgent">double_arrow</mat-icon>
+              <div class="info">
+                <span>{{ urgentCount }}</span>
+                <span>Urgent</span>
+              </div>
+              <span class="divider"></span>
+              <div class="upcoming-deadline">
+                <span>October 16, 2022</span>
+                <span>Upcoming Deadline</span>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="summary-element" [routerLink]="'/board'">
+              <div class="info">
+                  <span>{{ tasksCount }}</span>
+                  <span>Tasks in <br>Board</span>
+              </div>
+          </div>
+          <div class="summary-element" [routerLink]="'/board'">
+              <div class="info">
+                <span>{{ progressCount }}</span>
+                <span>Tasks in Progress</span>
+              </div>
+          </div>
+          <div class="summary-element" [routerLink]="'/board'">
+              <div class="info">
+                <span>{{ awaitCount }}</span>
+                <span>Awaiting Feedback</span>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="welcome-container">
+      @if (actualUser.length >= 1) {
+        <div>Good morning,
+          <span>{{ actualUser }}</span>
+        </div>
+      } @else {
+        <div>Good morning!</div>
+      }
+  </div>
+</div>
+} @else {
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
