@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
      this.db.getUsers().pipe(
      ).subscribe({
        next: data => {
-         console.log(data);
+         // console.log(data);
        },
        error: error => {
          console.log(error);
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit{
      this.db.getTasks().pipe(
      ).subscribe({
        next: data => {
-         console.log(data);
+         // console.log(data);
        },
        error: error => {
          console.log(error);
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit{
      this.db.getContacts().pipe(
      ).subscribe({
        next: data => {
-         console.log(data);
+         // console.log(data);
        },
        error: error => {
          console.log(error);

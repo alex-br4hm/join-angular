@@ -11,9 +11,10 @@ html {
 
 :root {
   --primary-color: #F6F7F8;
-  --secondary-color: red;
+  --secondary-color: #F0F0F0;
   --active-color: #091931;
   --accent-color: #29ABE2;
+  --warn: #FF3D00;
   --font-color-primary: rgb(42, 54, 71);
   --font-color-secondary: #F0F0F0;
 }
@@ -44,10 +45,8 @@ body {
   --secondary-color: #333;
   --font-color-primary: #F0F0F0;
   --active-color: #444;
-
   --mat-sys-surface-container: var(--secondary-color);
   --mat-sys-on-surface: var(--font-color-primary);
-
 
   .mat-mdc-button {
     --mat-sys-primary: #2A3647;
@@ -57,9 +56,15 @@ body {
 }
 
 h1 {
-  font-size:56px;
+  font-size:48px;
+  margin:0;
+  white-space: nowrap;
 }
 
+.mat-mdc-progress-spinner {
+  --mat-sys-primary: var(--font-color-primary);
+  opacity: .75;
+}
 
 /* ############# */
 /*     FONTS     */

@@ -10,7 +10,6 @@ export class FirebaseService {
   constructor(private db: Database) {}
 
   getUsers():Observable<any> {
-    console.log('DB Instance:', this.db);
     const usersRef = ref(this.db, 'users');
     return objectVal(usersRef);
   }
