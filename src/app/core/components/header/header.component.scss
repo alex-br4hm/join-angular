@@ -22,23 +22,32 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  gap:16px;
+  gap:20px;
 
   mat-icon {
     opacity: .5;
+    cursor: pointer;
+  }
+}
+
+.user-avater {
+  border: 2px solid var(--active-color);
+  font-weight: 550;
+  cursor: pointer;
+  height: 48px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+
+  span {
+    text-transform: uppercase;
+    color: var(--accent-color);
   }
 
-  .user-avater {
-    border:2px solid var(--font-color-primary);
-    background-color: rgba(0, 0, 0, 0.1);
-    font-weight: 550;
-    cursor: pointer;
-    padding:.6em;
-    border-radius: 50%;
-    span {
-      text-transform: uppercase;
-      color: var(--accent-color);
-    }
+  &:hover {
+    background-color: rgba(0,0,0, 0.05);
   }
 }
 
@@ -88,9 +97,8 @@
   }
 }
 
-
-
 .mat-mdc-menu-item {
   padding: 0px 24px;
+  color: var(--font-color-secondary);
 }
 

@@ -14,9 +14,13 @@ html {
   --secondary-color: #F0F0F0;
   --active-color: #091931;
   --accent-color: #29ABE2;
+  --spacer-color: #D1D1D1;
   --warn: #FF3D00;
-  --font-color-primary: rgb(42, 54, 71);
+  --font-color-primary: #111;
   --font-color-secondary: #F0F0F0;
+  --mat-sys-surface-container: #333;
+  --mat-sys-on-surface: #F0F0F0;
+  --mat-sys-primary: #111;
 }
 
 * {
@@ -32,8 +36,7 @@ body {
   font-family: Inter, sans-serif;
   color: var(--font-color-primary);
   background-color: var(--primary-color);
-  --mat-sys-primary: var(--primary-color);
-  transition: all 500ms ease-in-out;
+  transition: all 100ms ease;
 }
 
 .mat-mdc-button {
@@ -43,15 +46,14 @@ body {
 .dark-mode {
   --primary-color: #222;
   --secondary-color: #333;
-  --font-color-primary: #F0F0F0;
+  --font-color-primary: rgba(240, 240, 240, 0.85);
+  --font-color-secondary: rgba(240, 240, 240, 0.85);
+  --spacer-color: rgba(255, 255, 255, 0.1);
   --active-color: #444;
   --mat-sys-surface-container: var(--secondary-color);
   --mat-sys-on-surface: var(--font-color-primary);
+  --mat-sys-primary: #F0F0F0;
 
-  .mat-mdc-button {
-    --mat-sys-primary: #2A3647;
-    background: #F6F7F8 !important;
-  }
 }
 
 h1 {
@@ -102,4 +104,10 @@ h1 {
   border-radius: 16px !important;
   border-top-right-radius: 0 !important;
   box-shadow: none !important;
+  transform: translateY(-2px);
+}
+
+mdc-button__label {
+  display: flex;
+  align-items: center;
 }
