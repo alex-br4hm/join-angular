@@ -1,0 +1,337 @@
+{
+  "contacts": {
+    "0": {
+      "color": "#FF8C00",
+      "email": "marty@hillvalley.com",
+      "id": 0,
+      "surname": "McFly",
+      "lastname": "Marty",
+      "phone": "1234567890"
+    },
+    "1": {
+      "color": "#FF4500",
+      "email": "doc@hillvalley.com",
+      "id": 1,
+      "surname": "Brown",
+      "lastname": "Doc",
+      "phone": "1234567891"
+    },
+    "2": {
+      "color": "#FF1493",
+      "email": "jennifer@hillvalley.com",
+      "id": 2,
+      "surname": "Parker",
+      "lastname": "Jennifer",
+      "phone": "1234567892"
+    },
+    "4": {
+      "color": "#2E8B57",
+      "email": "george@hillvalley.com",
+      "id": 4,
+      "surname": "McFly",
+      "lastname": "George",
+      "phone": "1234567894"
+    },
+    "5": {
+      "color": "#9400D3",
+      "email": "lorraine@hillvalley.com",
+      "id": 5,
+      "surname": "Baines",
+      "lastname": "Lorraine",
+      "phone": "1234567895"
+    },
+    "6": {
+      "color": "#483D8B",
+      "email": "strickland@hillvalley.com",
+      "id": 6,
+      "surname": "Strickland",
+      "lastname": "",
+      "phone": "1234567896"
+    },
+    "7": {
+      "color": "#FFD700",
+      "email": "einstein@hillvalley.com",
+      "id": 7,
+      "surname": "Einstein",
+      "lastname": "",
+      "phone": "1234567897"
+    },
+    "8": {
+      "color": "#FF69B4",
+      "email": "clara@hillvalley.com",
+      "id": 8,
+      "surname": "Clayton",
+      "lastname": "Clara",
+      "phone": "1234567898"
+    },
+    "9": {
+      "color": "#8B0000",
+      "email": "griff@hillvalley.com",
+      "id": 9,
+      "surname": "Tannen",
+      "lastname": "Griff",
+      "phone": "1234567899"
+    },
+    "10": {
+      "color": "#FFD700",
+      "email": "goldie@hillvalley.com",
+      "id": 10,
+      "surname": "Wilson",
+      "lastname": "Goldie",
+      "phone": "1234567800"
+    },
+    "11": {
+      "color": "#8B4513",
+      "email": "needles@hillvalley.com",
+      "id": 11,
+      "surname": "Needles",
+      "lastname": "",
+      "phone": "1234567801"
+    },
+    "401465": {
+      "color": "#40E0D0",
+      "email": "dev@haehnlein-alexander.org",
+      "id": 401465,
+      "surname": "Hähnlein",
+      "lastname": "Alexander",
+      "phone": ""
+    },
+    "739670": {
+      "color": "#BA55D3",
+      "email": "mailo.mittelaedt@googlemail.com",
+      "id": 739670,
+      "surname": "Mittelstädt",
+      "lastname": "Mailo",
+      "phone": ""
+    }
+  },
+  "tasks": {
+    "31": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "Brown", "lastname": "Doc" }
+      ],
+      "category": "Technical Task",
+      "description": "Ensure the DeLorean reaches 88mph to activate time travel.",
+      "due_date": "15/06/2025",
+      "due_date_unix": 1749945600,
+      "id": 31,
+      "name": "Get the DeLorean to 88mph",
+      "priority": "high",
+      "state": "done",
+      "subtasks": [
+        { "subtask_isdone": false, "subtask_name": "Check fuel levels" },
+        { "subtask_isdone": false, "subtask_name": "Adjust time circuits" }
+      ]
+    },
+    "32": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "McFly", "lastname": "George" }
+      ],
+      "category": "User Story",
+      "description": "Ensure Biff does not alter the timeline in 1955.",
+      "due_date": "20/06/2025",
+      "due_date_unix": 1750377600,
+      "id": 32,
+      "name": "Avoid Biff in 1955",
+      "priority": "high",
+      "state": "done",
+      "subtasks": [
+        { "subtask_isdone": false, "subtask_name": "Keep Biff away from the dance" },
+        { "subtask_isdone": true, "subtask_name": "Ensure Lorraine and George meet" }
+      ]
+    },
+    "33": {
+      "assigned_user": [
+        { "surname": "Brown", "lastname": "Doc" },
+        { "surname": "McFly", "lastname": "Marty" }
+      ],
+      "category": "Technical Task",
+      "description": "Repair the DeLorean after it gets damaged.",
+      "due_date": "25/06/2025",
+      "due_date_unix": 1750809600,
+      "id": 33,
+      "name": "Fix the DeLorean",
+      "priority": "medium",
+      "state": "inprogress",
+      "subtasks": [
+        { "subtask_isdone": true, "subtask_name": "Replace the flux capacitor" },
+        { "subtask_isdone": false, "subtask_name": "Recharge the time circuits" }
+      ]
+    },
+    "34": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "Baines", "lastname": "Lorraine" },
+        { "surname": "McFly", "lastname": "George" },
+        { "surname": "Clayton", "lastname": "Clara" }
+      ],
+      "category": "User Story",
+      "description": "Ensure Marty and his parents attend the dance to secure the future.",
+      "due_date": "30/06/2025",
+      "due_date_unix": 1751241600,
+      "id": 34,
+      "name": "Attend the Enchantment Under the Sea dance",
+      "priority": "low",
+      "state": "todo",
+      "subtasks": [
+        { "subtask_isdone": false, "subtask_name": "Find a suit for Marty" },
+        { "subtask_isdone": true, "subtask_name": "Prepare the DeLorean for the escape" }
+      ]
+    },
+    "35": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "Brown", "lastname": "Doc" }
+      ],
+      "category": "User Story",
+      "description": "Retrieve Jennifer from 2015 and return her to the correct timeline.",
+      "due_date": "05/07/2025",
+      "due_date_unix": 1751673600,
+      "id": 35,
+      "name": "Rescue Jennifer in 2015",
+      "priority": "medium",
+      "state": "done",
+      "subtasks": [
+        { "subtask_isdone": true, "subtask_name": "Locate Jennifer in Hill Valley" },
+        { "subtask_isdone": true, "subtask_name": "Avoid future Biff" }
+      ]
+    },
+    "36": {
+      "assigned_user": [
+        { "surname": "Brown", "lastname": "Doc" }
+      ],
+      "category": "User Story",
+      "description": "Ensure the clock tower lightning strike occurs as planned.",
+      "due_date": "10/07/2025",
+      "due_date_unix": 1752105600,
+      "id": 36,
+      "name": "Save the clock tower",
+      "priority": "high",
+      "state": "awaitfeedback",
+      "subtasks": [
+        { "subtask_isdone": true, "subtask_name": "Prepare the cable connection" },
+        { "subtask_isdone": false, "subtask_name": "Synchronize the DeLorean's speed" }
+      ]
+    },
+    "37": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "Brown", "lastname": "Doc" }
+      ],
+      "category": "User Story",
+      "description": "Prevent Biff from acquiring the sports almanac and altering the future.",
+      "due_date": "15/07/2025",
+      "due_date_unix": 1752537600,
+      "id": 37,
+      "name": "Stop Biff from getting the almanac",
+      "priority": "high",
+      "state": "awaitfeedback",
+      "subtasks": [
+        { "subtask_isdone": true, "subtask_name": "Locate the almanac" },
+        { "subtask_isdone": false, "subtask_name": "Avoid 1955 Biff" }
+      ]
+    },
+    "38": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "Parker", "lastname": "Jennifer" }
+      ],
+      "category": "User Story",
+      "description": "Celebrate the history of Hill Valley while ensuring no disruptions to the timeline.",
+      "due_date": "20/07/2025",
+      "due_date_unix": 1752969600,
+      "id": 38,
+      "name": "Attend the Hill Valley Festival",
+      "priority": "medium",
+      "state": "todo",
+      "subtasks": [
+        { "subtask_isdone": false, "subtask_name": "Check historical displays" },
+        { "subtask_isdone": false, "subtask_name": "Avoid interaction with past selves" }
+      ]
+    },
+    "39": {
+      "assigned_user": [
+        { "surname": "McFly", "lastname": "Marty" },
+        { "surname": "Brown", "lastname": "Doc" }
+      ],
+      "category": "Technical Task",
+      "description": "Ensure that Marty and Doc safely return to 1985 without altering the timeline.",
+      "due_date": "25/07/2025",
+      "due_date_unix": 1753401600,
+      "id": 39,
+      "name": "Return to 1985",
+      "priority": "high",
+      "state": "awaitfeedback",
+      "subtasks": [
+        { "subtask_isdone": false, "subtask_name": "Adjust time circuits to 1985" },
+        { "subtask_isdone": false, "subtask_name": "Ensure no items from the past are brought back" }
+      ]
+    }
+  },
+"users": {
+  "0": {
+    "id": 0,
+    "color": "#FF8C00",
+    "email": "marty@hillvalley.com",
+    "surname": "Marty",
+    "lastname": "McFly",
+    "password": "deloreanTime1",
+    "phone": "1234567890"
+  },
+  "1": {
+    "id": 1,
+    "color": "#FF4500",
+    "email": "doc@hillvalley.com",
+    "surname": "Doc",
+    "lastname": "Brown",
+    "password": "greatScott2",
+    "phone": "1234567891"
+  },
+  "2": {
+    "id": 2,
+    "color": "#FF1493",
+    "email": "jennifer@hillvalley.com",
+    "surname": "Jennifer",
+    "lastname": "Parker",
+    "password": "futureGirl3",
+    "phone": "1234567892"
+  },
+  "4": {
+    "id": 4,
+    "color": "#2E8B57",
+    "email": "george@hillvalley.com",
+    "surname": "George",
+    "lastname": "McFly",
+    "password": "writerDad5",
+    "phone": "1234567894"
+  },
+  "394631": {
+    "id": 394631,
+    "color": "#FF6347",
+    "email": "haehnlein.alexander@gmx.de",
+    "surname": "Test",
+    "lastname": "Mann",
+    "password": "123"
+  },
+  "401465": {
+    "id": 401465,
+    "color": "#40E0D0",
+    "email": "cueslsic.alex@gmx.de",
+    "surname": "Alexander",
+    "lastname": "Hähnlein",
+    "password": "123",
+    "phone": ""
+  },
+  "739670": {
+    "id": 739670,
+    "color": "#BA55D3",
+    "email": "mailo.mittelaedt@googlemail.com",
+    "surname": "Mailo",
+    "lastname": "Mittelstädt",
+    "password": "1122",
+    "phone": ""
+  }
+}
+}
