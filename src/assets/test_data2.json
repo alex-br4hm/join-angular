@@ -4,7 +4,7 @@
       "color": "#FF8C00",
       "email": "marty@hillvalley.com",
       "id": 0,
-      "surname": "McFly",
+      "firstname": "McFly",
       "lastname": "Marty",
       "phone": "1234567890"
     },
@@ -12,7 +12,7 @@
       "color": "#FF4500",
       "email": "doc@hillvalley.com",
       "id": 1,
-      "surname": "Brown",
+      "firstname": "Brown",
       "lastname": "Doc",
       "phone": "1234567891"
     },
@@ -20,7 +20,7 @@
       "color": "#FF1493",
       "email": "jennifer@hillvalley.com",
       "id": 2,
-      "surname": "Parker",
+      "firstname": "Parker",
       "lastname": "Jennifer",
       "phone": "1234567892"
     },
@@ -28,7 +28,7 @@
       "color": "#2E8B57",
       "email": "george@hillvalley.com",
       "id": 4,
-      "surname": "McFly",
+      "firstname": "McFly",
       "lastname": "George",
       "phone": "1234567894"
     },
@@ -36,7 +36,7 @@
       "color": "#9400D3",
       "email": "lorraine@hillvalley.com",
       "id": 5,
-      "surname": "Baines",
+      "firstname": "Baines",
       "lastname": "Lorraine",
       "phone": "1234567895"
     },
@@ -44,7 +44,7 @@
       "color": "#483D8B",
       "email": "strickland@hillvalley.com",
       "id": 6,
-      "surname": "Strickland",
+      "firstname": "Strickland",
       "lastname": "",
       "phone": "1234567896"
     },
@@ -52,7 +52,7 @@
       "color": "#FFD700",
       "email": "einstein@hillvalley.com",
       "id": 7,
-      "surname": "Einstein",
+      "firstname": "Einstein",
       "lastname": "",
       "phone": "1234567897"
     },
@@ -60,7 +60,7 @@
       "color": "#FF69B4",
       "email": "clara@hillvalley.com",
       "id": 8,
-      "surname": "Clayton",
+      "firstname": "Clayton",
       "lastname": "Clara",
       "phone": "1234567898"
     },
@@ -68,7 +68,7 @@
       "color": "#8B0000",
       "email": "griff@hillvalley.com",
       "id": 9,
-      "surname": "Tannen",
+      "firstname": "Tannen",
       "lastname": "Griff",
       "phone": "1234567899"
     },
@@ -76,7 +76,7 @@
       "color": "#FFD700",
       "email": "goldie@hillvalley.com",
       "id": 10,
-      "surname": "Wilson",
+      "firstname": "Wilson",
       "lastname": "Goldie",
       "phone": "1234567800"
     },
@@ -84,7 +84,7 @@
       "color": "#8B4513",
       "email": "needles@hillvalley.com",
       "id": 11,
-      "surname": "Needles",
+      "firstname": "Needles",
       "lastname": "",
       "phone": "1234567801"
     },
@@ -92,15 +92,15 @@
       "color": "#40E0D0",
       "email": "dev@haehnlein-alexander.org",
       "id": 401465,
-      "surname": "Hähnlein",
-      "lastname": "Alexander",
+      "firstname": "Alexander",
+      "lastname": "Hähnlein",
       "phone": ""
     },
     "739670": {
       "color": "#BA55D3",
       "email": "mailo.mittelaedt@googlemail.com",
       "id": 739670,
-      "surname": "Mittelstädt",
+      "firstname": "Mittelstädt",
       "lastname": "Mailo",
       "phone": ""
     }
@@ -108,8 +108,8 @@
   "tasks": {
     "31": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "Brown", "lastname": "Doc" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "Brown", "lastname": "Doc" }
       ],
       "category": "Technical Task",
       "description": "Ensure the DeLorean reaches 88mph to activate time travel.",
@@ -126,8 +126,8 @@
     },
     "32": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "McFly", "lastname": "George" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "McFly", "lastname": "George" }
       ],
       "category": "User Story",
       "description": "Ensure Biff does not alter the timeline in 1955.",
@@ -144,8 +144,8 @@
     },
     "33": {
       "assigned_user": [
-        { "surname": "Brown", "lastname": "Doc" },
-        { "surname": "McFly", "lastname": "Marty" }
+        { "firstname": "Brown", "lastname": "Doc" },
+        { "firstname": "McFly", "lastname": "Marty" }
       ],
       "category": "Technical Task",
       "description": "Repair the DeLorean after it gets damaged.",
@@ -162,10 +162,10 @@
     },
     "34": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "Baines", "lastname": "Lorraine" },
-        { "surname": "McFly", "lastname": "George" },
-        { "surname": "Clayton", "lastname": "Clara" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "Baines", "lastname": "Lorraine" },
+        { "firstname": "McFly", "lastname": "George" },
+        { "firstname": "Clayton", "lastname": "Clara" }
       ],
       "category": "User Story",
       "description": "Ensure Marty and his parents attend the dance to secure the future.",
@@ -182,8 +182,8 @@
     },
     "35": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "Brown", "lastname": "Doc" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "Brown", "lastname": "Doc" }
       ],
       "category": "User Story",
       "description": "Retrieve Jennifer from 2015 and return her to the correct timeline.",
@@ -200,7 +200,7 @@
     },
     "36": {
       "assigned_user": [
-        { "surname": "Brown", "lastname": "Doc" }
+        { "firstname": "Brown", "lastname": "Doc" }
       ],
       "category": "User Story",
       "description": "Ensure the clock tower lightning strike occurs as planned.",
@@ -217,8 +217,8 @@
     },
     "37": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "Brown", "lastname": "Doc" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "Brown", "lastname": "Doc" }
       ],
       "category": "User Story",
       "description": "Prevent Biff from acquiring the sports almanac and altering the future.",
@@ -235,8 +235,8 @@
     },
     "38": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "Parker", "lastname": "Jennifer" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "Parker", "lastname": "Jennifer" }
       ],
       "category": "User Story",
       "description": "Celebrate the history of Hill Valley while ensuring no disruptions to the timeline.",
@@ -253,8 +253,8 @@
     },
     "39": {
       "assigned_user": [
-        { "surname": "McFly", "lastname": "Marty" },
-        { "surname": "Brown", "lastname": "Doc" }
+        { "firstname": "McFly", "lastname": "Marty" },
+        { "firstname": "Brown", "lastname": "Doc" }
       ],
       "category": "Technical Task",
       "description": "Ensure that Marty and Doc safely return to 1985 without altering the timeline.",
@@ -275,7 +275,7 @@
     "id": 0,
     "color": "#FF8C00",
     "email": "marty@hillvalley.com",
-    "surname": "Marty",
+    "firstname": "Marty",
     "lastname": "McFly",
     "password": "deloreanTime1",
     "phone": "1234567890"
@@ -284,7 +284,7 @@
     "id": 1,
     "color": "#FF4500",
     "email": "doc@hillvalley.com",
-    "surname": "Doc",
+    "firstname": "Doc",
     "lastname": "Brown",
     "password": "greatScott2",
     "phone": "1234567891"
@@ -293,7 +293,7 @@
     "id": 2,
     "color": "#FF1493",
     "email": "jennifer@hillvalley.com",
-    "surname": "Jennifer",
+    "firstname": "Jennifer",
     "lastname": "Parker",
     "password": "futureGirl3",
     "phone": "1234567892"
@@ -302,7 +302,7 @@
     "id": 4,
     "color": "#2E8B57",
     "email": "george@hillvalley.com",
-    "surname": "George",
+    "firstname": "George",
     "lastname": "McFly",
     "password": "writerDad5",
     "phone": "1234567894"
@@ -311,7 +311,7 @@
     "id": 394631,
     "color": "#FF6347",
     "email": "haehnlein.alexander@gmx.de",
-    "surname": "Test",
+    "firstname": "Test",
     "lastname": "Mann",
     "password": "123"
   },
@@ -319,7 +319,7 @@
     "id": 401465,
     "color": "#40E0D0",
     "email": "cueslsic.alex@gmx.de",
-    "surname": "Alexander",
+    "firstname": "Alexander",
     "lastname": "Hähnlein",
     "password": "123",
     "phone": ""
@@ -328,7 +328,7 @@
     "id": 739670,
     "color": "#BA55D3",
     "email": "mailo.mittelaedt@googlemail.com",
-    "surname": "Mailo",
+    "firstname": "Mailo",
     "lastname": "Mittelstädt",
     "password": "1122",
     "phone": ""
