@@ -16,8 +16,6 @@ export class AppComponent implements OnInit{
 
   constructor(private db: FirebaseService) {}
 
-
-
    ngOnInit() {
      this.db.getUsers().pipe(
      ).subscribe({
@@ -28,27 +26,5 @@ export class AppComponent implements OnInit{
          console.log(error);
        }
      })
-
-     this.db.getTasks().pipe(
-     ).subscribe({
-       next: data => {
-         // console.log(data);
-       },
-       error: error => {
-         console.log(error);
-       }
-     })
-
-     this.db.getContacts().pipe(
-     ).subscribe({
-       next: data => {
-         // console.log(data);
-       },
-       error: error => {
-         console.log(error);
-       }
-     })
    }
-
-
 }
