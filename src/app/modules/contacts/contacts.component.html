@@ -1,1 +1,21 @@
-<h1>Contacts</h1>
+<div class="list-container">
+  <div class="add-contact-btn-wrapper">
+      <button mat-button>
+          Add new Contact
+          <mat-icon>person_add</mat-icon>
+      </button>
+  </div>
+
+
+  @for (contact of sortedList; track $index) {
+    <div> {{contact.surname }} {{ contact.lastName }} </div>
+  }
+
+  <div class="test-element"></div>
+</div>
+
+<div class="headline-container">
+  <h1>Contacts</h1>
+  <span class="divider"></span>
+  <span class="subline">Better with a team</span>
+</div>
