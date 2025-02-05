@@ -32,7 +32,7 @@
               </div>
               <span class="divider"></span>
               <div class="upcoming-deadline">
-                <span>October 16, 2022</span>
+                <span>{{ nextDeadline }}</span>
                 <span>Upcoming Deadline</span>
               </div>
           </div>
@@ -61,11 +61,11 @@
 
   <div class="welcome-container">
       @if (actualUser.length >= 1) {
-        <div>Good morning,
+        <div>{{ welcomeMessage }},
           <span>{{ actualUser }}</span>
         </div>
       } @else {
-        <div>Good morning!</div>
+        <div>{{ welcomeMessage }}</div>
       }
   </div>
 </div>
