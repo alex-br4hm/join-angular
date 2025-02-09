@@ -49,8 +49,7 @@
     </div>
 
     @if (selectedContact) {
-      <div class="contact-detail-view">
-
+      <div class="contact-detail-view" *ngIf="selectedContact" [@slideIn]="selectedContact.id">
           <div class="detail-view-head">
               <div class="initials"
                    [ngStyle]="{ 'background-color': selectedContact.color }">

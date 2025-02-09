@@ -4,9 +4,10 @@ import {Contact} from '../../core/models/contacts';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {NgStyle} from '@angular/common';
+import {NgIf, NgStyle} from '@angular/common';
 import {PhoneNumberPipe} from '../../shared/utils/phone-number.pipe';
 import {EmailPipe} from '../../shared/utils/email.pipe';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-contacts',
@@ -16,10 +17,23 @@ import {EmailPipe} from '../../shared/utils/email.pipe';
     MatProgressSpinner,
     NgStyle,
     PhoneNumberPipe,
-    EmailPipe
+    EmailPipe,
+    NgIf
   ],
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss'
+  styleUrl: './contacts.component.scss',
+  animations: [
+    trigger('slideIn', [
+      state('*', style({ transform: 'translateX(0)', opacity: 1 })),
+
+      // reacts if the contact.id changed
+
+      transition('* <=> *', [
+        style({ transform: 'translateX(150%)', opacity: 0 }),
+        animate('300ms ease', style({ transform: 'translateX(0)', opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class ContactsComponent implements OnInit {
   contactList: Contact[] = [];
