@@ -1,1 +1,66 @@
 <h1>Add Task</h1>
+
+<form [formGroup]="addTaskForm">
+  <div class="form-left-side">
+      <h3 class="input-headline">Title<span>*</span></h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <input matInput formControlName="title" placeholder="Enter a title"/>
+        <mat-error></mat-error>
+      </mat-form-field>
+
+      <h3 class="input-headline">Description</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <textarea matInput formControlName="description" placeholder="Enter a description"></textarea>
+      </mat-form-field>
+
+      <h3 class="input-headline">Assigned to</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-select formControlName="assigned_to" placeholder="Select contacts to assign">
+          <mat-option value="option">Option</mat-option>
+          <mat-option value="option">Option1</mat-option>
+          <mat-option value="option">Option2</mat-option>
+        </mat-select>
+      </mat-form-field>
+  </div>
+
+  <div class="form-right-side">
+      <h3 class="input-headline">Due Date<span>*</span></h3>
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker" formControlName="due_date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <h3 class="input-headline">Prio</h3>
+      <mat-radio-group formControlName="priority">
+        <mat-radio-button value="1">Urgent</mat-radio-button>
+        <mat-radio-button value="2">Medium</mat-radio-button>
+        <mat-radio-button value="2">Low</mat-radio-button>
+      </mat-radio-group>
+
+      <h3 class="input-headline">Category<span>*</span></h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-select formControlName="category" placeholder="Select task category">
+          <mat-option value="option">Technical Task</mat-option>
+          <mat-option value="option">User Story</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <h3 class="input-headline">Subtasks</h3>
+    </div>
+  </form>
+
+  <div class="action-bar">
+    <div class="required-hint"><span>*</span>This field is required</div>
+
+    <div class="button-wrapper">
+      <button mat-stroked-button>
+        <span>Clear<mat-icon>clear</mat-icon></span>
+      </button>
+      <button mat-stroked-button
+              [disabled]="!addTaskForm.valid"
+              (click)="onSubmit()">
+        <span>Create Task<mat-icon>check</mat-icon></span>
+      </button>
+    </div>
+</div>
