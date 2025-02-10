@@ -21,6 +21,8 @@ html {
   --mat-sys-surface-container: #333;
   --mat-sys-on-surface: #F0F0F0;
   --mat-sys-primary: #111;
+  --mat-sys-surface-container-high: #333;
+  --mat-sys-corner-full: 12px;
 }
 
 * {
@@ -96,11 +98,12 @@ h1 {
 //  HEADER
 // ########
 
-.cdk-overlay-pane {
-  transform: translateY(28px);
-}
+//.cdk-overlay-pane {
+//  transform: translateY(28px);
+//}
 
 .mat-mdc-menu-panel {
+  margin-top:28px !important;
   border-radius: 16px !important;
   border-top-right-radius: 0 !important;
   box-shadow: none !important;

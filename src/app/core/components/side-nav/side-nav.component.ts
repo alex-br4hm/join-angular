@@ -47,7 +47,6 @@ export class SideNavComponent {
   constructor(private activeRouteService: ActiveRouteService) {
     effect(() => {
       this.currentRoute = this.activeRouteService.currentRoute();
-      console.log(this.currentRoute);
     });
   }
 
