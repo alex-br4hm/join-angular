@@ -19,25 +19,6 @@
   padding-bottom:5%;
 }
 
-.list-container::-webkit-scrollbar {
-  width: 4px;
-}
-
-.list-container::-webkit-scrollbar-track {
-  background: rgba(51, 51, 51, 0.2);
-  border-radius: 10px;
-}
-
-.list-container::-webkit-scrollbar-thumb {
-  background: #666;
-  border-radius: 10px;
-  transform: scaleY(0.5);
-}
-
-.list-container::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-}
-
 .add-contact-btn-wrapper {
   width: 100%;
   display: flex;

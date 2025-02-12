@@ -15,28 +15,59 @@
 
       <h3 class="input-headline">Assigned to</h3>
       <mat-form-field appearance="outline" class="full-width">
-        <mat-select formControlName="assigned_to" placeholder="Select contacts to assign">
-          <mat-option value="option">Option</mat-option>
-          <mat-option value="option">Option1</mat-option>
-          <mat-option value="option">Option2</mat-option>
+        <mat-select formControlName="assigned_to" placeholder="Select contacts to assign" multiple>
+          <mat-select-trigger>
+            @for (user of assignedUser;track $index) {
+              @if ($index === assignedUser.length - 1) {
+                <span>{{ user.firstname + ' ' + user.lastname }}</span>
+              } @else {
+                <span>{{ user.firstname + ' ' + user.lastname }}, </span>
+              }
+            }
+          </mat-select-trigger>
+          @for (user of assignableUser; track $index) {
+            <mat-option [value]="user.id">
+              <span>
+                  <div class="initials"
+                       [ngStyle]="{ 'background-color': user.color }">
+                    {{ user.firstname.charAt(0) + user.lastname.charAt(0)}}
+                  </div>
+                  {{ user.firstname }} {{ user.lastname }}
+              </span>
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
+
+      <div class="assigned-user-display-list">
+        @for (user of assignedUser; track $index) {
+          <div class="initials"
+               (click)="removeUserFromAssignedList(user.id)"
+               [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
+               [ngStyle]="{ 'background-color': user.color }">
+            {{ user.firstname.charAt(0) + user.lastname.charAt(0)}}
+          </div>
+        }
+      </div>
   </div>
 
   <div class="form-right-side">
       <h3 class="input-headline">Due Date<span>*</span></h3>
-      <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker" formControlName="due_date">
+      <mat-form-field appearance="outline" >
+        <input matInput [matDatepicker]="picker" formControlName="due_date" placeholder="DD/MM/YYYY">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <h3 class="input-headline">Prio</h3>
-      <mat-radio-group formControlName="priority">
-        <mat-radio-button value="1">Urgent</mat-radio-button>
-        <mat-radio-button value="2">Medium</mat-radio-button>
-        <mat-radio-button value="2">Low</mat-radio-button>
-      </mat-radio-group>
+      <mat-button-toggle-group formControlName="priority">
+        <span>
+          <mat-button-toggle value="urgent">Urgent</mat-button-toggle>
+          <mat-button-toggle value="medium">Medium</mat-button-toggle>
+          <mat-button-toggle value="low">Low</mat-button-toggle>
+        </span>
+
+      </mat-button-toggle-group>
 
       <h3 class="input-headline">Category<span>*</span></h3>
       <mat-form-field appearance="outline" class="full-width">
