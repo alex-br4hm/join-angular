@@ -23,6 +23,7 @@ html {
   --mat-sys-primary: #111;
   --mat-sys-surface-container-high: #333;
   --mat-sys-corner-full: 12px;
+  --board-card-background: #FFFFFF;
 }
 
 * {
@@ -55,7 +56,7 @@ body {
   --mat-sys-surface-container: var(--secondary-color);
   --mat-sys-on-surface: var(--font-color-primary);
   --mat-sys-primary: #F0F0F0;
-
+  --board-card-background: #333;
 }
 
 h1 {

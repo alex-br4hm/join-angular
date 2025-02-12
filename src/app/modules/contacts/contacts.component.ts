@@ -8,6 +8,7 @@ import {NgIf, NgStyle} from '@angular/common';
 import {PhoneNumberPipe} from '../../shared/utils/phone-number.pipe';
 import {EmailPipe} from '../../shared/utils/email.pipe';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-contacts',
@@ -18,7 +19,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     NgStyle,
     PhoneNumberPipe,
     EmailPipe,
-    NgIf
+    NgIf,
+    MatTooltip
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
