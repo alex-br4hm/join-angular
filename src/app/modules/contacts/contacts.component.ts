@@ -19,8 +19,7 @@ import {MatTooltip} from '@angular/material/tooltip';
     NgStyle,
     PhoneNumberPipe,
     EmailPipe,
-    NgIf,
-    MatTooltip
+    NgIf
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
