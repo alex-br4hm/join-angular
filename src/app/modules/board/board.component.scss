@@ -20,30 +20,30 @@ h1 {
   display: flex;
   align-items: center;
   gap:32px;
-  height: 48px;
+  height: 40px;
 
   span {
     display: flex;
     align-items: center;
     gap:6px;
-    font-size: 18px;
+    font-size: 14px;
   }
 }
 
-.mat-mdc-outlined-button {
-  height: 48px;
+.delete-icon {
+  color:white;
 }
 
-.mdc-text-field {
-
+.mat-mdc-outlined-button {
+  height: 40px;
 }
 
 .search-input, .mat-form-field {
-  --mat-form-field-container-height: 48px;
+  --mat-form-field-container-height: 40px;
   --mat-form-field-container-vertical-padding: 0;
   --mdc-outlined-text-field-container-shape: 12px !important;
   span {
-    height: 48px;
+    height: 40px;
   }
 }
 
@@ -53,27 +53,36 @@ h1 {
 
 .board-container {
   display: flex;
-
-  gap: 24px;
-
-  .board-col:first-child {
-    padding-left: 1px;
-  }
+  gap:12px;
+  padding-bottom: 16px;
 }
 
 .board-col {
   width: 25%;
   position: relative;
+  background-color: var(--board-col-bg-color);
+  padding: 8px 6px;
+  border-radius: 12px;
+  min-height: 75vh;
+
+  &:hover {
+    .add-task-hover-btn {
+      color: unset;
+    }
+  }
 }
 
-
-
 .col-header {
-  padding: 8px 0;
-
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   h3 {
     margin: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size:14px;
   }
 
   .icon-wrapper {
@@ -83,6 +92,7 @@ h1 {
     float: right;
     border: 2px solid var(--font-color-primary);
     border-radius: 6px;
+    cursor: pointer;
   }
 
   mat-icon {
@@ -95,12 +105,31 @@ h1 {
 .col-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap:12px;
-  padding-bottom: 24px;
-  padding-top:12px;
-
+  padding-bottom: 12px;
+  padding-top:16px;
 }
 
 .drag-over {
   background-color: #555;
+}
+
+.add-task-hover-btn {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  color: transparent;
+  transition: all 125ms ease;
+
+  &:hover {
+    background-color: var(--primary-color);
+  }
+
+}
+
+.test {
+  color: unset;
 }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatFormField} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {FirebaseService} from '../../core/services/firebase.service';
 import { Task } from '../../core/models/tasks';
@@ -15,6 +15,8 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
+import {NgClass} from '@angular/common';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-board',
@@ -28,7 +30,10 @@ import {
     TaskCardComponent,
     CdkDropListGroup,
     CdkDropList,
-    CdkDrag
+    CdkDrag,
+    ReactiveFormsModule,
+    NgClass,
+    MatTooltip
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
@@ -41,6 +46,14 @@ export class BoardComponent implements OnInit {
   doneList: Task[]          = [];
 
   taskCategories: {name: string; list: Task[]}[] = []
+
+  searchFormControl: FormControl<string> = new FormControl();
+  searchInput: string = "";
+
+  originalTodoList: Task[]           = [];
+  originalInProgressList: Task[]     = [];
+  originalAwaitFeedbackList: Task[]  = [];
+  originalDoneList: Task[]           = [];
 
   constructor(private firebase: FirebaseService) {}
 
@@ -55,14 +68,20 @@ export class BoardComponent implements OnInit {
         console.log(error);
       }
     })
+
+    this.getSearchInput();
   }
 
   sortTasks() {
     this.todoList          = Object.values(this.taskList).filter(task => task.state === 'todo');
-    console.log(this.todoList);
     this.inProgressList    = Object.values(this.taskList).filter(task => task.state === 'inprogress');
     this.awaitFeedbackList = Object.values(this.taskList).filter(task => task.state === 'awaitfeedback');
     this.doneList          = Object.values(this.taskList).filter(task => task.state === 'done');
+
+    this.originalTodoList = this.todoList;
+    this.originalInProgressList = this.inProgressList;
+    this.originalAwaitFeedbackList = this.awaitFeedbackList;
+    this.originalDoneList = this.doneList;
 
     this.taskCategories    =   [
       { name: 'To do', list: this.todoList },
@@ -70,6 +89,31 @@ export class BoardComponent implements OnInit {
       { name: 'Await Feedback', list: this.awaitFeedbackList },
       { name: 'Done', list: this.doneList }
     ]
+  }
+
+  getSearchInput() {
+    this.searchFormControl.valueChanges.subscribe(value => {
+      this.searchInput = value.toLowerCase();
+      this.searchTask();
+    });
+  }
+
+  searchTask() {
+    this.todoList          = this.originalTodoList.filter(task => task.title.toLowerCase().includes(this.searchInput));
+    this.inProgressList    = this.originalInProgressList.filter(task => task.title.toLowerCase().includes(this.searchInput));
+    this.awaitFeedbackList = this.originalAwaitFeedbackList.filter(task => task.title.toLowerCase().includes(this.searchInput));
+    this.doneList          = this.originalDoneList.filter(task => task.title.toLowerCase().includes(this.searchInput));
+
+    this.taskCategories = [
+      { name: 'To do', list: this.todoList },
+      { name: 'In Progress', list: this.inProgressList },
+      { name: 'Await Feedback', list: this.awaitFeedbackList },
+      { name: 'Done', list: this.doneList }
+    ];
+  }
+
+  clearInput() {
+    this.searchFormControl.setValue('');
   }
 
   drop(event: CdkDragDrop<Task[]>) {

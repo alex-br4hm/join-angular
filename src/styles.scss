@@ -10,7 +10,7 @@ html {
 }
 
 :root {
-  --primary-color: #F6F7F8;
+  --primary-color: #f1f1f1;
   --secondary-color: #F0F0F0;
   --active-color: #091931;
   --accent-color: #29ABE2;
@@ -23,7 +23,7 @@ html {
   --mat-sys-primary: #111;
   --mat-sys-surface-container-high: #333;
   --mat-sys-corner-full: 12px;
-  --board-card-background: #FFFFFF;
+  --board-col-bg-color: rgba(51, 51, 51, 0.075);
 }
 
 * {
@@ -57,11 +57,11 @@ body {
   --mat-sys-surface-container: var(--secondary-color);
   --mat-sys-on-surface: var(--font-color-primary);
   --mat-sys-primary: #F0F0F0;
-  --board-card-background: #333;
+  --board-col-bg-color: #333;
 }
 
 h1 {
-  font-size:48px;
+  font-size:32px;
   margin:0;
   white-space: nowrap;
 }
@@ -119,9 +119,6 @@ h1 {
 //  HEADER
 // ########
 
-//.cdk-overlay-pane {
-//  transform: translateY(28px);
-//}
 
 .mat-mdc-menu-panel {
   margin-top:28px !important;
@@ -135,6 +132,8 @@ mdc-button__label {
   display: flex;
   align-items: center;
 }
+
+// general
 
 .initials {
   display: flex;
@@ -160,8 +159,6 @@ mdc-button__label {
   padding-left: 0 !important;
 }
 
-
-
 .prio-urgent {
   background-color: #FF3D00 !important;
 }
@@ -179,10 +176,6 @@ mdc-button__label {
 .search-add-wrapper {
   .mdc-text-field--outlined .mdc-text-field__input {
     border-right: 1px solid rgba(51, 51, 51, 0.5) !important;
-  }
-
-  input {
-
   }
 
   .mat-mdc-form-field-infix {

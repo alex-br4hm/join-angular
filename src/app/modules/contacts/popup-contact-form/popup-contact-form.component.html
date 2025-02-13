@@ -1,0 +1,24 @@
+<div class="header-wrapper">
+    <img src="/join_logo.svg" alt="">
+    <h1>{{ type }} Contact</h1>
+    <h2>Tasks are better with a team!</h2>
+</div>
+
+<mat-icon class="close-icon" (click)="closePopUp()">close</mat-icon>
+
+
+<div class="form-wrapper">
+  <div class="user-icon-wrapper">
+    @if (type === 'Edit') {
+<!--      <div class="initials"-->
+<!--           [ngStyle]="{ 'background-color': contact.color }">-->
+<!--        {{ contact.firstname.charAt(0) + contact.lastname.charAt(0)}}-->
+<!--      </div>-->
+    }
+    <mat-icon class="add-user-icon initials">person</mat-icon>
+  </div>
+
+
+
+
+</div>

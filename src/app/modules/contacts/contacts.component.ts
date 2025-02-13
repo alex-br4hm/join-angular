@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../../core/services/firebase.service';
 import {Contact} from '../../core/models/contacts';
 import {MatButton} from '@angular/material/button';
@@ -8,7 +8,7 @@ import {NgIf, NgStyle} from '@angular/common';
 import {PhoneNumberPipe} from '../../shared/utils/phone-number.pipe';
 import {EmailPipe} from '../../shared/utils/email.pipe';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {MatTooltip} from '@angular/material/tooltip';
+import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form.component';
 
 @Component({
   selector: 'app-contacts',
@@ -19,7 +19,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     NgStyle,
     PhoneNumberPipe,
     EmailPipe,
-    NgIf
+    NgIf,
+    PopupContactFormComponent
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
@@ -28,21 +29,24 @@ import {MatTooltip} from '@angular/material/tooltip';
       state('*', style({ transform: 'translateX(0)', opacity: 1 })),
 
       // reacts if the contact.id changed
-
       transition('* <=> *', [
         style({ transform: 'translateX(150%)', opacity: 0 }),
-        animate('300ms ease', style({ transform: 'translateX(0)', opacity: 1 })),
+        animate('225ms ease', style({ transform: 'translateX(0)', opacity: 1 })),
       ]),
     ]),
   ],
 })
 export class ContactsComponent implements OnInit {
-  contactList: Contact[] = [];
+  @Output() popUpType!: string;
+
+  contactList: Contact[]   = [];
   sortedList!: Contact[];
   availableLetters!: string[];
-  groupedContacts: { [letter: string]: Contact[] } = {};
   selectedContact?: Contact;
   isLoading: boolean = true;
+  popUp: boolean   = true;
+
+  groupedContacts: { [letter: string]: Contact[] } = {};
 
   constructor(private firebase: FirebaseService) {}
 
@@ -92,5 +96,14 @@ export class ContactsComponent implements OnInit {
 
   selectContact(id: number) {
     this.selectedContact = this.sortedList.find(contact => contact.id === id);
+  }
+
+  openPopUp(type: string) {
+    this.popUpType = type;
+    this.popUp = true;
+  }
+
+  closePopUp() {
+    this.popUp = false;
   }
 }
