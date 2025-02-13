@@ -1,1 +1,46 @@
-<h1>Board</h1>
+<div class="header-area">
+    <h1>Board</h1>
+    <div class="search-add-wrapper">
+        <mat-form-field appearance="outline" class="search-input" subscriptSizing="dynamic">
+          <span>
+              <input matInput type="text" placeholder="find task">
+              <button mat-icon-button>
+                <mat-icon>search</mat-icon>
+              </button>
+          </span>
+        </mat-form-field>
+
+        <button mat-stroked-button>
+          <span>Add task
+            <mat-icon>add</mat-icon>
+          </span>
+        </button>
+    </div>
+</div>
+
+<div class="board-container" cdkDropListGroup>
+  @for (category of taskCategories; track $index) {
+    <div class="board-col"
+         [cdkDropListData]="category.list"
+         cdkDropList
+         (cdkDropListDropped)="drop($event)">
+
+          <div class="col-header">
+            <h3> {{ category.name }}
+              <span class="icon-wrapper">
+                <mat-icon>add</mat-icon>
+              </span>
+            </h3>
+          </div>
+
+        <div class="col-content" >
+            @for (task of category.list; track $index) {
+              <app-task-card [task]="task" cdkDrag >
+                {{task}}>
+              </app-task-card>
+            }
+        </div>
+    </div>
+  }
+</div>
+

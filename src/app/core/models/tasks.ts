@@ -5,11 +5,12 @@ export interface Task {
   due_date:      string;
   due_date_unix: number;
   id:            number;
-  surname:       string;
-  lastname:      string;
+  // surname:       string;
+  // lastname:      string;
+  title:         string;
   priority:      string;
   state:         string;
-  subtasks:      Subtask[];
+  subtasks?:     Subtask[];
 }
 
 export interface Subtask {
@@ -18,6 +19,7 @@ export interface Subtask {
 }
 
 export interface AssignedUser {
-  surname:  string;
-  lastname: string;
+  firstname: string;
+  lastname:  string;
+  color:     string;
 }

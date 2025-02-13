@@ -19,14 +19,16 @@ html {
   --font-color-primary: #111;
   --font-color-secondary: #F0F0F0;
   --mat-sys-surface-container: #333;
-  --mat-sys-on-surface: #F0F0F0;
+  --mat-sys-on-surface: #333;
   --mat-sys-primary: #111;
   --mat-sys-surface-container-high: #333;
   --mat-sys-corner-full: 12px;
+  --board-card-background: #FFFFFF;
 }
 
 * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 html, body {
@@ -55,7 +57,7 @@ body {
   --mat-sys-surface-container: var(--secondary-color);
   --mat-sys-on-surface: var(--font-color-primary);
   --mat-sys-primary: #F0F0F0;
-
+  --board-card-background: #333;
 }
 
 h1 {
@@ -67,6 +69,25 @@ h1 {
 .mat-mdc-progress-spinner {
   --mat-sys-primary: var(--font-color-primary);
   opacity: .75;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(51, 51, 51, 0.2);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 10px;
+  transform: scaleY(0.5);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
 }
 
 /* ############# */
@@ -114,3 +135,58 @@ mdc-button__label {
   display: flex;
   align-items: center;
 }
+
+.initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  height: 44px;
+  font-size: 18px;
+  border-radius: 50%;
+  color: var(--font-color-secondary);
+  font-weight: 500;
+  filter: grayscale(.25);
+  box-shadow: inset 0 0 0 1.5px var(--font-color-secondary);
+}
+
+// Formular Prio Buttons
+
+.mat-button-toggle-checkbox-wrapper {
+  display: none !important;
+}
+
+.mat-button-toggle-checked .mat-button-toggle-button:has(.mat-button-toggle-checkbox-wrapper) {
+  padding-left: 0 !important;
+}
+
+
+
+.prio-urgent {
+  background-color: #FF3D00 !important;
+}
+
+.prio-medium {
+  background-color: #FFA800 !important;
+}
+
+.prio-low {
+  background-color: #7AE229 !important;
+}
+
+// Board
+
+.search-add-wrapper {
+  .mdc-text-field--outlined .mdc-text-field__input {
+    border-right: 1px solid rgba(51, 51, 51, 0.5) !important;
+  }
+
+  input {
+
+  }
+
+  .mat-mdc-form-field-infix {
+    min-width: 260px !important;
+  }
+}
+

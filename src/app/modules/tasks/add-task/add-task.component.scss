@@ -1,3 +1,8 @@
+:host {
+  max-width: 1200px;
+  display: block;
+}
+
 form {
   height: 60vh;
   margin-top: 5vh;
@@ -34,8 +39,6 @@ form {
   }
 }
 
-
-
 .action-bar {
   display: flex;
   width: 100%;
@@ -65,4 +68,44 @@ form {
   }
 }
 
+.mat-mdc-option span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
+.initials {
+  height: 36px;
+  font-size: 16px;
+}
+
+.assigned-user-display-list {
+  display: flex;
+  gap: 8px;
+
+  .initials {
+    cursor: pointer;
+    transition: all 75ms ease;
+
+    &:hover {
+      opacity: .75;
+    }
+  }
+}
+
+.mat-button-toggle-group {
+  margin-bottom: 20px;
+  span {
+    display: flex;
+    flex:1;
+
+
+    mat-button-toggle {
+      flex:1;
+    }
+
+    .mat-pseudo-checkbox {
+      display: none;
+    }
+  }
+}
