@@ -25,22 +25,22 @@ export class SideNavComponent {
     {
       name: 'Summary',
       link: 'summary',
-      icon: '/icons/summary.svg',
+      icon: '/summary.svg',
     },
     {
       name: 'Add Task',
       link: 'addtask',
-      icon: '/icons/addtask.svg',
+      icon: '/addtask.svg',
     },
     {
       name: 'Board',
       link: 'board',
-      icon: '/icons/board.svg',
+      icon: '/board.svg',
     },
     {
       name: 'Contacts',
       link: 'contacts',
-      icon: '/icons/contacts.svg',
+      icon: '/contacts.svg',
     },
   ]
 
