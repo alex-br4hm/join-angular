@@ -1,21 +1,31 @@
 <div class="header-area">
-    <h1>Board</h1>
-    <div class="search-add-wrapper">
-        <mat-form-field appearance="outline" class="search-input" subscriptSizing="dynamic">
-          <span>
-              <input matInput type="text" placeholder="find task">
-              <button mat-icon-button>
-                <mat-icon>search</mat-icon>
-              </button>
-          </span>
-        </mat-form-field>
+  <h1>Board</h1>
+  <div class="search-add-wrapper">
+    <mat-form-field appearance="outline"
+                    class="search-input"
+                    subscriptSizing="dynamic">
+        <span>
+          <input matInput type="text"
+                 [formControl]="searchFormControl"
+                 placeholder="find task">
+          <button mat-icon-button>
+            @if (!searchInput.length) {
+              <mat-icon>search</mat-icon>
+            } @else {
+              <mat-icon class="delete-icon" (click)="clearInput()">
+                close
+              </mat-icon>
+            }
+          </button>
+        </span>
+    </mat-form-field>
 
-        <button mat-stroked-button>
-          <span>Add task
-            <mat-icon>add</mat-icon>
-          </span>
-        </button>
-    </div>
+    <button mat-stroked-button>
+               <span>Add task
+                 <mat-icon>add</mat-icon>
+               </span>
+    </button>
+  </div>
 </div>
 
 <div class="board-container" cdkDropListGroup>
@@ -25,22 +35,26 @@
          cdkDropList
          (cdkDropListDropped)="drop($event)">
 
-          <div class="col-header">
-            <h3> {{ category.name }}
-              <span class="icon-wrapper">
-                <mat-icon>add</mat-icon>
-              </span>
-            </h3>
+      <div class="col-header">
+        <h3> {{ category.name }}
+          <span class="count">[{{ category.list.length }}]</span>
+        </h3>
+        @if (category.name != "Done") {
+          <div class="add-task-hover-btn"
+               [matTooltip]="'create task in ' + category.name"
+               [ngClass]="{ 'test': category.name == 'To do' }">
+            <mat-icon>add</mat-icon>
           </div>
+        }
+      </div>
 
-        <div class="col-content" >
-            @for (task of category.list; track $index) {
-              <app-task-card [task]="task" cdkDrag >
-                {{task}}>
-              </app-task-card>
-            }
-        </div>
+      <div class="col-content">
+        @for (task of category.list; track $index) {
+          <app-task-card [task]="task" cdkDrag>
+            {{task}}>
+          </app-task-card>
+        }
+      </div>
     </div>
   }
 </div>
-
