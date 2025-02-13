@@ -5,7 +5,6 @@
 /tmp
 /out-tsc
 /bazel-out
-/environments/
 
 # Node
 /node_modules
@@ -46,3 +45,4 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+/src/environments/environment.ts
