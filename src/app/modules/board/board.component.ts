@@ -6,8 +6,15 @@ import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {FirebaseService} from '../../core/services/firebase.service';
 import { Task } from '../../core/models/tasks';
-import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 import {TaskCardComponent} from './task-card/task-card.component';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-board',
@@ -18,7 +25,10 @@ import {TaskCardComponent} from './task-card/task-card.component';
     FormsModule,
     MatInput,
     MatIconButton,
-    TaskCardComponent
+    TaskCardComponent,
+    CdkDropListGroup,
+    CdkDropList,
+    CdkDrag
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
@@ -30,9 +40,7 @@ export class BoardComponent implements OnInit {
   awaitFeedbackList: Task[] = [];
   doneList: Task[]          = [];
 
-  taskCategories: {name: string; list: Task[]}[] = [
-
-  ]
+  taskCategories: {name: string; list: Task[]}[] = []
 
   constructor(private firebase: FirebaseService) {}
 
@@ -62,5 +70,18 @@ export class BoardComponent implements OnInit {
       { name: 'Await Feedback', list: this.awaitFeedbackList },
       { name: 'Done', list: this.doneList }
     ]
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 }
