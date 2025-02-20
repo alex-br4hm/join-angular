@@ -4,21 +4,108 @@
     <h2>Tasks are better with a team!</h2>
 </div>
 
-<mat-icon class="close-icon" (click)="closePopUp()">close</mat-icon>
-
+<div class="user-icon-wrapper">
+  @if (type === 'Edit' && selectedContact) {
+          <div class="initials" [ngStyle]="{ 'background-color': selectedContact.color }">
+              @if (selectedContact.firstname && selectedContact.lastname) {
+                {{ (selectedContact.firstname | firstLetter) + (selectedContact.lastname | firstLetter) }}
+              }
+              @else if (selectedContact.firstname) {
+                {{ selectedContact.firstname | firstLetter }}
+              }
+              @else if (selectedContact.lastname) {
+                {{ selectedContact.lastname | firstLetter }}
+              }
+            </div>
+  } @else {
+    <mat-icon class="add-user-icon initials">person</mat-icon>
+  }
+</div>
 
 <div class="form-wrapper">
-  <div class="user-icon-wrapper">
-    @if (type === 'Edit') {
-<!--      <div class="initials"-->
-<!--           [ngStyle]="{ 'background-color': contact.color }">-->
-<!--        {{ contact.firstname.charAt(0) + contact.lastname.charAt(0)}}-->
-<!--      </div>-->
-    }
-    <mat-icon class="add-user-icon initials">person</mat-icon>
-  </div>
+  <mat-icon class="close-icon" (click)="closePopUp()">close</mat-icon>
 
+  <form [formGroup]="contactForm" >
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Firstname</mat-label>
+          <input matInput
+                 formControlName="firstname"
+                 autocomplete="new-password"
+                 placeholder="Firstname"/>
+          <mat-icon matSuffix>person</mat-icon>
+        <mat-error>Firstname required</mat-error>
+      </mat-form-field>
 
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Lastname</mat-label>
+      <input matInput
+             formControlName="lastname"
+             autocomplete="new-password"
+             placeholder="Lastname"/>
+      <mat-icon matSuffix>person</mat-icon>
+      <mat-error>Name required</mat-error>
+    </mat-form-field>
 
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Email</mat-label>
+          <input matInput
+                 formControlName="email"
+                 autocomplete="new-password"
+                 placeholder="Email"/>
+          <mat-icon matSuffix>mail</mat-icon>
+        @if (email?.invalid && (email?.value?.length ?? 0) > 0) {
+          <mat-error>Email invalid</mat-error>
+        }
 
+        @if (email?.hasError('required')) {
+          <mat-error>Email required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Phone</mat-label>
+          <input matInput
+                 formControlName="phone"
+                 type="tel"
+                 autocomplete="new-password"
+                 placeholder="Phone" />
+
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error>Only digits, 6-15 characters, no spaces</mat-error>
+      </mat-form-field>
+
+      @if (type === 'Add') {
+        <div class="action-btn-group">
+            <button mat-stroked-button
+                    [disabled]="!contactForm.valid"
+                    (click)="addContact()">
+              Create contact
+              <mat-icon matSuffix>check</mat-icon>
+            </button>
+
+            <button mat-stroked-button
+                    (click)="clearForm()">
+                Clear
+                <mat-icon matSuffix>close</mat-icon>
+            </button>
+        </div>
+      } @else {
+        <div class="action-btn-group">
+          <button mat-stroked-button
+                  [disabled]="!(selectedContactChanged && contactForm.valid)"
+                  (click)="editContact()">
+            Save
+            <mat-icon matSuffix>check</mat-icon>
+          </button>
+
+          <button mat-stroked-button (click)="deleteContact()">
+            Delete
+            <mat-icon matSuffix>close</mat-icon>
+          </button>
+        </div>
+      }
+
+  </form>
 </div>
+
+

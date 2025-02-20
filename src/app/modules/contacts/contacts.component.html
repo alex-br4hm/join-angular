@@ -1,6 +1,7 @@
 @if (popUp) {
   <div class="popup-bg-container" (click)="closePopUp()">
         <app-popup-contact-form (click)="$event.stopPropagation()"
+                                [selectedContact]="selectedContact ?? selectedContact"
                                 [type]="popUpType"
                                 (popUp)="closePopUp()"
                                 [@slideIn]="popUp">
@@ -28,10 +29,12 @@
             <div class="single-contact-wrapper"
                  (click)="selectContact(contact.id)"
                  [class]="{ 'selected-user' : contact.id === selectedContact?.id }">
+
                 <div class="initials"
                      [ngStyle]="{ 'background-color': contact.color }">
-                  {{ contact.firstname.charAt(0) + contact.lastname.charAt(0)}}
+                  {{ (contact.firstname | firstLetter) + (contact.lastname | firstLetter) }}
                 </div>
+
                 <div class="name-email-wrapper">
                     <div>
                         {{ contact.firstname }}
@@ -63,7 +66,7 @@
           <div class="detail-view-head">
               <div class="initials"
                    [ngStyle]="{ 'background-color': selectedContact.color }">
-                {{ selectedContact.firstname.charAt(0) + selectedContact.lastname.charAt(0)}}
+                {{ (selectedContact.firstname | firstLetter) + (selectedContact.lastname | firstLetter) }}
               </div>
 
               <div class="detail-name-action-btn">
