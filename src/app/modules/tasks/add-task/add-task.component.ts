@@ -12,29 +12,31 @@ import {Contact} from '../../../core/models/contacts';
 import {NgStyle} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
+import {FirstLetterPipe} from "../../../shared/utils/first-letter.pipe";
 
 @Component({
   selector: 'app-add-task',
-  imports: [
-    ReactiveFormsModule,
-    MatFormField,
-    MatInput,
-    MatError,
-    MatSelect,
-    MatOption,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatDatepickerInput,
-    MatNativeDateModule,
-    MatInputModule,
-    MatButton,
-    MatIcon,
-    MatSelectTrigger,
-    NgStyle,
-    MatTooltip,
-    MatButtonToggleGroup,
-    MatButtonToggle
-  ],
+    imports: [
+        ReactiveFormsModule,
+        MatFormField,
+        MatInput,
+        MatError,
+        MatSelect,
+        MatOption,
+        MatDatepickerToggle,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatNativeDateModule,
+        MatInputModule,
+        MatButton,
+        MatIcon,
+        MatSelectTrigger,
+        NgStyle,
+        MatTooltip,
+        MatButtonToggleGroup,
+        MatButtonToggle,
+        FirstLetterPipe
+    ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
@@ -47,12 +49,12 @@ export class AddTaskComponent implements OnInit {
     private fb: FormBuilder,
     private fireBase: FirebaseService,) {
     this.addTaskForm = this.fb.group({
-      title: ['', Validators.required],
-      due_date: ['', Validators.required],
-      category: ['', Validators.required],
+      title:       ['', Validators.required],
+      due_date:    ['', Validators.required],
+      category:    ['', Validators.required],
       description: '',
       assigned_to: '',
-      priority: 'medium'
+      priority:    'medium'
     });
   }
 
@@ -68,7 +70,7 @@ export class AddTaskComponent implements OnInit {
     })
 
     this.addTaskForm.get('assigned_to')?.valueChanges.subscribe((assignedValue) => {
-      this.assignedUser = assignedValue.map((id: number)  => {
+      this.assignedUser = assignedValue.map((id: string)  => {
         return this.assignableUser.find(user => user.id === id);
       })
     });
@@ -76,19 +78,18 @@ export class AddTaskComponent implements OnInit {
 
   getAssignableUser(users: any) {
     this.assignableUser = Object.values(users).map((user: any) => ({
-      id: user.id,
+      id:        user.id,
       firstname: user.firstname,
-      lastname: user.lastname,
-      color: user.color,
-      phone: user.phone,
-      email: user.email,
+      lastname:  user.lastname,
+      color:     user.color,
+      phone:     user.phone,
+      email:     user.email,
     }));
   }
 
-
-  removeUserFromAssignedList(id: number) {
+  removeUserFromAssignedList(id: string) {
     this.addTaskForm.get('assigned_to')?.setValue(
-      this.addTaskForm.get('assigned_to')?.value.filter((userId: number) => userId !== id)
+      this.addTaskForm.get('assigned_to')?.value.filter((userId: string) => userId !== id)
     );
   }
 
@@ -99,5 +100,4 @@ export class AddTaskComponent implements OnInit {
       console.log('Formular ungültig');
     }
   }
-
 }

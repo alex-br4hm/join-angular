@@ -9,6 +9,7 @@ import {PhoneNumberPipe} from '../../shared/utils/phone-number.pipe';
 import {EmailPipe} from '../../shared/utils/email.pipe';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form.component';
+import {FirstLetterPipe} from '../../shared/utils/first-letter.pipe';
 
 @Component({
   selector: 'app-contacts',
@@ -20,7 +21,8 @@ import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form
     PhoneNumberPipe,
     EmailPipe,
     NgIf,
-    PopupContactFormComponent
+    PopupContactFormComponent,
+    FirstLetterPipe
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
@@ -38,13 +40,13 @@ import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form
 })
 export class ContactsComponent implements OnInit {
   @Output() popUpType!: string;
+  @Output() selectedContact?: Contact;
 
   contactList: Contact[]   = [];
   sortedList!: Contact[];
   availableLetters!: string[];
-  selectedContact?: Contact;
   isLoading: boolean = true;
-  popUp: boolean   = true;
+  popUp: boolean     = false;
 
   groupedContacts: { [letter: string]: Contact[] } = {};
 
@@ -82,6 +84,8 @@ export class ContactsComponent implements OnInit {
   }
 
   groupContacts(): void {
+    this.groupedContacts = {};
+
     this.sortedList.forEach(contact => {
       const letter = contact.firstname.charAt(0).toUpperCase();
 
@@ -94,8 +98,8 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  selectContact(id: number) {
-    this.selectedContact = this.sortedList.find(contact => contact.id === id);
+  selectContact(id: string) {
+    this.selectedContact = <Contact>this.sortedList.find(contact => contact.id === id);
   }
 
   openPopUp(type: string) {
