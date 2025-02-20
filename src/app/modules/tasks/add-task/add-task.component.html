@@ -30,7 +30,7 @@
               <span>
                   <div class="initials"
                        [ngStyle]="{ 'background-color': user.color }">
-                    {{ user.firstname.charAt(0) + user.lastname.charAt(0)}}
+                    {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
                   </div>
                   {{ user.firstname }} {{ user.lastname }}
               </span>
@@ -45,7 +45,7 @@
                (click)="removeUserFromAssignedList(user.id)"
                [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
                [ngStyle]="{ 'background-color': user.color }">
-            {{ user.firstname.charAt(0) + user.lastname.charAt(0)}}
+            {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
           </div>
         }
       </div>
