@@ -4,7 +4,8 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'summary',
-    pathMatch: 'full'},
+    pathMatch: 'full'
+  },
   {
     path: 'summary',
     loadComponent: () =>
@@ -53,5 +54,10 @@ export const routes: Routes = [
       import('./modules/legal-and-help/help-page/help-page.component').then(
         m => m.HelpPageComponent
       ),
-  }
+  },
+  {
+    path: '**',
+    redirectTo: 'summary',
+    pathMatch: 'full'
+  },
 ];
