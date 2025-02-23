@@ -45,6 +45,11 @@ body {
 
 .mat-mdc-button {
   background: var(--font-color-primary);
+  font-weight: 700 !important;
+}
+
+.mdc-button {
+  font-weight: 700 !important;
 }
 
 .dark-mode {

@@ -3,8 +3,22 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'summary',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./modules/authentication/login/login.component').then(
+        m => m.LoginComponent
+      ),
+  },
+  {
+    path: 'registration',
+    loadComponent: () =>
+      import('./modules/authentication/registration/registration.component').then(
+        m => m.RegistrationComponent
+      ),
   },
   {
     path: 'summary',
@@ -57,7 +71,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'summary',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
 ];

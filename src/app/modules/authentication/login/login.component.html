@@ -1,1 +1,48 @@
-<p>login works!</p>
+<img src="/join_logo.svg" alt="">
+
+<div class="header-container fade-in-animation">
+  <span>Not a Join user?</span>
+  <button mat-stroked-button routerLink="/registration">Sign up</button>
+</div>
+
+<div class="login-container fade-in-animation">
+    <h1>Log in</h1>
+
+  <form [formGroup]="loginForm">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Email</mat-label>
+      <input matInput
+             formControlName="email"
+             autocomplete="new-password"
+             placeholder="Email"/>
+      <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Password</mat-label>
+      <input matInput
+             formControlName="password"
+             autocomplete="new-password"
+             placeholder="Password"/>
+      <mat-icon matSuffix>lock</mat-icon>
+    </mat-form-field>
+  </form>
+
+  <div class="button-wrapper">
+    <button class="log-in-btn" mat-stroked-button [disabled]="!loginForm.valid" (click)="submitLogin()">Log in</button>
+    <button mat-stroked-button routerLink="/summary">Guest Log in</button>
+  </div>
+</div>
+
+<div class="footer-container fade-in-animation">
+  <button mat-button>Privacy Policy</button>
+  <button mat-button>Legal notice</button>
+</div>
+
+@if (loginSuccess) {
+  <div class="login-succes">
+    <mat-spinner></mat-spinner>
+    Please wait. You are logging in.</div>
+}
+
+
