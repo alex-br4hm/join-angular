@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use "../node_modules/@angular/material/index" as mat;
 
 html {
   @include mat.theme(
@@ -188,3 +188,9 @@ mdc-button__label {
   }
 }
 
+// Snackbar
+
+.error-snackbar {
+  border: 1px solid var(--warn);
+  font-weight: bold;
+}
