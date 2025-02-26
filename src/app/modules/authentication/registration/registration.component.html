@@ -1,1 +1,100 @@
+<div class="img-container">
+  <img src="/join_logo.svg" alt="">
+</div>
+
+<div class="login-container">
+  <h1>Sign up</h1>
+  <mat-icon class="arrow-back" [matTooltip]="'back to login'" routerLink="/login">arrow_back</mat-icon>
+
+  <form [formGroup]="registrationForm">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Firstname</mat-label>
+      <input matInput
+             formControlName="firstname"
+             autocomplete="new-password"
+             placeholder="Firstname"/>
+      <mat-icon matSuffix>person</mat-icon>
+
+      @if (registrationForm.get('firstname')?.hasError('required') && registrationForm.dirty) {
+        <mat-error>Firstname required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Lastname</mat-label>
+      <input matInput
+             formControlName="lastname"
+             autocomplete="new-password"
+             placeholder="Lastname"/>
+      <mat-icon matSuffix>person</mat-icon>
+
+      @if (registrationForm.get('lastname')?.hasError('required') && registrationForm.dirty) {
+        <mat-error>Lastname required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Email</mat-label>
+      <input matInput
+             formControlName="email"
+             autocomplete="new-password"
+             placeholder="Email"/>
+      <mat-icon matSuffix>mail</mat-icon>
+      @if (registrationForm.get('email')?.hasError('required') && registrationForm.dirty) {
+        <mat-error>Email required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Password</mat-label>
+      <input matInput
+             formControlName="password"
+             autocomplete="new-password"
+             placeholder="Password"/>
+      <mat-icon matSuffix>lock</mat-icon>
+      @if (registrationForm.get('password')?.hasError('minlength') && registrationForm.dirty) {
+        <mat-error>Passwords min length 6 chars</mat-error>
+      }
+      @if (registrationForm.get('password')?.hasError('required') && registrationForm.dirty) {
+        <mat-error>Password required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Password confirmation</mat-label>
+      <input matInput
+             formControlName="passwordCheck"
+             autocomplete="new-password"
+             placeholder="Confirm Password"/>
+      <mat-icon matSuffix>lock</mat-icon>
+      @if (registrationForm.get('passwordCheck')?.hasError('notSame')) {
+        <mat-error>Passwords do not match</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-checkbox class="privacy-checkbox-wrapper" formControlName="policyAccepted">
+        I accept the
+        <span class="privacy-policy-link" routerLink="/privacy">Privacy policy</span> *
+    </mat-checkbox>
+
+    <div class="button-wrapper">
+      <button class="log-in-btn"
+              mat-stroked-button
+              [disabled]="!registrationForm.valid"
+              (click)="submitRegistration()">
+        Sign up
+      </button>
+    </div>
+  </form>
+
+
+</div>
+
+<div class="footer-container fade-in-animation">
+  <button mat-button><span>Privacy Policy</span></button>
+  <button mat-button><span>Legal notice</span></button>
+
+  <button (click)="testPatch()">PATCH</button>
+</div>
+
 

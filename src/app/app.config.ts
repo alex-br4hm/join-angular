@@ -7,6 +7,7 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import {environment} from '../environments/environment';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {provideNativeDateAdapter} from '@angular/material/core';
+import {getAuth, provideAuth} from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideNativeDateAdapter(),
     provideAnimationsAsync(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase())]
 };
