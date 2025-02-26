@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use "../node_modules/@angular/material/index" as mat;
 
 html {
   @include mat.theme(
@@ -45,6 +45,11 @@ body {
 
 .mat-mdc-button {
   background: var(--font-color-primary);
+  font-weight: 700 !important;
+}
+
+.mdc-button {
+  font-weight: 700 !important;
 }
 
 .dark-mode {
@@ -183,3 +188,9 @@ mdc-button__label {
   }
 }
 
+// Snackbar
+
+.error-snackbar {
+  border: 1px solid var(--warn);
+  font-weight: bold;
+}

@@ -1,0 +1,61 @@
+.fade-in-animation {
+  animation: fadeInForm 1.5s 0s 1;
+}
+
+img {
+  animation: logoAnimation 1.5s 0s 1;
+}
+
+@keyframes fadeInForm {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes logoAnimation {
+  0% {
+    top: 30%;
+    left: 40%;
+    width: 274px;
+    height: 334px;
+  }
+  50% {
+    top: 30%;
+    left: 40%;
+    width: 274px;
+    height: 334px;
+  }
+  100% {
+    top: 42px;
+    left: 42px;
+    width: 76px;
+    height: 92px;
+  }
+}
+
+.login-succes {
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 999999;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  gap:32px;
+}
+
+.login-fail {
+  width: 80%;
+  color: red;
+}
+

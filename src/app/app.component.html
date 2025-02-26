@@ -1,5 +1,7 @@
-<app-header></app-header>
-<app-side-nav></app-side-nav>
+@if (activeRoute != '/login' && activeRoute != '/registration' && activeRoute != '/') {
+  <app-header></app-header>
+  <app-side-nav></app-side-nav>
+}
 
 <div class="content-container">
   <router-outlet></router-outlet>

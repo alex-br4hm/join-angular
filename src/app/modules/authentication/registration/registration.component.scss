@@ -1,0 +1,31 @@
+.privacy-checkbox-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.privacy-policy-link {
+  color: var(--accent-color);
+  transition: all 75ms ease;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.arrow-back {
+  position: absolute;
+  top:7.5%;
+  left:5%;
+  padding: 12px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: all 75ms ease;
+
+  &:hover {
+    left: 4%;
+  }
+}

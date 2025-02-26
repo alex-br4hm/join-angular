@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Database, objectVal, push, ref, remove, set, update} from '@angular/fire/database';
 import {Contact} from '../models/contacts';
@@ -8,7 +8,7 @@ import {Contact} from '../models/contacts';
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor(private db: Database) {}
+  private db = inject(Database);
 
   getUsers():Observable<Contact> {
     const usersRef = ref(this.db, 'users');

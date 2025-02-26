@@ -3,8 +3,23 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'summary',
-    pathMatch: 'full'},
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./modules/authentication/login/login.component').then(
+        m => m.LoginComponent
+      ),
+  },
+  {
+    path: 'registration',
+    loadComponent: () =>
+      import('./modules/authentication/registration/registration.component').then(
+        m => m.RegistrationComponent
+      ),
+  },
   {
     path: 'summary',
     loadComponent: () =>
@@ -53,5 +68,10 @@ export const routes: Routes = [
       import('./modules/legal-and-help/help-page/help-page.component').then(
         m => m.HelpPageComponent
       ),
-  }
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
 ];
