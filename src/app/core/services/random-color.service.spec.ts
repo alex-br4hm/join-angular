@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserDataService } from './user-data.service';
+import { RandomColorService } from './random-color.service';
 
-describe('UserDataService', () => {
-  let service: UserDataService;
+describe('RandomColorService', () => {
+  let service: RandomColorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserDataService);
+    service = TestBed.inject(RandomColorService);
   });
 
   it('should be created', () => {
