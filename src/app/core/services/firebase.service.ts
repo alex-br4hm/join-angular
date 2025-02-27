@@ -10,11 +10,6 @@ import {Contact} from '../models/contacts';
 export class FirebaseService {
   private db = inject(Database);
 
-  getUsers():Observable<Contact> {
-    const usersRef = ref(this.db, 'users');
-    return objectVal(usersRef);
-  }
-
   getTasks():Observable<any> {
     const tasksRef = ref(this.db, 'tasks');
     return objectVal(tasksRef);

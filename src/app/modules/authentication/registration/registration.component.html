@@ -87,7 +87,6 @@
     </div>
   </form>
 
-
 </div>
 
 <div class="footer-container fade-in-animation">
@@ -97,4 +96,11 @@
   <button (click)="testPatch()">PATCH</button>
 </div>
 
+@if (registerSuccess) {
+  <div class="login-registration-success">
+    <mat-spinner></mat-spinner>
+    <h2>Registration successful.</h2>
+    You are logging in.
+  </div>
+}
 
