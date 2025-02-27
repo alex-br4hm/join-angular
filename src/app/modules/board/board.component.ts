@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatFormField} from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import {NgClass} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-board',
@@ -39,6 +40,7 @@ import {MatTooltip} from '@angular/material/tooltip';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent implements OnInit {
+  destroyRef: DestroyRef    = inject(DestroyRef);
   taskList: Task[]          = [];
   todoList: Task[]          = [];
   inProgressList: Task[]    = [];
@@ -58,7 +60,13 @@ export class BoardComponent implements OnInit {
   constructor(private firebase: FirebaseService) {}
 
   ngOnInit() {
+    this.getTasks();
+    this.getSearchInput();
+  }
+
+  getTasks() {
     this.firebase.getTasks().pipe(
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: data => {
         this.taskList = data;
@@ -68,8 +76,6 @@ export class BoardComponent implements OnInit {
         console.log(error);
       }
     })
-
-    this.getSearchInput();
   }
 
   sortTasks() {
@@ -92,7 +98,9 @@ export class BoardComponent implements OnInit {
   }
 
   getSearchInput() {
-    this.searchFormControl.valueChanges.subscribe(value => {
+    this.searchFormControl.valueChanges.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(value => {
       this.searchInput = value.toLowerCase();
       this.searchTask();
     });

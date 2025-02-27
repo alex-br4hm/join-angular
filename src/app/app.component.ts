@@ -27,7 +27,6 @@ export class AppComponent implements OnInit{
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         this.activeRoute = event.url;
-        console.log(this.activeRoute);
       });
   }
 }

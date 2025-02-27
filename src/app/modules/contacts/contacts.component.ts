@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../../core/services/firebase.service';
 import {Contact} from '../../core/models/contacts';
 import {MatButton} from '@angular/material/button';
@@ -10,6 +10,7 @@ import {EmailPipe} from '../../shared/utils/email.pipe';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form.component';
 import {FirstLetterPipe} from '../../shared/utils/first-letter.pipe';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-contacts',
@@ -42,6 +43,8 @@ export class ContactsComponent implements OnInit {
   @Output() popUpType!: string;
   @Output() selectedContact?: Contact;
 
+  destroyRef: DestroyRef = inject(DestroyRef);
+
   contactList: Contact[]   = [];
   sortedList!: Contact[];
   availableLetters!: string[];
@@ -53,7 +56,12 @@ export class ContactsComponent implements OnInit {
   constructor(private firebase: FirebaseService) {}
 
   ngOnInit() {
+    this.getContacts();
+  }
+
+  getContacts() {
     this.firebase.getContacts().pipe(
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: data => {
         this.contactList = data;

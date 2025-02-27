@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
@@ -13,6 +13,7 @@ import {NgStyle} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {FirstLetterPipe} from "../../../shared/utils/first-letter.pipe";
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-add-task',
@@ -41,13 +42,13 @@ import {FirstLetterPipe} from "../../../shared/utils/first-letter.pipe";
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent implements OnInit {
-  addTaskForm: FormGroup;
+  destroyRef: DestroyRef    = inject(DestroyRef);
+  private fb: FormBuilder   = inject(FormBuilder);
   assignableUser: Contact[] = [];
-  assignedUser: Contact[] = []
+  assignedUser: Contact[]   = []
+  addTaskForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private fireBase: FirebaseService,) {
+  constructor(private fireBase: FirebaseService,) {
     this.addTaskForm = this.fb.group({
       title:       ['', Validators.required],
       due_date:    ['', Validators.required],
@@ -59,16 +60,24 @@ export class AddTaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fireBase.getUsers().pipe(
+    this.getContacts();
+  }
+
+  getContacts() {
+    this.fireBase.getContacts().pipe(
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: data => {
         this.getAssignableUser(data);
+        this.getAssignedUser();
       },
       error: error => {
         console.log(error);
       }
     })
+  }
 
+  getAssignedUser() {
     this.addTaskForm.get('assigned_to')?.valueChanges.subscribe((assignedValue) => {
       this.assignedUser = assignedValue.map((id: string)  => {
         return this.assignableUser.find(user => user.id === id);

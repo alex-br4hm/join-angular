@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
+import {authGuard} from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'addtask',
     pathMatch: 'full'
   },
   {
@@ -26,6 +27,7 @@ export const routes: Routes = [
       import('./modules/summary/summary.component').then(
         m => m.SummaryComponent
       ),
+    canActivate: [authGuard],
   },
   {
     path: 'addtask',
@@ -33,6 +35,7 @@ export const routes: Routes = [
       import('./modules/tasks/add-task/add-task.component').then(
         m => m.AddTaskComponent
       ),
+    canActivate: [authGuard],
   },
   {
     path: 'board',
@@ -40,6 +43,7 @@ export const routes: Routes = [
       import('./modules/board/board.component').then(
         m => m.BoardComponent
       ),
+    canActivate: [authGuard],
   },
   {
     path: 'contacts',
@@ -47,6 +51,7 @@ export const routes: Routes = [
       import('./modules/contacts/contacts.component').then(
         m => m.ContactsComponent
       ),
+    canActivate: [authGuard],
   },
   {
     path: 'privacy',
@@ -71,7 +76,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'addtask',
     pathMatch: 'full'
   },
 ];

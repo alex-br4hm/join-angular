@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FirebaseService} from '../../core/services/firebase.service';
 import { Task } from '../../core/models/tasks';
 import {MatIcon} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-summary',
@@ -16,7 +17,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   styleUrl: './summary.component.scss'
 })
 export class SummaryComponent implements OnInit {
-  taskList!: Task[];
+  destroyRef: DestroyRef = inject(DestroyRef);
   todoCount: number      = 0;
   doneCount: number      = 0;
   awaitCount: number     = 0;
@@ -27,12 +28,18 @@ export class SummaryComponent implements OnInit {
   isLoading: boolean     = true;
   welcomeMessage: string = '';
   nextDeadline: string   = '';
+  taskList!: Task[];
 
   constructor(private firebase: FirebaseService) {
   }
 
   ngOnInit() {
+    this.getTasks();
+  }
+
+  getTasks() {
     this.firebase.getTasks().pipe(
+      takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: data => {
         this.taskList = data;
@@ -69,7 +76,7 @@ export class SummaryComponent implements OnInit {
    * Sets the correct welcome message based on the current time of day.
    */
   setWelcomeMessage() {
-    const hour = new Date().getHours();
+    const hour: number = new Date().getHours();
 
     switch (true) {
       case (hour >= 5 && hour < 12):
@@ -90,7 +97,7 @@ export class SummaryComponent implements OnInit {
     const taskListValues: Task[]    = Object.values(this.taskList);
     const lowestTimestamp: number   = Math.min(...taskListValues.map(task => task.due_date_unix));
 
-    const date = new Date(lowestTimestamp * 1000);
+    const date        = new Date(lowestTimestamp * 1000);
     this.nextDeadline = date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
