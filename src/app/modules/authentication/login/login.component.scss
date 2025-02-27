@@ -39,21 +39,6 @@ img {
   }
 }
 
-.login-succes {
-  position: fixed;
-  top:0;
-  left:0;
-  z-index: 999999;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--primary-color);
-  gap:32px;
-}
-
 .login-fail {
   width: 80%;
   color: red;
