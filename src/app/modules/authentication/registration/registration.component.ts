@@ -5,8 +5,8 @@ import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule, ValidationErrors,
-  ValidatorFn,
+  ReactiveFormsModule,
+  ValidationErrors,
   Validators
 } from '@angular/forms';
 import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
@@ -17,17 +17,10 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTooltip} from '@angular/material/tooltip';
-
-export function passwordMatchValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const password      = control.get('password')?.value;
-    const passwordCheck = control.get('passwordCheck')?.value;
-
-    return password && passwordCheck && password !== passwordCheck
-      ? { passwordMismatch: true }
-      : null;
-  };
-}
+import {FirebaseService} from '../../../core/services/firebase.service';
+import {Contact} from '../../../core/models/contacts';
+import {RandomColorService} from '../../../core/services/random-color.service';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-registration',
@@ -43,7 +36,8 @@ export function passwordMatchValidator(): ValidatorFn {
     MatCheckbox,
     RouterLink,
     MatError,
-    MatTooltip
+    MatTooltip,
+    MatProgressSpinner
   ],
   templateUrl: './registration.component.html',
   styleUrls: [
@@ -55,11 +49,14 @@ export class RegistrationComponent {
   fb: FormBuilder        = inject(FormBuilder);
   router: Router         = inject(Router);
   _snackBar: MatSnackBar = inject(MatSnackBar);
-
   registrationForm: FormGroup;
   errorMessage?: string;
+  contact?: Contact;
+  registerSuccess: boolean = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private firebase: FirebaseService,
+              private colorService: RandomColorService) {
     this.registrationForm = this.fb.group({
       email:          ['', [Validators.required, Validators.email]],
       firstname:      ['', Validators.required],
@@ -76,25 +73,50 @@ export class RegistrationComponent {
     }
   }
 
+  /**
+   * Registers the user using the provided email and password.
+   * Handles success and error cases.
+   */
   register() {
-    this.authService.register(this.registrationForm.value['email'], this.registrationForm.value['password']).subscribe({
-      next: ()            => console.log('Registrierung erfolgreich'),
-      error: (err: Error) => {
-        this.errorMessage = this.getErrorMessage(err.message);
-        if (this.errorMessage) {
-          this.openSnackBar(this.errorMessage);
+    this.authService.register(this.registrationForm.value['email'], this.registrationForm.value['password'])
+      .subscribe({
+        next: ()            => this.registerSucceeded(),
+        error: (err: Error) => {
+          this.errorMessage = this.getErrorMessage(err.message);
+          if (this.errorMessage) {
+            this.openSnackBar(this.errorMessage);
+          }
         }
-
-      }
     });
   }
 
-  private validateSamePassword(control: AbstractControl): ValidationErrors | null {
-    const password      = control.parent?.get('password');
-    const passwordCheck = control.parent?.get('passwordCheck');
-    return password?.value == passwordCheck?.value ? null : { 'notSame': true };
+  /**
+   * Called after successful registration.
+   * Converts the form data into a contact to push the contact to DB.
+   * Triggers login.
+   */
+  registerSucceeded() {
+    this.convertContact();
+    this.registerSuccess = true;
+    setTimeout(() => {
+      this.login();
+    }, 1000)
   }
 
+  /**
+   * Logs the user in automatically after registration.
+   * Navigates to the summary page on success.
+   */
+  login() {
+    this.authService.login(this.registrationForm.value.email, this.registrationForm.value.password).subscribe({
+      next: ()           => this.router.navigate(['/summary']),
+      error: (err) => console.log(err),
+    });
+  }
+
+  /**
+   * DELETE LATER, JUST FOR TESTING
+   * */
   testPatch() {
     this.registrationForm.patchValue({
       email:          'test@test.de',
@@ -105,6 +127,43 @@ export class RegistrationComponent {
     })
   }
 
+  /**
+   * Converts the registration form data into a contact object.
+   * Stores the contact in the database.
+   */
+  convertContact() {
+    this.contact = {
+      color:     this.colorService.getColor(),
+      email:     this.registrationForm.value.email,
+      firstname: this.registrationForm.value.firstname,
+      lastname:  this.registrationForm.value.lastname,
+      id:        '',
+      phone:     ''
+    }
+
+    if (this.contact) {
+      this.firebase.addContact(this.contact);
+    }
+  }
+
+  /**
+   * Opens a snackbar to show an error message.
+   * @param message The message to display.
+   *
+   * Maybe later in a service?
+   */
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '✖', {
+      duration: 3000,
+      panelClass: ['error-snackbar']
+    });
+  }
+
+  /**
+   * Maps Firebase auth error codes to user-friendly messages.
+   * @param errorMessage Raw error message from Firebase.
+   * @returns User-friendly error message.
+   */
   getErrorMessage(errorMessage: string): string {
     const match: RegExpMatchArray | null = errorMessage.match(/\(auth\/([^)]+)\)/);
     const errorCode: string              = match ? `auth/${match[1]}` : '';
@@ -123,10 +182,14 @@ export class RegistrationComponent {
     }
   }
 
-  openSnackBar(message: string) {
-    this._snackBar.open(message, '✖', {
-      duration: 3000,
-      panelClass: ['error-snackbar']
-    });
+  /**
+   * Validator to check if password and passwordCheck fields match.
+   * @param control The form control to validate.
+   * @returns Validation error if passwords do not match, otherwise null.
+   */
+  private validateSamePassword(control: AbstractControl): ValidationErrors | null {
+    const password      = control.parent?.get('password');
+    const passwordCheck = control.parent?.get('passwordCheck');
+    return password?.value == passwordCheck?.value ? null : { 'notSame': true };
   }
 }
