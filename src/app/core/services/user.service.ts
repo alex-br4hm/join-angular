@@ -35,6 +35,5 @@ export class UserService {
 
   setActiveUser() {
     this.activeUser$ = this.contactList.find(contact => contact.email == this.activeUserEmail);
-    console.log(this.activeUser$);
   }
 }
