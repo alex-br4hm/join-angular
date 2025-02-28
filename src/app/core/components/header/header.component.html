@@ -13,7 +13,9 @@
     <mat-icon [matTooltip]="'help'" routerLink="help">help_outlined</mat-icon>
   }
 
-  <div class="user-avater" [matMenuTriggerFor]="menu">
+  <div class="user-avater"
+       [matMenuTriggerFor]="menu"
+       [style.background-color] = "activeUser ? activeUser.color : 'var(--active-color)'">
     @if (activeUser) {
       <span> {{ (activeUser.firstname | firstLetter) + (activeUser.lastname | firstLetter) }} </span>
     } @else {

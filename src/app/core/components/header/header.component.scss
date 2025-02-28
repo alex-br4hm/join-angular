@@ -31,8 +31,8 @@
 }
 
 .user-avater {
-  border: 2px solid var(--active-color);
-  font-weight: 550;
+  border: 2px solid var(--font-color-primary);
+  font-weight: 500;
   cursor: pointer;
   height: 48px;
   aspect-ratio: 1/1;
@@ -42,8 +42,7 @@
   border-radius: 50%;
 
   span {
-    text-transform: uppercase;
-    color: var(--accent-color);
+    color: var(--font-color-secondary);
   }
 
   &:hover {
