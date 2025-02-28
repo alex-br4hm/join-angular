@@ -7,6 +7,8 @@ import {MatInput} from '@angular/material/input';
 import {Router, RouterLink} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {AuthService} from '../../../core/services/auth.service';
+import {UserService} from '../../../core/services/user.service';
+import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +34,8 @@ export class LoginComponent {
   hidePassword: boolean = true;
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private userService: UserService,) {
     this.loginForm = this.fb.group({
       email:    ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -47,7 +50,10 @@ export class LoginComponent {
 
   login() {
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe({
-      next: ()           => this.loginSucceeded(),
+      next: (data)           => {
+          this.loginSucceeded();
+          this.userService.setActiveUserEmail(data.user.email);
+      },
       error: (err) => this.loginFailed = true,
     });
   }
