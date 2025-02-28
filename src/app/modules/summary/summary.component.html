@@ -60,9 +60,9 @@
   </div>
 
   <div class="welcome-container">
-      @if (actualUser.length >= 1) {
+      @if (activeUser) {
         <div>{{ welcomeMessage }},
-          <span>{{ actualUser }}</span>
+          <span>{{ activeUser.firstname }}</span>
         </div>
       } @else {
         <div>{{ welcomeMessage }}</div>
