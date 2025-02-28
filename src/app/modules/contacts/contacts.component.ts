@@ -42,7 +42,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 export class ContactsComponent implements OnInit {
   @Output() popUpType!: string;
   @Output() selectedContact?: Contact;
-
   destroyRef: DestroyRef = inject(DestroyRef);
 
   contactList: Contact[]   = [];
