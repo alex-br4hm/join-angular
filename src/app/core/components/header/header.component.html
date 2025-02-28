@@ -14,11 +14,16 @@
   }
 
   <div class="user-avater" [matMenuTriggerFor]="menu">
-    <span>GN</span>
+    @if (activeUser) {
+      <span> {{ (activeUser.firstname | firstLetter) + (activeUser.lastname | firstLetter) }} </span>
+    } @else {
+      <span>G</span>
+    }
+
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="legal">Legal Notice</button>
-      <button mat-menu-item routerLink="privacy">Privacy Policy</button>
-      <button mat-menu-item routerLink="login" (click)="logout()">Log out</button>
+        <button mat-menu-item routerLink="legal">Legal Notice</button>
+        <button mat-menu-item routerLink="privacy">Privacy Policy</button>
+        <button mat-menu-item routerLink="login" (click)="logout()">Log out</button>
     </mat-menu>
   </div>
 </div>
