@@ -1,39 +1,32 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
+import {DestroyRef, inject, Injectable, signal} from '@angular/core';
 import {FirebaseService} from './firebase.service';
 import {Contact} from '../models/contacts';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {map, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   destroyRef: DestroyRef = inject(DestroyRef);
-  contactList: Contact[] = [];
-  activeUserEmail?: string;
-  activeUser$?: Contact;
+  contacts$!: Observable<Contact[]>;
+  activeUser$!: Contact | undefined;
+  private activeUserEmail = signal<string | undefined>(undefined);
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService) {
+    this.contacts$ = this.firebaseService.getContacts().pipe(
+      map(data => Object.values(data) as Contact[]),
+      takeUntilDestroyed(this.destroyRef)
+    );
+  }
 
   setActiveUserEmail(email: string) {
-    this.activeUserEmail = email;
-    this.getContacts();
+    this.activeUserEmail.set(email);
   }
 
-  getContacts() {
-    this.firebaseService.getContacts().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    )
-      .subscribe({
-        next: (data) => {
-          this.contactList = Object.values(data);
-          this.setActiveUser();
-        },
-        error: (error) => {
-          console.log(error)}
-      })
-  }
-
-  setActiveUser() {
-    this.activeUser$ = this.contactList.find(contact => contact.email == this.activeUserEmail);
+  getActiveUser(contacts: Contact[]) {
+    const email = this.activeUserEmail();
+    this.activeUser$ = contacts.find(contact => contact.email === email);
+    console.log(email, this.activeUser$);
   }
 }

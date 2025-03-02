@@ -47,6 +47,7 @@ export class ContactsComponent implements OnInit {
   contactList: Contact[]   = [];
   sortedList!: Contact[];
   availableLetters!: string[];
+
   isLoading: boolean = true;
   popUp: boolean     = false;
 

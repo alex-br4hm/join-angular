@@ -135,15 +135,22 @@ export class RegistrationComponent {
     this.contact = {
       color:     this.colorService.getColor(),
       email:     this.registrationForm.value.email,
-      firstname: this.registrationForm.value.firstname,
-      lastname:  this.registrationForm.value.lastname,
+      firstname: this.capitalize(this.registrationForm.value.firstname),
+      lastname:  this.capitalize(this.registrationForm.value.lastname),
       id:        '',
       phone:     ''
     }
 
+    console.log(this.contact);
+
     if (this.contact) {
       this.firebase.addContact(this.contact);
     }
+  }
+
+  capitalize(name: string): string {
+    if (!name) return '';
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   }
 
   /**

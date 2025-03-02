@@ -57,6 +57,7 @@ export class SummaryComponent implements OnInit {
       },
       error: error => {
         console.log(error);
+
       }
     })
   }

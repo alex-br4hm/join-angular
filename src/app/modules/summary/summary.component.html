@@ -62,10 +62,10 @@
   <div class="welcome-container">
       @if (activeUser) {
         <div>{{ welcomeMessage }},
-          <span>{{ activeUser.firstname }}</span>
+          <span>{{ activeUser.firstname }} {{ activeUser.lastname }}.</span>
         </div>
       } @else {
-        <div>{{ welcomeMessage }}</div>
+        <div>{{ welcomeMessage }}.</div>
       }
   </div>
 </div>
