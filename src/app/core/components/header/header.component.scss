@@ -14,6 +14,12 @@
   margin-left: 288px;
   font-size: 18px;
   text-wrap: nowrap;
+
+  span {
+    font-weight: 400 !important;
+    font-size:14px;
+    opacity: .75;
+  }
 }
 
 .header-end-wrapper {

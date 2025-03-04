@@ -11,6 +11,7 @@ import {UserService} from '../../../core/services/user.service';
 import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Contact} from '../../../core/models/contacts';
+import {FirebaseService} from '../../../core/services/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -35,11 +36,10 @@ export class LoginComponent {
   loginSuccess: boolean  = false;
   loginFailed: boolean   = false;
   hidePassword: boolean  = true;
-  contactList: Contact[] = [];
-  activeUser?: Contact;
   loginForm: FormGroup;
 
   constructor(private authService: AuthService,
+              private firebase: FirebaseService,
               private userService: UserService,) {
     this.loginForm = this.fb.group({
       email:    ['', [Validators.required, Validators.email]],
@@ -58,22 +58,11 @@ export class LoginComponent {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (data) => {
+          this.userService.getActiveUser();
           this.loginSucceeded();
-          this.setActiveUser(data.user.email);
       },
       error: (err) => this.loginFailed = true,
     });
-  }
-
-  setActiveUser(email: string) {
-    this.userService.setActiveUserEmail(email);
-    this.userService.contacts$
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(contacts => {
-        this.contactList = contacts;
-        console.log(contacts);
-        this.userService.getActiveUser(contacts);
-      });
   }
 
   loginSucceeded() {

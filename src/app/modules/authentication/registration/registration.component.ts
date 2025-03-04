@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {
   AbstractControl,
@@ -21,6 +21,8 @@ import {FirebaseService} from '../../../core/services/firebase.service';
 import {Contact} from '../../../core/models/contacts';
 import {RandomColorService} from '../../../core/services/random-color.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {UserService} from '../../../core/services/user.service';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-registration',
@@ -49,6 +51,7 @@ export class RegistrationComponent {
   fb: FormBuilder        = inject(FormBuilder);
   router: Router         = inject(Router);
   _snackBar: MatSnackBar = inject(MatSnackBar);
+  destroyRef: DestroyRef = inject(DestroyRef);
   registrationForm: FormGroup;
   errorMessage?: string;
   contact?: Contact;
@@ -56,6 +59,7 @@ export class RegistrationComponent {
 
   constructor(private authService: AuthService,
               private firebase: FirebaseService,
+              private userService: UserService,
               private colorService: RandomColorService) {
     this.registrationForm = this.fb.group({
       email:          ['', [Validators.required, Validators.email]],
@@ -109,10 +113,22 @@ export class RegistrationComponent {
    */
   login() {
     this.authService.login(this.registrationForm.value.email, this.registrationForm.value.password).subscribe({
-      next: ()           => this.router.navigate(['/summary']),
+      next: (data) => {
+        this.router.navigate(['/summary']);
+      },
       error: (err) => console.log(err),
     });
   }
+
+  // setActiveUser(email: string) {
+  //   this.userService.setActiveUserEmail(email);
+  //   // this.userService.contacts$
+  //   //   .pipe(takeUntilDestroyed(this.destroyRef))
+  //   //   .subscribe(contacts => {
+  //   //     this.userService.getActiveUser(contacts);
+  //   //     this.router.navigate(['/summary']);
+  //   //   });
+  // }
 
   /**
    * DELETE LATER, JUST FOR TESTING

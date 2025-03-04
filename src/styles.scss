@@ -163,6 +163,10 @@ mdc-button__label {
   background-color: transparent !important;
 }
 
+.mdc-checkbox__checkmark {
+  --mat-sys-on-primary: var(--font-color-primary);
+}
+
 
 
 // Add-task Formular
