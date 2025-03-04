@@ -120,16 +120,6 @@ export class RegistrationComponent {
     });
   }
 
-  // setActiveUser(email: string) {
-  //   this.userService.setActiveUserEmail(email);
-  //   // this.userService.contacts$
-  //   //   .pipe(takeUntilDestroyed(this.destroyRef))
-  //   //   .subscribe(contacts => {
-  //   //     this.userService.getActiveUser(contacts);
-  //   //     this.router.navigate(['/summary']);
-  //   //   });
-  // }
-
   /**
    * DELETE LATER, JUST FOR TESTING
    * */
