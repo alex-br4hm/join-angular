@@ -21,8 +21,6 @@ import {FirebaseService} from '../../../core/services/firebase.service';
 import {Contact} from '../../../core/models/contacts';
 import {RandomColorService} from '../../../core/services/random-color.service';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
-import {UserService} from '../../../core/services/user.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-registration',
@@ -59,7 +57,6 @@ export class RegistrationComponent {
 
   constructor(private authService: AuthService,
               private firebase: FirebaseService,
-              private userService: UserService,
               private colorService: RandomColorService) {
     this.registrationForm = this.fb.group({
       email:          ['', [Validators.required, Validators.email]],
@@ -146,8 +143,6 @@ export class RegistrationComponent {
       id:        '',
       phone:     ''
     }
-
-    console.log(this.contact);
 
     if (this.contact) {
       this.firebase.addContact(this.contact);
