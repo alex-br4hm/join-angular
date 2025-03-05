@@ -1,5 +1,6 @@
 <div class="app-title">
   Kanban Project Management Tool
+  <span>(v1.0)</span>
 </div>
 
 <div class="header-end-wrapper">
@@ -13,12 +14,25 @@
     <mat-icon [matTooltip]="'help'" routerLink="help">help_outlined</mat-icon>
   }
 
-  <div class="user-avater" [matMenuTriggerFor]="menu">
-    <span>GN</span>
+
+    <div class="user-avater"
+         [matMenuTriggerFor]="menu"
+         [style.background-color] = "userService.activeUser ? userService.activeUser!.color : 'var(--active-color)'">
+      @if (userService.activeUser) {
+        <span>
+          {{(userService.activeUser.firstname | firstLetter) +
+          (userService.activeUser.lastname | firstLetter) }}
+        </span>
+      } @else {
+        <span>G</span>
+      }
+
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="legal">Legal Notice</button>
-      <button mat-menu-item routerLink="privacy">Privacy Policy</button>
-      <button mat-menu-item routerLink="login" (click)="logout()">Log out</button>
+        <button mat-menu-item routerLink="legal">Legal Notice</button>
+        <button mat-menu-item routerLink="privacy">Privacy Policy</button>
+        <button mat-menu-item (click)="logout()">Log out</button>
     </mat-menu>
   </div>
+
+
 </div>

@@ -1,10 +1,13 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, DestroyRef, inject, OnInit, Signal, signal} from '@angular/core';
 import {FirebaseService} from '../../core/services/firebase.service';
 import { Task } from '../../core/models/tasks';
 import {MatIcon} from '@angular/material/icon';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {UserService} from '../../core/services/user.service';
+import {Contact} from '../../core/models/contacts';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-summary',
@@ -18,19 +21,20 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 })
 export class SummaryComponent implements OnInit {
   destroyRef: DestroyRef = inject(DestroyRef);
+  router: Router         = inject(Router);
   todoCount: number      = 0;
   doneCount: number      = 0;
   awaitCount: number     = 0;
   progressCount: number  = 0;
   urgentCount: number    = 0;
   tasksCount: number     = 0;
-  actualUser: string     = 'Alex Haehnlein';
   isLoading: boolean     = true;
   welcomeMessage: string = '';
   nextDeadline: string   = '';
   taskList!: Task[];
 
-  constructor(private firebase: FirebaseService) {
+  constructor(private firebase: FirebaseService,
+              protected userService: UserService) {
   }
 
   ngOnInit() {

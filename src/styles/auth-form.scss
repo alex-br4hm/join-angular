@@ -11,6 +11,7 @@
   justify-content: space-between;
   align-items: center;
   padding:32px;
+  --mat-sys-on-primary: var(--primary-color);
 }
 
 img {
@@ -65,6 +66,10 @@ form {
   margin-bottom: 16px;
   width: 80%;
   gap:16px;
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
 }
 
 .button-wrapper {
@@ -75,13 +80,12 @@ form {
 
   button {
     min-width: 25%;
+    flex:1;
+    opacity: .9;
   }
 }
 
 .log-in-btn {
-  background-color: var(--font-color-primary);
-  color: var(--primary-color) !important;
-  opacity: .9;
   &:hover {
     opacity: 1;
   }
@@ -124,3 +128,17 @@ form {
   gap:32px;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  background-color: transparent !important;
+  -webkit-text-fill-color: var(--font-color-primary);
+  -webkit-box-shadow: 0 0 0 1000px var(--secondary-color) inset;
+}

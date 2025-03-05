@@ -159,7 +159,25 @@ mdc-button__label {
   background-color: transparent !important;
 }
 
-// Formular Prio Buttons
+.mat-pseudo-checkbox {
+  background-color: transparent !important;
+}
+
+.mdc-checkbox__checkmark {
+  --mat-sys-on-primary: var(--font-color-primary);
+}
+
+
+
+// Add-task Formular
+
+.mat-mdc-option:focus.mdc-list-item, .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+  background-color: transparent !important;
+}
+
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background-color: var(--spacer-color) !important;
+}
 
 .mat-button-toggle-checkbox-wrapper {
   display: none !important;
@@ -199,3 +217,5 @@ mdc-button__label {
   border: 1px solid var(--warn);
   font-weight: bold;
 }
+
+

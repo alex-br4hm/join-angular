@@ -4,105 +4,89 @@
       "color": "#FF8C00",
       "email": "marty@hillvalley.com",
       "id": 0,
-      "firstname": "McFly",
-      "lastname": "Marty",
+      "firstname": "Marty",
+      "lastname": "McFly",
       "phone": "1234567890"
     },
     "1": {
       "color": "#FF4500",
       "email": "doc@hillvalley.com",
       "id": 1,
-      "firstname": "Brown",
-      "lastname": "Doc",
+      "firstname": "Doc",
+      "lastname": "Brown",
       "phone": "1234567891"
     },
     "2": {
       "color": "#FF1493",
       "email": "jennifer@hillvalley.com",
       "id": 2,
-      "firstname": "Parker",
-      "lastname": "Jennifer",
+      "firstname": "Jennifer",
+      "lastname": "Parker",
       "phone": "1234567892"
     },
     "4": {
       "color": "#2E8B57",
       "email": "george@hillvalley.com",
       "id": 4,
-      "firstname": "McFly",
-      "lastname": "George",
+      "firstname": "George",
+      "lastname": "McFly",
       "phone": "1234567894"
     },
     "5": {
       "color": "#9400D3",
       "email": "lorraine@hillvalley.com",
       "id": 5,
-      "firstname": "Baines",
-      "lastname": "Lorraine",
+      "firstname": "Lorraine",
+      "lastname": "Baines",
       "phone": "1234567895"
     },
     "6": {
       "color": "#483D8B",
       "email": "strickland@hillvalley.com",
       "id": 6,
-      "firstname": "Strickland",
-      "lastname": "",
+      "firstname": "",
+      "lastname": "Strickland",
       "phone": "1234567896"
     },
     "7": {
       "color": "#FFD700",
       "email": "einstein@hillvalley.com",
       "id": 7,
-      "firstname": "Einstein",
-      "lastname": "",
+      "firstname": "",
+      "lastname": "Einstein",
       "phone": "1234567897"
     },
     "8": {
       "color": "#FF69B4",
       "email": "clara@hillvalley.com",
       "id": 8,
-      "firstname": "Clayton",
-      "lastname": "Clara",
+      "firstname": "Clara",
+      "lastname": "Clayton",
       "phone": "1234567898"
     },
     "9": {
       "color": "#8B0000",
       "email": "griff@hillvalley.com",
       "id": 9,
-      "firstname": "Tannen",
-      "lastname": "Griff",
+      "firstname": "Griff",
+      "lastname": "Tannen",
       "phone": "1234567899"
     },
     "10": {
       "color": "#FFD700",
       "email": "goldie@hillvalley.com",
       "id": 10,
-      "firstname": "Wilson",
-      "lastname": "Goldie",
+      "firstname": "Goldie",
+      "lastname": "Wilson",
       "phone": "1234567800"
     },
     "11": {
       "color": "#8B4513",
       "email": "needles@hillvalley.com",
       "id": 11,
-      "firstname": "Needles",
-      "lastname": "",
+      "firstname": "",
+      "lastname": "Needles",
       "phone": "1234567801"
-    },
-    "401465": {
-      "color": "#40E0D0",
-      "email": "dev@haehnlein-alexander.org",
-      "id": 401465,
-      "firstname": "Alexander",
-      "lastname": "Hähnlein",
-      "phone": ""
-    },
-    "739670": {
-      "color": "#BA55D3",
-      "email": "mailo.mittelaedt@googlemail.com",
-      "id": 739670,
-      "firstname": "Mittelstädt",
-      "lastname": "Mailo",
-      "phone": ""
     }
   },
   "tasks": {
@@ -265,69 +249,5 @@
         { "isDone": false, "title": "Ensure no items from the past are brought back" }
       ]
     }
-  },
-"users": {
-  "0": {
-    "id": 0,
-    "color": "#FF8C00",
-    "email": "marty@hillvalley.com",
-    "firstname": "Marty",
-    "lastname": "McFly",
-    "password": "deloreanTime1",
-    "phone": "1234567890"
-  },
-  "1": {
-    "id": 1,
-    "color": "#FF4500",
-    "email": "doc@hillvalley.com",
-    "firstname": "Doc",
-    "lastname": "Brown",
-    "password": "greatScott2",
-    "phone": "1234567891"
-  },
-  "2": {
-    "id": 2,
-    "color": "#FF1493",
-    "email": "jennifer@hillvalley.com",
-    "firstname": "Jennifer",
-    "lastname": "Parker",
-    "password": "futureGirl3",
-    "phone": "1234567892"
-  },
-  "4": {
-    "id": 4,
-    "color": "#2E8B57",
-    "email": "george@hillvalley.com",
-    "firstname": "George",
-    "lastname": "McFly",
-    "password": "writerDad5",
-    "phone": "1234567894"
-  },
-  "394631": {
-    "id": 394631,
-    "color": "#FF6347",
-    "email": "haehnlein.alexander@gmx.de",
-    "firstname": "Test",
-    "lastname": "Mann",
-    "password": "123"
-  },
-  "401465": {
-    "id": 401465,
-    "color": "#40E0D0",
-    "email": "cueslsic.alex@gmx.de",
-    "firstname": "Alexander",
-    "lastname": "Hähnlein",
-    "password": "123",
-    "phone": ""
-  },
-  "739670": {
-    "id": 739670,
-    "color": "#BA55D3",
-    "email": "mailo.mittelaedt@googlemail.com",
-    "firstname": "Mailo",
-    "lastname": "Mittelstädt",
-    "password": "1122",
-    "phone": ""
   }
-}
 }

@@ -54,7 +54,10 @@
   <div class="form-right-side">
       <h3 class="input-headline">Due Date<span>*</span></h3>
       <mat-form-field appearance="outline" >
-        <input matInput [matDatepicker]="picker" formControlName="due_date" placeholder="DD/MM/YYYY">
+        <input matInput
+               [matDatepicker]="picker"
+               formControlName="due_date"
+               placeholder="DD.MM.YYYY">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -66,14 +69,13 @@
           <mat-button-toggle value="medium">Medium</mat-button-toggle>
           <mat-button-toggle value="low">Low</mat-button-toggle>
         </span>
-
       </mat-button-toggle-group>
 
       <h3 class="input-headline">Category<span>*</span></h3>
       <mat-form-field appearance="outline" class="full-width">
         <mat-select formControlName="category" placeholder="Select task category">
-          <mat-option value="option">Technical Task</mat-option>
-          <mat-option value="option">User Story</mat-option>
+          <mat-option value="technicalTask">Technical Task</mat-option>
+          <mat-option value="userStory">User Story</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -85,13 +87,13 @@
     <div class="required-hint"><span>*</span>This field is required</div>
 
     <div class="button-wrapper">
-      <button mat-stroked-button>
-        <span>Clear<mat-icon>clear</mat-icon></span>
+      <button mat-flat-button>
+        <span>Clear</span>
       </button>
-      <button mat-stroked-button
+      <button mat-flat-button
               [disabled]="!addTaskForm.valid"
               (click)="onSubmit()">
-        <span>Create Task<mat-icon>check</mat-icon></span>
+        <span>Create Task</span>
       </button>
     </div>
 </div>

@@ -4,10 +4,14 @@
 }
 
 form {
-  height: 60vh;
+  height: 75vh;
+  max-height: 60vh;
+  overflow: auto;
+  overflow-x: hidden;
   margin-top: 5vh;
   display: flex;
   justify-content: space-between;
+  padding: 0 4px;
 }
 
 .form-left-side, .form-right-side {
@@ -15,7 +19,6 @@ form {
   width: 50%;
   display: flex;
   flex-direction: column;
-
 }
 
 .form-left-side {
@@ -53,25 +56,38 @@ form {
 
 .button-wrapper {
   display: flex;
+  width: 30vw;
+  min-width: 320px;
   gap:16px;
+  --mat-sys-primary: var(--secondary-color);
 
-  .mat-mdc-outlined-button {
-    height: unset;
+  button {
+    flex: 1;
   }
 
   span {
-    font-size:18px;
     display: flex;
     align-items: center;
-    gap:6px;
-    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 700;
   }
 }
 
+textarea {
+  min-height: 52px;
+}
 .mat-mdc-option span {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.mat-mdc-option {
+  --mat-sys-on-secondary-container: var(--font-color-primary);
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+  background-color: var(--spacer-color) !important;
 }
 
 .initials {

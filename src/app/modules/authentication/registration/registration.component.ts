@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {
   AbstractControl,
@@ -49,10 +49,12 @@ export class RegistrationComponent {
   fb: FormBuilder        = inject(FormBuilder);
   router: Router         = inject(Router);
   _snackBar: MatSnackBar = inject(MatSnackBar);
+  destroyRef: DestroyRef = inject(DestroyRef);
   registrationForm: FormGroup;
   errorMessage?: string;
   contact?: Contact;
   registerSuccess: boolean = false;
+  passwordsDontMatch?: boolean;
 
   constructor(private authService: AuthService,
               private firebase: FirebaseService,
@@ -62,13 +64,20 @@ export class RegistrationComponent {
       firstname:      ['', Validators.required],
       lastname:       ['', Validators.required],
       password:       ['', [Validators.required, Validators.minLength(6)]],
-      passwordCheck:  ['', [Validators.required, this.validateSamePassword]],
+      passwordCheck:  ['', [Validators.required]],
       policyAccepted: [false, Validators.requiredTrue]
     });
   }
 
   submitRegistration() {
-    if (this.registrationForm.valid) {
+    if (this.registrationForm.value['password'] != this.registrationForm.value['passwordCheck']) {
+      this.passwordsDontMatch = true;
+      this.openSnackBar('Passwords dont match');
+    } else {
+      this.passwordsDontMatch = false;
+    }
+
+    if (this.registrationForm.valid && !this.passwordsDontMatch) {
       this.register();
     }
   }
@@ -97,6 +106,7 @@ export class RegistrationComponent {
    */
   registerSucceeded() {
     this.convertContact();
+    this.testColor();
     this.registerSuccess = true;
     setTimeout(() => {
       this.login();
@@ -109,7 +119,9 @@ export class RegistrationComponent {
    */
   login() {
     this.authService.login(this.registrationForm.value.email, this.registrationForm.value.password).subscribe({
-      next: ()           => this.router.navigate(['/summary']),
+      next: (data) => {
+        this.router.navigate(['/summary']);
+      },
       error: (err) => console.log(err),
     });
   }
@@ -127,6 +139,12 @@ export class RegistrationComponent {
     })
   }
 
+  testColor() {
+    for (let i = 0; i < 10; i++) {
+      this.colorService.getColor();
+    }
+  }
+
   /**
    * Converts the registration form data into a contact object.
    * Stores the contact in the database.
@@ -135,8 +153,8 @@ export class RegistrationComponent {
     this.contact = {
       color:     this.colorService.getColor(),
       email:     this.registrationForm.value.email,
-      firstname: this.registrationForm.value.firstname,
-      lastname:  this.registrationForm.value.lastname,
+      firstname: this.capitalize(this.registrationForm.value.firstname),
+      lastname:  this.capitalize(this.registrationForm.value.lastname),
       id:        '',
       phone:     ''
     }
@@ -144,6 +162,11 @@ export class RegistrationComponent {
     if (this.contact) {
       this.firebase.addContact(this.contact);
     }
+  }
+
+  capitalize(name: string): string {
+    if (!name) return '';
+    return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   }
 
   /**

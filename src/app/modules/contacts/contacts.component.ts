@@ -42,12 +42,12 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 export class ContactsComponent implements OnInit {
   @Output() popUpType!: string;
   @Output() selectedContact?: Contact;
-
   destroyRef: DestroyRef = inject(DestroyRef);
 
   contactList: Contact[]   = [];
   sortedList!: Contact[];
   availableLetters!: string[];
+
   isLoading: boolean = true;
   popUp: boolean     = false;
 
@@ -117,5 +117,12 @@ export class ContactsComponent implements OnInit {
 
   closePopUp() {
     this.popUp = false;
+  }
+
+  deleteContact(): void {
+    if (window.confirm("Möchtest du den Kontakt wirklich löschen?") && this.selectedContact) {
+      this.firebase.deleteContact(this.selectedContact.id);
+      this.selectedContact = undefined;
+    }
   }
 }

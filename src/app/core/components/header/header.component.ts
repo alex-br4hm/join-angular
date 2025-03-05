@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from '@angular/material/icon';
 import {NgClass} from '@angular/common';
@@ -7,6 +7,11 @@ import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router
 import {filter} from 'rxjs';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {AuthService} from '../../services/auth.service';
+import {UserService} from '../../services/user.service';
+import {Contact} from '../../models/contacts';
+import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
+import {User} from '@angular/fire/auth';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -17,17 +22,20 @@ import {AuthService} from '../../services/auth.service';
     RouterLink,
     MatMenu,
     MatMenuTrigger,
-    MatMenuItem
+    MatMenuItem,
+    FirstLetterPipe
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit{
-  private router: Router = inject(Router);
+  destroyRef: DestroyRef = inject(DestroyRef);
+  router: Router         = inject(Router);
   mode: string           = 'light';
   route: string          = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              protected userService: UserService) {}
 
   ngOnInit() {
     this.router.events
@@ -36,6 +44,7 @@ export class HeaderComponent implements OnInit{
         this.route = event.urlAfterRedirects;
       });
     this.switchMode();
+    this.userService.getActiveUser();
   }
 
   switchMode() {
@@ -51,10 +60,13 @@ export class HeaderComponent implements OnInit{
   }
 
   logout() {
-    this.router.navigate(['/login']).then(() => {
-      this.authService.logout().subscribe({
-        error: (error: Error) => console.log(error),
-      });
-    });
+    this.authService.logout().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: (data) => {
+        this.router.navigate(['login']);
+      },
+      error: (error) => {console.log(error)}
+    })
   }
 }
