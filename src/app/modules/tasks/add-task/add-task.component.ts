@@ -39,7 +39,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         FirstLetterPipe
     ],
   templateUrl: './add-task.component.html',
-  styleUrl: './add-task.component.scss'
+  styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent implements OnInit {
   destroyRef: DestroyRef    = inject(DestroyRef);
@@ -55,13 +55,21 @@ export class AddTaskComponent implements OnInit {
       category:    ['', Validators.required],
       description: '',
       assigned_to: '',
-      priority:    'medium'
+      priority:    ''
     });
   }
 
   ngOnInit() {
     this.getContacts();
+    this.patchStandardValues();
   }
+
+  patchStandardValues() {
+    this.addTaskForm.controls['priority'].patchValue('medium');
+    this.addTaskForm.controls['category'].patchValue('technicalTask');
+    this.addTaskForm.controls['due_date'].patchValue(new Date());
+  }
+
 
   getContacts() {
     this.fireBase.getContacts().pipe(
