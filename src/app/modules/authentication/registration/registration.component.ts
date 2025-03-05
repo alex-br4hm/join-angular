@@ -98,6 +98,7 @@ export class RegistrationComponent {
    */
   registerSucceeded() {
     this.convertContact();
+    this.testColor();
     this.registerSuccess = true;
     setTimeout(() => {
       this.login();
@@ -130,13 +131,19 @@ export class RegistrationComponent {
     })
   }
 
+  testColor() {
+    for (let i = 0; i < 10; i++) {
+      this.colorService.getDarkColor();
+    }
+  }
+
   /**
    * Converts the registration form data into a contact object.
    * Stores the contact in the database.
    */
   convertContact() {
     this.contact = {
-      color:     this.colorService.getColor(),
+      color:     this.colorService.getDarkColor(),
       email:     this.registrationForm.value.email,
       firstname: this.capitalize(this.registrationForm.value.firstname),
       lastname:  this.capitalize(this.registrationForm.value.lastname),

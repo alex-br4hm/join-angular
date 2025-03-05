@@ -11,7 +11,6 @@
       <mat-label>Firstname</mat-label>
       <input matInput
              formControlName="firstname"
-             autocomplete="new-password"
              placeholder="Firstname"/>
       <mat-icon matSuffix>person</mat-icon>
 
@@ -24,7 +23,6 @@
       <mat-label>Lastname</mat-label>
       <input matInput
              formControlName="lastname"
-             autocomplete="new-password"
              placeholder="Lastname"/>
       <mat-icon matSuffix>person</mat-icon>
 
@@ -37,7 +35,6 @@
       <mat-label>Email</mat-label>
       <input matInput
              formControlName="email"
-             autocomplete="new-password"
              placeholder="Email"/>
       <mat-icon matSuffix>mail</mat-icon>
       @if (registrationForm.get('email')?.hasError('required') && registrationForm.dirty) {
@@ -49,7 +46,6 @@
       <mat-label>Password</mat-label>
       <input matInput
              formControlName="password"
-             autocomplete="new-password"
              placeholder="Password"/>
       <mat-icon matSuffix>lock</mat-icon>
       @if (registrationForm.get('password')?.hasError('minlength') && registrationForm.dirty) {
@@ -64,7 +60,6 @@
       <mat-label>Password confirmation</mat-label>
       <input matInput
              formControlName="passwordCheck"
-             autocomplete="new-password"
              placeholder="Confirm Password"/>
       <mat-icon matSuffix>lock</mat-icon>
       @if (registrationForm.get('passwordCheck')?.hasError('notSame')) {
