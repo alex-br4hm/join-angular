@@ -62,9 +62,9 @@
              formControlName="passwordCheck"
              placeholder="Confirm Password"/>
       <mat-icon matSuffix>lock</mat-icon>
-      @if (registrationForm.get('passwordCheck')?.hasError('notSame')) {
-        <mat-error>Passwords do not match</mat-error>
-      }
+<!--      @if (registrationForm.get('passwordCheck')?.hasError('notSame')) {-->
+<!--        <mat-error>Passwords do not match</mat-error>-->
+<!--      }-->
     </mat-form-field>
 
     <mat-checkbox class="privacy-checkbox-wrapper" formControlName="policyAccepted">

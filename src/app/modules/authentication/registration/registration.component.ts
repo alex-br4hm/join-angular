@@ -54,6 +54,7 @@ export class RegistrationComponent {
   errorMessage?: string;
   contact?: Contact;
   registerSuccess: boolean = false;
+  passwordsDontMatch?: boolean;
 
   constructor(private authService: AuthService,
               private firebase: FirebaseService,
@@ -63,13 +64,20 @@ export class RegistrationComponent {
       firstname:      ['', Validators.required],
       lastname:       ['', Validators.required],
       password:       ['', [Validators.required, Validators.minLength(6)]],
-      passwordCheck:  ['', [Validators.required, this.validateSamePassword]],
+      passwordCheck:  ['', [Validators.required]],
       policyAccepted: [false, Validators.requiredTrue]
     });
   }
 
   submitRegistration() {
-    if (this.registrationForm.valid) {
+    if (this.registrationForm.value['password'] != this.registrationForm.value['passwordCheck']) {
+      this.passwordsDontMatch = true;
+      this.openSnackBar('Passwords dont match');
+    } else {
+      this.passwordsDontMatch = false;
+    }
+
+    if (this.registrationForm.valid && !this.passwordsDontMatch) {
       this.register();
     }
   }
