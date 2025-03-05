@@ -133,7 +133,7 @@ export class RegistrationComponent {
 
   testColor() {
     for (let i = 0; i < 10; i++) {
-      this.colorService.getDarkColor();
+      this.colorService.getColor();
     }
   }
 
@@ -143,7 +143,7 @@ export class RegistrationComponent {
    */
   convertContact() {
     this.contact = {
-      color:     this.colorService.getDarkColor(),
+      color:     this.colorService.getColor(),
       email:     this.registrationForm.value.email,
       firstname: this.capitalize(this.registrationForm.value.firstname),
       lastname:  this.capitalize(this.registrationForm.value.lastname),

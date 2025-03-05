@@ -118,4 +118,11 @@ export class ContactsComponent implements OnInit {
   closePopUp() {
     this.popUp = false;
   }
+
+  deleteContact(): void {
+    if (window.confirm("Möchtest du den Kontakt wirklich löschen?") && this.selectedContact) {
+      this.firebase.deleteContact(this.selectedContact.id);
+      this.selectedContact = undefined;
+    }
+  }
 }

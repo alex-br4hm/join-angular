@@ -3,7 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  EventEmitter,
+  EventEmitter, inject,
   Input,
   OnInit,
   Output,
@@ -18,6 +18,7 @@ import {Contact} from '../../../core/models/contacts';
 import {NgStyle} from '@angular/common';
 import {FirebaseService} from '../../../core/services/firebase.service';
 import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
+import {RandomColorService} from '../../../core/services/random-color.service';
 
 @Component({
   selector: 'app-popup-contact-form',
@@ -37,6 +38,7 @@ import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
   styleUrl: './popup-contact-form.component.scss'
 })
 export class PopupContactFormComponent implements OnInit, AfterViewInit{
+  private fb: FormBuilder = inject(FormBuilder);
   @Output() popUp = new EventEmitter<boolean>();
   @Input() type!: string;
   @Input() selectedContact?: Contact;
@@ -44,7 +46,7 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
   selectedContactChanged: boolean = false;
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private firebase: FirebaseService) {
+  constructor(private firebase: FirebaseService, private colorService: RandomColorService) {
     this.contactForm = this.fb.group({
       id:        '',
       firstname: ['', Validators.required],
@@ -89,12 +91,16 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
   }
 
   addContact() {
+    const contact: Contact = this.contactForm.value;
+    contact.color = this.colorService.getColor();
+
     if (this.contactForm.valid) {
-      this.firebase.addContact(this.contactForm.value);
+      this.firebase.addContact(contact);
       this.clearForm();
       this.closePopUp();
     }
   }
+
 
   get email() {
     return this.contactForm.get('email');
