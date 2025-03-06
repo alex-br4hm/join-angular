@@ -1,10 +1,10 @@
-import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatOption, MatSelect, MatSelectTrigger} from '@angular/material/select';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggle} from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {MatButton} from '@angular/material/button';
 import {FirebaseService} from '../../../core/services/firebase.service';
 import {Contact} from '../../../core/models/contacts';
@@ -13,32 +13,34 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {FirstLetterPipe} from "../../../shared/utils/first-letter.pipe";
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import { provideMomentDateAdapter} from '@angular/material-moment-adapter';
+import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/de';
 import {DateFormatterService} from '../../../core/services/date-formatter.service';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-add-task',
-    imports: [
-        ReactiveFormsModule,
-        MatFormField,
-        MatInput,
-        MatError,
-        MatSelect,
-        MatOption,
-        MatDatepickerToggle,
-        MatDatepicker,
-        MatDatepickerInput,
-        MatNativeDateModule,
-        MatInputModule,
-        MatButton,
-        MatSelectTrigger,
-        NgStyle,
-        MatTooltip,
-        MatButtonToggleGroup,
-        MatButtonToggle,
-        FirstLetterPipe
-    ],
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatInput,
+    MatError,
+    MatSelect,
+    MatOption,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatDatepickerInput,
+    MatNativeDateModule,
+    MatInputModule,
+    MatButton,
+    MatSelectTrigger,
+    NgStyle,
+    MatTooltip,
+    MatButtonToggleGroup,
+    MatButtonToggle,
+    FirstLetterPipe,
+    MatIcon
+  ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
   providers: [
@@ -52,6 +54,7 @@ export class AddTaskComponent implements OnInit {
   assignableUser: Contact[] = [];
   assignedUser: Contact[]   = []
   addTaskForm: FormGroup;
+  subtaskInput: string      = '';
 
   constructor(private fireBase: FirebaseService, private dateFormatter: DateFormatterService) {
     this.addTaskForm = this.fb.group({
@@ -60,7 +63,8 @@ export class AddTaskComponent implements OnInit {
       category:    ['', Validators.required],
       description: '',
       assigned_to: '',
-      priority:    ''
+      priority:    ['', Validators.required],
+      subtasks:    this.fb.array([]),
     });
   }
 
@@ -69,11 +73,9 @@ export class AddTaskComponent implements OnInit {
     this.patchStandardValues();
   }
 
-  whatsProb() {
-    const dueDateControl = this.addTaskForm.controls['due_date'];
-    console.log(dueDateControl.value.format(this.addTaskForm.get('due_date')?.value?.format('DD/MM/YYYY')));
+  clearForm() {
+    this.addTaskForm.reset();
   }
-
 
   patchStandardValues() {
     this.addTaskForm.controls['priority'].patchValue('medium');
@@ -81,6 +83,28 @@ export class AddTaskComponent implements OnInit {
     this.addTaskForm.controls['due_date'].patchValue(new Date());
   }
 
+  addSubtask() {
+    const subtasks = this.addTaskForm.get('subtasks') as FormArray;
+    subtasks.push(this.fb.group({
+      name: this.subtaskInput,
+      done: false
+    }));
+
+    this.subtaskInput = '';
+  }
+
+  get subtasks(): FormArray {
+    return this.addTaskForm.get('subtasks') as FormArray;
+  }
+
+  deleteSubtask(index: number) {
+    this.subtasks.removeAt(index);
+  }
+
+  onSubtaskInput(event: Event) {
+    this.subtaskInput = (event.target as HTMLInputElement).value;
+    console.log(this.subtaskInput);
+  }
 
   getContacts() {
     this.fireBase.getContacts().pipe(

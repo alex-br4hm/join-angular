@@ -57,13 +57,12 @@
         <input matInput
                [matDatepicker]="picker"
                formControlName="due_date"
-               (input)="whatsProb()"
                placeholder="DD.MM.YYYY">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <h3 class="input-headline">Prio</h3>
+      <h3 class="input-headline">Prio<span>*</span></h3>
       <mat-button-toggle-group formControlName="priority">
         <span>
           <mat-button-toggle value="urgent">Urgent</mat-button-toggle>
@@ -80,7 +79,29 @@
         </mat-select>
       </mat-form-field>
 
-      <h3 class="input-headline">Subtasks</h3>
+      <h3 class="input-headline">Subtasks [{{ subtasks.length }}]</h3>
+      <mat-form-field appearance="outline" formArrayName="subtasks">
+        <input matInput (input)="onSubtaskInput($event)">
+        @if (subtaskInput.length > 0) {
+          <mat-icon matSuffix
+                    [matTooltip]="'add subtask'"
+                    class="subtask-add-icon" (click)="addSubtask()">
+            add
+          </mat-icon>
+        }
+      </mat-form-field>
+
+        <div class="subtask-list">
+          @for (subtask of subtasks.controls; track $index) {
+            <div class="subtask-ele">&#8226; {{ subtask.get('name')?.value }}
+                  <div class="subtask-icon-wrapper">
+<!--                    <mat-icon>edit</mat-icon>-->
+                    <mat-icon (click)="deleteSubtask($index)" [matTooltip]="'delete subtask'">delete</mat-icon>
+                  </div>
+            </div>
+          }
+        </div>
+
     </div>
   </form>
 
@@ -88,10 +109,11 @@
     <div class="required-hint"><span>*</span>This field is required</div>
 
     <div class="button-wrapper">
-      <button mat-flat-button>
+      <button mat-flat-button (click)="clearForm()">
         <span>Clear</span>
       </button>
       <button mat-flat-button
+              class="create-btn"
               [disabled]="!addTaskForm.valid"
               (click)="onSubmit()">
         <span>Create Task</span>
