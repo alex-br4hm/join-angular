@@ -1,12 +1,11 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatError, MatFormField} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatOption, MatSelect, MatSelectTrigger} from '@angular/material/select';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggle} from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {MatButton} from '@angular/material/button';
-import {MatIcon} from '@angular/material/icon';
 import {FirebaseService} from '../../../core/services/firebase.service';
 import {Contact} from '../../../core/models/contacts';
 import {NgStyle} from '@angular/common';
@@ -14,6 +13,9 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {FirstLetterPipe} from "../../../shared/utils/first-letter.pipe";
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { provideMomentDateAdapter} from '@angular/material-moment-adapter';
+import 'moment/locale/de';
+import {DateFormatterService} from '../../../core/services/date-formatter.service';
 
 @Component({
   selector: 'app-add-task',
@@ -30,7 +32,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
         MatNativeDateModule,
         MatInputModule,
         MatButton,
-        MatIcon,
         MatSelectTrigger,
         NgStyle,
         MatTooltip,
@@ -40,6 +41,10 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
+    provideMomentDateAdapter(),
+  ],
 })
 export class AddTaskComponent implements OnInit {
   destroyRef: DestroyRef    = inject(DestroyRef);
@@ -48,10 +53,10 @@ export class AddTaskComponent implements OnInit {
   assignedUser: Contact[]   = []
   addTaskForm: FormGroup;
 
-  constructor(private fireBase: FirebaseService,) {
+  constructor(private fireBase: FirebaseService, private dateFormatter: DateFormatterService) {
     this.addTaskForm = this.fb.group({
       title:       ['', Validators.required],
-      due_date:    ['', Validators.required],
+      due_date:    ['', [Validators.required],],
       category:    ['', Validators.required],
       description: '',
       assigned_to: '',
@@ -63,6 +68,12 @@ export class AddTaskComponent implements OnInit {
     this.getContacts();
     this.patchStandardValues();
   }
+
+  whatsProb() {
+    const dueDateControl = this.addTaskForm.controls['due_date'];
+    console.log(dueDateControl.value.format(this.addTaskForm.get('due_date')?.value?.format('DD/MM/YYYY')));
+  }
+
 
   patchStandardValues() {
     this.addTaskForm.controls['priority'].patchValue('medium');
@@ -112,9 +123,15 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit() {
     if (this.addTaskForm.valid) {
+      this.formatDate();
       console.log('Formular abgeschickt:', this.addTaskForm.value);
     } else {
       console.log('Formular ungültig');
     }
+  }
+
+  formatDate() {
+    const formattedDueDate = this.dateFormatter.formatDate(this.addTaskForm.get('due_date')?.value);
+    this.addTaskForm.controls['due_date'].patchValue(formattedDueDate);
   }
 }
