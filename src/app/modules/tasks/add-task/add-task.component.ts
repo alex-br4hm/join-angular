@@ -105,7 +105,7 @@ export class AddTaskComponent implements OnInit {
 
   patchStandardValues() {
     this.addTaskForm.controls['priority'].patchValue('medium');
-    this.addTaskForm.controls['category'].patchValue('technicalTask');
+    this.addTaskForm.controls['category'].patchValue('technical_task');
     this.addTaskForm.controls['due_date'].patchValue(this.today);
   }
 
