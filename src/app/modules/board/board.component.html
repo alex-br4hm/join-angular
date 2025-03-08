@@ -20,7 +20,7 @@
         </span>
     </mat-form-field>
 
-    <button mat-stroked-button>
+    <button mat-flat-button class="add-task-btn" (click)="addTaskPopUp = true">
                <span>Add task
                  <mat-icon>add</mat-icon>
                </span>
@@ -58,3 +58,11 @@
     </div>
   }
 </div>
+
+@if (addTaskPopUp) {
+  <div class="add-task-container" (click)="addTaskPopUp = false">
+    <mat-icon>close</mat-icon>
+    <app-add-task></app-add-task>
+  </div>
+}
+

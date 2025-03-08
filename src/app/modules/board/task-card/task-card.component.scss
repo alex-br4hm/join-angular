@@ -7,13 +7,19 @@
   padding: 16px;
   font-size: 14px;
   opacity: .95;
+  width: 100%;
 
   &:hover {
     cursor: pointer;
     opacity: 1;
+
     .hover-edit-icon {
       float: right;
       display: unset;
+    }
+
+    .add-description {
+      display: flex;
     }
   }
 }
@@ -23,12 +29,17 @@
   display: none;
 }
 
+.category-wrapper {
+  height: 24px;
+}
+
 .category-chip {
   width: fit-content;
   padding: 4px 8px;
+  font-size: 12px;
   border-radius: 8px;
-  font-weight: 500;
-  color: var(--font-color-secondary);
+  font-weight: 700;
+  color: whitesmoke;
 }
 
 .user-story {
@@ -36,7 +47,7 @@
 }
 
 .technical-task {
-  background-color: #1FD7C1;
+  background-color: #0d9180;
 }
 
 h5 {
@@ -46,6 +57,28 @@ h5 {
 
 .description {
   opacity: .7;
+  min-height: 24px;
+}
+
+.add-description {
+  display: none;
+  align-items: center;
+  width: 100%;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 12px;
+  gap:4px;
+  transition: all 75ms ease;
+
+  &:hover {
+   filter: brightness(115%);
+  }
+
+  mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
 }
 
 .subtasks-bar-wrapper {

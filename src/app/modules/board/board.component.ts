@@ -18,6 +18,7 @@ import {
 import {NgClass} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {AddTaskComponent} from '../tasks/add-task/add-task.component';
 
 @Component({
   selector: 'app-board',
@@ -34,7 +35,8 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     CdkDrag,
     ReactiveFormsModule,
     NgClass,
-    MatTooltip
+    MatTooltip,
+    AddTaskComponent
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
@@ -56,6 +58,8 @@ export class BoardComponent implements OnInit {
   originalInProgressList: Task[]     = [];
   originalAwaitFeedbackList: Task[]  = [];
   originalDoneList: Task[]           = [];
+
+  addTaskPopUp: boolean = false;
 
   constructor(private firebase: FirebaseService) {}
 
