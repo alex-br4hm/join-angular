@@ -1,5 +1,14 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule, ValidationErrors,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import {MatError, MatFormField} from '@angular/material/form-field';
 import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatOption, MatSelect, MatSelectTrigger} from '@angular/material/select';
@@ -17,6 +26,10 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/de';
 import {DateFormatterService} from '../../../core/services/date-formatter.service';
 import {MatIcon} from '@angular/material/icon';
+import {SliceAssignedUserPipe} from '../../../shared/utils/slice-assigned-user.pipe';
+import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-overflow.pipe';
+import {MatChip} from '@angular/material/chips';
+import {TaskDataService} from '../../../core/services/task-data.service';
 
 @Component({
   selector: 'app-add-task',
@@ -39,7 +52,10 @@ import {MatIcon} from '@angular/material/icon';
     MatButtonToggleGroup,
     MatButtonToggle,
     FirstLetterPipe,
-    MatIcon
+    MatIcon,
+    SliceAssignedUserPipe,
+    AssignedUserOverflowPipe,
+    MatChip
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
@@ -52,20 +68,27 @@ export class AddTaskComponent implements OnInit {
   destroyRef: DestroyRef    = inject(DestroyRef);
   private fb: FormBuilder   = inject(FormBuilder);
   assignableUser: Contact[] = [];
-  assignedUser: Contact[]   = []
+  assignedUser: Contact[]   = [];
+  subtaskInput: FormControl = new FormControl('');
+  today: Date               = new Date();
   addTaskForm: FormGroup;
-  subtaskInput: string      = '';
+  subtaskList: FormArray;
 
-  constructor(private fireBase: FirebaseService, private dateFormatter: DateFormatterService) {
+
+  constructor(private fireBase: FirebaseService,
+              private taskData: TaskDataService,
+              private dateFormatter: DateFormatterService) {
     this.addTaskForm = this.fb.group({
       title:       ['', Validators.required],
-      due_date:    ['', [Validators.required],],
+      due_date:    ['', [Validators.required, this.dateValidator],],
       category:    ['', Validators.required],
       description: '',
       assigned_to: '',
       priority:    ['', Validators.required],
       subtasks:    this.fb.array([]),
     });
+
+    this.subtaskList = this.addTaskForm.get('subtasks') as FormArray;
   }
 
   ngOnInit() {
@@ -75,35 +98,28 @@ export class AddTaskComponent implements OnInit {
 
   clearForm() {
     this.addTaskForm.reset();
+    this.patchStandardValues();
+    this.subtaskList.clear();
+    this.assignedUser = [];
   }
 
   patchStandardValues() {
     this.addTaskForm.controls['priority'].patchValue('medium');
     this.addTaskForm.controls['category'].patchValue('technicalTask');
-    this.addTaskForm.controls['due_date'].patchValue(new Date());
+    this.addTaskForm.controls['due_date'].patchValue(this.today);
   }
 
   addSubtask() {
-    const subtasks = this.addTaskForm.get('subtasks') as FormArray;
-    subtasks.push(this.fb.group({
-      name: this.subtaskInput,
+    this.subtaskList.push(this.fb.group({
+      name: this.subtaskInput.value,
       done: false
     }));
 
-    this.subtaskInput = '';
-  }
-
-  get subtasks(): FormArray {
-    return this.addTaskForm.get('subtasks') as FormArray;
+    this.subtaskInput.patchValue('')
   }
 
   deleteSubtask(index: number) {
-    this.subtasks.removeAt(index);
-  }
-
-  onSubtaskInput(event: Event) {
-    this.subtaskInput = (event.target as HTMLInputElement).value;
-    console.log(this.subtaskInput);
+    this.subtaskList.removeAt(index);
   }
 
   getContacts() {
@@ -122,14 +138,15 @@ export class AddTaskComponent implements OnInit {
 
   getAssignedUser() {
     this.addTaskForm.get('assigned_to')?.valueChanges.subscribe((assignedValue) => {
+      if (!assignedValue) return;
       this.assignedUser = assignedValue.map((id: string)  => {
         return this.assignableUser.find(user => user.id === id);
       })
     });
   }
 
-  getAssignableUser(users: any) {
-    this.assignableUser = Object.values(users).map((user: any) => ({
+  getAssignableUser(users: Contact[]) {
+    this.assignableUser = Object.values(users).map((user: Contact) => ({
       id:        user.id,
       firstname: user.firstname,
       lastname:  user.lastname,
@@ -148,7 +165,8 @@ export class AddTaskComponent implements OnInit {
   onSubmit() {
     if (this.addTaskForm.valid) {
       this.formatDate();
-      console.log('Formular abgeschickt:', this.addTaskForm.value);
+      this.taskData.addTask(this.addTaskForm.value, 'todo');
+      this.clearForm();
     } else {
       console.log('Formular ungültig');
     }
@@ -157,5 +175,19 @@ export class AddTaskComponent implements OnInit {
   formatDate() {
     const formattedDueDate = this.dateFormatter.formatDate(this.addTaskForm.get('due_date')?.value);
     this.addTaskForm.controls['due_date'].patchValue(formattedDueDate);
+  }
+
+  dateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+
+      const inputDate = this.addTaskForm.get('due_date')?.value;
+      this.today.setHours(0, 0, 0, 0);
+      inputDate.setHours(0, 0, 0, 0);
+
+      return inputDate < this.today ? {invalidDate: true} : null;
+    }
   }
 }
