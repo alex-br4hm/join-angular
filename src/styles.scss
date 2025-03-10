@@ -51,6 +51,7 @@ body {
 .mdc-button {
   font-weight: 700 !important;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+
 }
 
 .dark-mode {
@@ -64,6 +65,12 @@ body {
   --mat-sys-on-surface: var(--font-color-primary);
   --mat-sys-primary: #F0F0F0;
   --board-col-bg-color: #333;
+
+  @include mat.dialog-overrides((
+    container-color: var(--primary-color),
+    supporting-text-color: var(--font-color-primary),
+    subhead-color: var(--font-color-primary),
+  ));
 }
 
 h1 {
@@ -153,6 +160,7 @@ mdc-button__label {
   font-weight: 500;
   filter: grayscale(.25);
   box-shadow: inset 0 0 0 1.5px var(--font-color-secondary);
+  user-select: none;
 }
 
 // Checkboxes
