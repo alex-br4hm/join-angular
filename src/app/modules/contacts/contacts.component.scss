@@ -1,6 +1,6 @@
 :host {
   display: flex;
-  height: 108%;
+  height: 100%;
 }
 
 .popup-bg-container {
@@ -21,7 +21,7 @@
 // ###################
 
 .list-container {
-  height: 100%;
+  height: calc(100% + 56px);
   width: 400px;
   min-width: 400px;
   transform: translateX(-56px) translateY(-46px);
@@ -29,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
-  padding-bottom:5%;
+  padding-bottom:3.5vh;
 }
 
 .add-contact-btn-wrapper {
@@ -160,11 +160,32 @@
 //    Contact detail view
 // ###########################
 
+.mat-mdc-unelevated-button {
+  --mdc-filled-button-container-color: var(--secondary-color);
+  height: 32px !important;
+
+  span {
+    font-size: 14px !important;
+  }
+}
+
 .contact-detail-view {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  animation: slideIn 250ms ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }
 
 .detail-view-head {
@@ -179,6 +200,12 @@
   }
 }
 
+.detail-name-action-btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+}
+
 .detail-name {
   font-size:36px;
   font-weight: 500;
@@ -186,8 +213,11 @@
 
 .detail-action-btns {
   display: flex;
-  gap:12px;
-  transform:translateX(-10px);
+  gap:8px;
+
+  button {
+    width: fit-content;
+  }
 
   svg {
     height: 16px;

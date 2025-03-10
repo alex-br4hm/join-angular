@@ -4,6 +4,9 @@
     <h2>Tasks are better with a team!</h2>
 </div>
 
+<div class="spacer"></div>
+<mat-icon class="close-icon" (click)="closePopUp()">close</mat-icon>
+
 <div class="user-icon-wrapper">
   @if (type === 'Edit' && selectedContact) {
           <div class="initials" [ngStyle]="{ 'background-color': selectedContact.color }">
@@ -23,7 +26,7 @@
 </div>
 
 <div class="form-wrapper">
-  <mat-icon class="close-icon" (click)="closePopUp()">close</mat-icon>
+
 
   <form [formGroup]="contactForm" >
       <mat-form-field appearance="outline" floatLabel="always">
@@ -76,31 +79,31 @@
 
       @if (type === 'Add') {
         <div class="action-btn-group">
-            <button mat-stroked-button
+          <button mat-flat-button
+                  (click)="clearForm()">
+            Clear
+<!--            <mat-icon matSuffix>close</mat-icon>-->
+          </button>
+
+            <button mat-flat-button
                     [disabled]="!contactForm.valid"
                     (click)="addContact()">
               Create contact
-              <mat-icon matSuffix>check</mat-icon>
-            </button>
-
-            <button mat-stroked-button
-                    (click)="clearForm()">
-                Clear
-                <mat-icon matSuffix>close</mat-icon>
+<!--              <mat-icon matSuffix>check</mat-icon>-->
             </button>
         </div>
       } @else {
         <div class="action-btn-group">
-          <button mat-stroked-button
+          <button mat-flat-button (click)="deleteContact()">
+            Delete
+<!--            <mat-icon matSuffix>close</mat-icon>-->
+          </button>
+
+          <button mat-flat-button
                   [disabled]="!(selectedContactChanged && contactForm.valid)"
                   (click)="editContact()">
             Save
-            <mat-icon matSuffix>check</mat-icon>
-          </button>
-
-          <button mat-stroked-button (click)="deleteContact()">
-            Delete
-            <mat-icon matSuffix>close</mat-icon>
+<!--            <mat-icon matSuffix>check</mat-icon>-->
           </button>
         </div>
       }
