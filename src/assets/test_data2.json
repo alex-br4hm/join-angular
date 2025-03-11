@@ -95,7 +95,7 @@
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
         { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
       ],
-      "category": "Technical Task",
+      "category": "technical_task",
       "description": "Ensure the DeLorean reaches 88mph to activate time travel.",
       "due_date": "15/06/2025",
       "due_date_unix": 1749945600,
@@ -113,7 +113,7 @@
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
         { "firstname": "McFly", "lastname": "George", "color": "#2E8B57" }
       ],
-      "category": "User Story",
+      "category": "user_story",
       "description": "Ensure Biff does not alter the timeline in 1955.",
       "due_date": "20/06/2025",
       "due_date_unix": 1750377600,
@@ -127,7 +127,7 @@
         { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" },
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" }
       ],
-      "category": "Technical Task",
+      "category": "technical_task",
       "description": "Repair the DeLorean after it gets damaged.",
       "due_date": "25/06/2025",
       "due_date_unix": 1750809600,
@@ -147,7 +147,7 @@
         { "firstname": "McFly", "lastname": "George", "color": "#2E8B57" },
         { "firstname": "Clayton", "lastname": "Clara", "color": "#FF69B4" }
       ],
-      "category": "User Story",
+      "category": "user_story",
       "description": "Ensure Marty and his parents attend the dance to secure the future.",
       "due_date": "30/06/2025",
       "due_date_unix": 1751241600,
@@ -165,7 +165,7 @@
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
         { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
       ],
-      "category": "User Story",
+      "category": "user_story",
       "description": "Retrieve Jennifer from 2015 and return her to the correct timeline.",
       "due_date": "05/07/2025",
       "due_date_unix": 1751673600,
@@ -182,7 +182,7 @@
       "assigned_user": [
         { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
       ],
-      "category": "User Story",
+      "category": "user_story",
       "description": "Ensure the clock tower lightning strike occurs as planned.",
       "due_date": "10/07/2025",
       "due_date_unix": 1752105600,
@@ -200,7 +200,7 @@
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
         { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
       ],
-      "category": "User Story",
+      "category": "user_story",
       "description": "Prevent Biff from acquiring the sports almanac and altering the future.",
       "due_date": "15/07/2025",
       "due_date_unix": 1752537600,
@@ -218,7 +218,7 @@
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
         { "firstname": "Parker", "lastname": "Jennifer", "color": "#FF1493" }
       ],
-      "category": "User Story",
+      "category": "user_story",
       "description": "Celebrate the history of Hill Valley while ensuring no disruptions to the timeline.",
       "due_date": "20/07/2025",
       "due_date_unix": 1752969600,
@@ -236,7 +236,7 @@
         { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
         { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
       ],
-      "category": "Technical Task",
+      "category": "technical_task",
       "description": "Ensure that Marty and Doc safely return to 1985 without altering the timeline.",
       "due_date": "25/07/2025",
       "due_date_unix": 1753401600,

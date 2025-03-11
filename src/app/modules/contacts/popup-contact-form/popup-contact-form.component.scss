@@ -1,5 +1,5 @@
 :host {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   width: 80%;
   height: 60vh;
   border-radius: 24px;
@@ -7,8 +7,15 @@
   position: relative;
   max-width: 1200px;
   display: flex;
-}
+  align-items: center;
+  padding: 0 32px;
 
+  .mdc-button {
+    min-width: 120px;
+    flex: 1;
+    background-color: var(--secondary-color) !important;
+  }
+}
 
 .header-wrapper {
   height: 100%;
@@ -20,9 +27,9 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 24px;
-  padding-bottom: 10%;
+  padding: 24px 0 24px 0;
   gap: 8px;
+
   img {
     height: 64px;
     width: 64px;
@@ -43,12 +50,18 @@
   }
 }
 
+.spacer {
+  height: 80%;
+  width: 2px;
+  background-color: var(--spacer-color);
+}
+
 .user-icon-wrapper {
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
-  width: 25%;
+  width: 20%;
 }
 
 .add-user-icon {
@@ -74,8 +87,8 @@
 
 .close-icon {
   position: absolute;
-  top: 32px;
-  right: -8px;
+  top: 16px;
+  right: 16px;
   padding:16px;
   display: flex;
   align-items: center;
@@ -85,9 +98,11 @@
 
 .form-wrapper {
   display: flex;
+  justify-content: end;
   align-items: center;
   width:35%;
   position: relative;
+  flex:1;
 }
 
 form {
@@ -103,5 +118,9 @@ form {
   display: flex;
   gap:16px;
   justify-content: flex-end;
+
+  .mdc-button {
+    max-width: 35% !important;
+  }
 }
 

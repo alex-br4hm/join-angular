@@ -1,4 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
 import {provideRouter, withHashLocation} from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -6,9 +8,24 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import {environment} from '../environments/environment';
 import {provideAnimations} from '@angular/platform-browser/animations';
-import { MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
 import {getAuth, provideAuth} from '@angular/fire/auth';
+import {registerLocaleData} from '@angular/common';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, provideMomentDateAdapter} from '@angular/material-moment-adapter';
 
+registerLocaleData(localeDe, 'de-DE', localeDeExtra);
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,10 +33,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withHashLocation()),
     provideAnimations(),
     provideNativeDateAdapter(),
+    provideMomentDateAdapter(),
     provideAnimationsAsync(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    { provide: MAT_DATE_LOCALE, useValue: 'de-DE' }
   ],
 };

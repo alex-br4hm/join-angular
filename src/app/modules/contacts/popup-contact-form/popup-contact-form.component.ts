@@ -19,6 +19,8 @@ import {NgStyle} from '@angular/common';
 import {FirebaseService} from '../../../core/services/firebase.service';
 import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
 import {RandomColorService} from '../../../core/services/random-color.service';
+import {DeleteDialogComponent} from '../delete-dialog/delete-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-popup-contact-form',
@@ -38,6 +40,7 @@ import {RandomColorService} from '../../../core/services/random-color.service';
   styleUrl: './popup-contact-form.component.scss'
 })
 export class PopupContactFormComponent implements OnInit, AfterViewInit{
+  dialog: MatDialog       = inject(MatDialog);
   private fb: FormBuilder = inject(FormBuilder);
   @Output() popUp = new EventEmitter<boolean>();
   @Input() type!: string;
@@ -101,7 +104,6 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
     }
   }
 
-
   get email() {
     return this.contactForm.get('email');
   }
@@ -114,14 +116,22 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
   }
 
   deleteContact(): void {
-    if (window.confirm("Möchtest du den Kontakt wirklich löschen?") && this.selectedContact) {
-      this.firebase.deleteContact(this.selectedContact.id);
-      this.closePopUp();
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '25vw',
+    });
+
+    if (this.selectedContact) {
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && this.selectedContact) {
+          this.firebase.deleteContact(this.selectedContact.id);
+          this.selectedContact = undefined;
+          this.closePopUp();
+        }
+      });
     }
   }
 
   clearForm() {
-    console.log('cleared!')
     this.contactForm.reset();
   }
 

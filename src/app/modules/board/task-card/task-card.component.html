@@ -1,15 +1,24 @@
 <div class="category-wrapper">
   <mat-icon class="hover-edit-icon">edit</mat-icon>
 
-  @if (task.category === "User Story") {
-    <div class="category-chip user-story">{{ task.category }}</div>
-  } @else if (task.category === "Technical Task") {
-    <div class="category-chip technical-task">{{ task.category }}</div>
+  @if (task.category === "user_story") {
+    <div class="category-chip user-story">User Story</div>
+  } @else if (task.category === "technical_task") {
+    <div class="category-chip technical-task">Technical Task</div>
   }
 </div>
 
 <h5> {{ task.title }} </h5>
-<div class="description"> {{ task.description}}</div>
+
+<div class="description">
+  {{ task.description}}
+  @if (!task.description) {
+    <span class="add-description">
+      <mat-icon>add</mat-icon>
+      add description
+    </span>
+  }
+</div>
 
 @if (task.subtasks) {
   <div class="subtasks-bar-wrapper">
@@ -34,7 +43,9 @@
   </div>
 
   <div class="priority">
-    <mat-icon class="{{ task.priority }}">{{ task.priority | prioIcon }}</mat-icon>
+      <mat-icon class="{{ task.priority }}">
+          {{ task.priority | prioIcon }}
+      </mat-icon>
   </div>
 </div>
 

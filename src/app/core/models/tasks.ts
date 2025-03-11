@@ -4,7 +4,7 @@ export interface Task {
   description:   string;
   due_date:      string;
   due_date_unix: number;
-  id:            number;
+  id:            string;
   // surname:       string;
   // lastname:      string;
   title:         string;

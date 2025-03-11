@@ -1,99 +1,165 @@
 <h1>Add Task</h1>
 
+
+
 <form [formGroup]="addTaskForm">
   <div class="form-left-side">
-      <h3 class="input-headline">Title<span>*</span></h3>
-      <mat-form-field appearance="outline" class="full-width">
-        <input matInput formControlName="title" placeholder="Enter a title"/>
+
+    <!###########>
+    <!-- title -->
+    <!###########>
+
+    <h3 class="input-headline">Title<span>*</span></h3>
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="title" placeholder="Enter a title" />
         <mat-error></mat-error>
-      </mat-form-field>
+    </mat-form-field>
 
-      <h3 class="input-headline">Description</h3>
-      <mat-form-field appearance="outline" class="full-width">
-        <textarea matInput formControlName="description" placeholder="Enter a description"></textarea>
-      </mat-form-field>
+    <!#################>
+    <!-- description -->
+    <!#################>
 
-      <h3 class="input-headline">Assigned to</h3>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-select formControlName="assigned_to" placeholder="Select contacts to assign" multiple>
-          <mat-select-trigger>
-            @for (user of assignedUser;track $index) {
-              @if ($index === assignedUser.length - 1) {
-                <span>{{ user.firstname + ' ' + user.lastname }}</span>
-              } @else {
-                <span>{{ user.firstname + ' ' + user.lastname }}, </span>
-              }
+    <h3 class="input-headline">Description</h3>
+    <mat-form-field appearance="outline">
+        <textarea matInput
+                  formControlName="description"
+                  placeholder="Enter a description">
+        </textarea>
+    </mat-form-field>
+
+    <!##############>
+    <!-- Assigned -->
+    <!##############>
+    <h3 class="input-headline">Assigned to [{{assignedUser.length}}]</h3>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="assigned_to"
+                  placeholder="Select contacts to assign"
+                  multiple>
+        <mat-select-trigger>
+          @for (user of assignedUser; track $index) {
+            @if ($index === assignedUser.length - 1) {
+              <span>{{ user.firstname + ' ' + user.lastname }}</span>
+            } @else {
+              <span>{{ user.firstname + ' ' + user.lastname }}, </span>
             }
-          </mat-select-trigger>
-          @for (user of assignableUser; track $index) {
-            <mat-option [value]="user.id">
-              <span>
-                  <div class="initials"
-                       [ngStyle]="{ 'background-color': user.color }">
-                    {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
-                  </div>
-                  {{ user.firstname }} {{ user.lastname }}
-              </span>
-            </mat-option>
           }
-        </mat-select>
-      </mat-form-field>
+        </mat-select-trigger>
 
-      <div class="assigned-user-display-list">
-        @for (user of assignedUser; track $index) {
-          <div class="initials"
-               (click)="removeUserFromAssignedList(user.id)"
-               [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
-               [ngStyle]="{ 'background-color': user.color }">
-            {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
-          </div>
+        @for (user of assignableUser; track $index) {
+          <mat-option [value]="user.id">
+                        <span>
+                            <div class="initials" [ngStyle]="{ 'background-color': user.color }">
+                                {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
+                            </div>
+                          {{ user.firstname }} {{ user.lastname }}
+                        </span>
+          </mat-option>
         }
-      </div>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="assigned-user-display-list">
+      @for (user of assignedUser | sliceAssignedUser; track $index) {
+        <div class="initials"
+             (click)="removeUserFromAssignedList(user.id)"
+             [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
+             [ngStyle]="{ 'background-color': user.color }">
+          {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
+        </div>
+      }
+      @if (assignedUser.length > 5) {
+        <span [matTooltip]="assignedUser | assignedUserOverflow"
+              class="assigned-user-overflow"
+              [matTooltipPosition]="'after'">
+          +{{ assignedUser.length - 5 }} more
+        </span>
+      }
+    </div>
   </div>
 
+  <!##############>
+  <!-- due date -->
+  <!##############>
   <div class="form-right-side">
-      <h3 class="input-headline">Due Date<span>*</span></h3>
-      <mat-form-field appearance="outline" >
+    <h3 class="input-headline">Due Date<span>*</span></h3>
+    <mat-form-field appearance="outline">
         <input matInput
+               [min]="today"
                [matDatepicker]="picker"
                formControlName="due_date"
                placeholder="DD.MM.YYYY">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+        <mat-label>DD.MM.YYYY</mat-label>
+        <mat-error>Due date has to be today or in future.</mat-error>
+    </mat-form-field>
 
-      <h3 class="input-headline">Prio</h3>
-      <mat-button-toggle-group formControlName="priority">
+    <!##############>
+    <!--   PRIO   -->
+    <!##############>
+    <h3 class="input-headline">Prio<span>*</span></h3>
+    <mat-button-toggle-group formControlName="priority">
         <span>
-          <mat-button-toggle value="urgent">Urgent</mat-button-toggle>
-          <mat-button-toggle value="medium">Medium</mat-button-toggle>
-          <mat-button-toggle value="low">Low</mat-button-toggle>
+            <mat-button-toggle value="urgent">Urgent</mat-button-toggle>
+            <mat-button-toggle value="medium">Medium</mat-button-toggle>
+            <mat-button-toggle value="low">Low</mat-button-toggle>
         </span>
-      </mat-button-toggle-group>
+    </mat-button-toggle-group>
 
-      <h3 class="input-headline">Category<span>*</span></h3>
-      <mat-form-field appearance="outline" class="full-width">
+    <!##############>
+    <!-- Category -->
+    <!##############>
+    <h3 class="input-headline">Category<span>*</span></h3>
+    <mat-form-field appearance="outline">
         <mat-select formControlName="category" placeholder="Select task category">
-          <mat-option value="technicalTask">Technical Task</mat-option>
-          <mat-option value="userStory">User Story</mat-option>
+            <mat-option value="technical_task">Technical Task</mat-option>
+            <mat-option value="user_story">User Story</mat-option>
         </mat-select>
-      </mat-form-field>
+    </mat-form-field>
 
-      <h3 class="input-headline">Subtasks</h3>
+    <!##############>
+    <!-- Subtasks -->
+    <!##############>
+    <h3 class="input-headline">Subtasks [{{ subtaskList.length }}]</h3>
+    <mat-form-field appearance="outline" formArrayName="subtasks">
+      <input matInput [formControl]="subtaskInput" placeholder="Enter a subtask title">
+        @if (subtaskInput.value.length > 0) {
+          <mat-icon matSuffix
+                    [matTooltip]="'add subtask'"
+                    class="subtask-add-icon" (click)="addSubtask()">
+            add
+          </mat-icon>
+        }
+    </mat-form-field>
+
+    <div class="subtask-list">
+      @for (subtask of subtaskList.value; track $index) {
+        <div class="subtask-ele">
+            &#8226;
+            {{ subtask.name }}
+            <div class="subtask-icon-wrapper">
+              <mat-icon (click)="deleteSubtask($index)">delete</mat-icon>
+            </div>
+        </div>
+      }
     </div>
-  </form>
+  </div>
+</form>
 
-  <div class="action-bar">
-    <div class="required-hint"><span>*</span>This field is required</div>
+<div class="action-bar">
+  <div class="required-hint"><span>*</span>This field is required</div>
 
-    <div class="button-wrapper">
-      <button mat-flat-button>
+  <div class="button-wrapper">
+      <button mat-flat-button
+              (click)="clearForm()">
         <span>Clear</span>
       </button>
+
       <button mat-flat-button
+              class="create-btn"
               [disabled]="!addTaskForm.valid"
               (click)="onSubmit()">
         <span>Create Task</span>
       </button>
-    </div>
+  </div>
 </div>

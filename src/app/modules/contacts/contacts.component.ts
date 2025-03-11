@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, DestroyRef, inject, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../../core/services/firebase.service';
 import {Contact} from '../../core/models/contacts';
 import {MatButton} from '@angular/material/button';
@@ -11,6 +11,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form.component';
 import {FirstLetterPipe} from '../../shared/utils/first-letter.pipe';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatDialog} from '@angular/material/dialog';
+import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-contacts',
@@ -23,23 +25,15 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     EmailPipe,
     NgIf,
     PopupContactFormComponent,
-    FirstLetterPipe
+    FirstLetterPipe,
+    DeleteDialogComponent
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
-  animations: [
-    trigger('slideIn', [
-      state('*', style({ transform: 'translateX(0)', opacity: 1 })),
-
-      // reacts if the contact.id changed
-      transition('* <=> *', [
-        style({ transform: 'translateX(150%)', opacity: 0 }),
-        animate('225ms ease', style({ transform: 'translateX(0)', opacity: 1 })),
-      ]),
-    ]),
-  ],
 })
 export class ContactsComponent implements OnInit {
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef)
+  dialog: MatDialog = inject(MatDialog);
   @Output() popUpType!: string;
   @Output() selectedContact?: Contact;
   destroyRef: DestroyRef = inject(DestroyRef);
@@ -107,6 +101,8 @@ export class ContactsComponent implements OnInit {
   }
 
   selectContact(id: string) {
+    this.selectedContact = undefined;
+    this.cdr.detectChanges();
     this.selectedContact = <Contact>this.sortedList.find(contact => contact.id === id);
   }
 
@@ -120,9 +116,17 @@ export class ContactsComponent implements OnInit {
   }
 
   deleteContact(): void {
-    if (window.confirm("Möchtest du den Kontakt wirklich löschen?") && this.selectedContact) {
-      this.firebase.deleteContact(this.selectedContact.id);
-      this.selectedContact = undefined;
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '25vw',
+    });
+
+    if (this.selectedContact) {
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && this.selectedContact) {
+          this.firebase.deleteContact(this.selectedContact.id);
+          this.selectedContact = undefined;
+        }
+      });
     }
   }
 }

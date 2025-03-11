@@ -20,7 +20,7 @@
         </span>
     </mat-form-field>
 
-    <button mat-stroked-button>
+    <button mat-flat-button class="add-task-btn" (click)="openAddTask('todo')">
                <span>Add task
                  <mat-icon>add</mat-icon>
                </span>
@@ -41,6 +41,7 @@
         </h3>
         @if (category.name != "Done") {
           <div class="add-task-hover-btn"
+               (click)="openAddTask(category.state)"
                [matTooltip]="'create task in ' + category.name"
                [ngClass]="{ 'test': category.name == 'To do' }">
             <mat-icon>add</mat-icon>
@@ -58,3 +59,11 @@
     </div>
   }
 </div>
+
+@if (addTaskPopUp) {
+  <div class="add-task-container" (click)="addTaskPopUp = false">
+    <mat-icon>close</mat-icon>
+    <app-add-task></app-add-task>
+  </div>
+}
+
