@@ -19,6 +19,9 @@ import {NgClass} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {AddTaskComponent} from '../tasks/add-task/add-task.component';
+import {MatDialog} from '@angular/material/dialog';
+import {AddTaskDialogComponent} from './add-task-dialog/add-task-dialog.component';
+import {TaskDataService} from '../../core/services/task-data.service';
 
 @Component({
   selector: 'app-board',
@@ -42,6 +45,7 @@ import {AddTaskComponent} from '../tasks/add-task/add-task.component';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent implements OnInit {
+  dialog: MatDialog         = inject(MatDialog);
   destroyRef: DestroyRef    = inject(DestroyRef);
   taskList: Task[]          = [];
   todoList: Task[]          = [];
@@ -49,7 +53,10 @@ export class BoardComponent implements OnInit {
   awaitFeedbackList: Task[] = [];
   doneList: Task[]          = [];
 
-  taskCategories: {name: string; list: Task[]}[] = []
+  taskCategories: {
+    name: string;
+    state: string;
+    list: Task[]}[] = []
 
   searchFormControl: FormControl<string> = new FormControl();
   searchInput: string = "";
@@ -61,7 +68,8 @@ export class BoardComponent implements OnInit {
 
   addTaskPopUp: boolean = false;
 
-  constructor(private firebase: FirebaseService) {}
+  constructor(private firebase: FirebaseService,
+              private taskData: TaskDataService,) {}
 
   ngOnInit() {
     this.getTasks();
@@ -88,17 +96,25 @@ export class BoardComponent implements OnInit {
     this.awaitFeedbackList = Object.values(this.taskList).filter(task => task.state === 'awaitfeedback');
     this.doneList          = Object.values(this.taskList).filter(task => task.state === 'done');
 
-    this.originalTodoList = this.todoList;
-    this.originalInProgressList = this.inProgressList;
+    this.originalTodoList          = this.todoList;
+    this.originalInProgressList    = this.inProgressList;
     this.originalAwaitFeedbackList = this.awaitFeedbackList;
-    this.originalDoneList = this.doneList;
+    this.originalDoneList          = this.doneList;
 
-    this.taskCategories    =   [
-      { name: 'To do', list: this.todoList },
-      { name: 'In Progress', list: this.inProgressList },
-      { name: 'Await Feedback', list: this.awaitFeedbackList },
-      { name: 'Done', list: this.doneList }
-    ]
+    this.taskCategories    = [
+      { name: 'To do',
+        state: 'todo',
+        list: this.todoList },
+      { name: 'In Progress',
+        state: 'inprogress',
+        list: this.inProgressList },
+      { name: 'Await Feedback',
+        state: 'awaitfeedback',
+        list: this.awaitFeedbackList },
+      { name: 'Done',
+        state: 'done',
+        list: this.doneList }
+    ];
   }
 
   getSearchInput() {
@@ -116,11 +132,19 @@ export class BoardComponent implements OnInit {
     this.awaitFeedbackList = this.originalAwaitFeedbackList.filter(task => task.title.toLowerCase().includes(this.searchInput));
     this.doneList          = this.originalDoneList.filter(task => task.title.toLowerCase().includes(this.searchInput));
 
-    this.taskCategories = [
-      { name: 'To do', list: this.todoList },
-      { name: 'In Progress', list: this.inProgressList },
-      { name: 'Await Feedback', list: this.awaitFeedbackList },
-      { name: 'Done', list: this.doneList }
+    this.taskCategories    = [
+      { name: 'To do',
+        state: 'todo',
+        list: this.todoList },
+      { name: 'In Progress',
+        state: 'inprogress',
+        list: this.inProgressList },
+      { name: 'Await Feedback',
+        state: 'awaitfeedback',
+        list: this.awaitFeedbackList },
+      { name: 'Done',
+        state: 'done',
+        list: this.doneList }
     ];
   }
 
@@ -139,5 +163,14 @@ export class BoardComponent implements OnInit {
         event.currentIndex,
       );
     }
+  }
+
+  openAddTask(state: string) {
+    this.taskData.taskState = state;
+
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+      panelClass: 'full-screen-dialog',
+      data: state
+    });
   }
 }
