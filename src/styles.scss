@@ -234,6 +234,24 @@ app-add-task {
   }
 }
 
+.full-screen-dialog {
+  width: 90vw !important;
+  height: fit-content !important;
+  max-width: unset !important;
+  max-height: unset!important;
+
+  h1 {
+    display: none;
+  }
+
+  app-add-task {
+    form {
+      margin-top: 12px;
+      height: fit-content;
+    }
+  }
+}
+
 // Snackbar
 
 .error-snackbar {
