@@ -7,10 +7,12 @@ import {Task} from '../models/tasks';
 })
 export class TaskDataService {
   private db = inject(Database);
+  taskState: string = 'todo';
+
 
   constructor() { }
 
-  addTask(task: Task, state: string) {
+  addTask(task: Task) {
     console.log(task);
     const tasksRef    = ref(this.db, 'tasks');
     const newTaskRef  = push(tasksRef);
@@ -19,7 +21,8 @@ export class TaskDataService {
       task.id = newTaskRef.key;
     }
 
-    task.state = state;
+    task.state = this.taskState;
+    console.log(this.taskState);
 
     set(newTaskRef, task)
       .then(() => {
