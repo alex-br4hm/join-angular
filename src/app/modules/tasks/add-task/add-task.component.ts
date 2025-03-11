@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, Inject, inject, Input, OnInit} from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -30,6 +30,8 @@ import {SliceAssignedUserPipe} from '../../../shared/utils/slice-assigned-user.p
 import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-overflow.pipe';
 import {MatChip} from '@angular/material/chips';
 import {TaskDataService} from '../../../core/services/task-data.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {AddTaskDialogComponent} from '../../board/add-task-dialog/add-task-dialog.component';
 
 @Component({
   selector: 'app-add-task',
@@ -55,7 +57,7 @@ import {TaskDataService} from '../../../core/services/task-data.service';
     MatIcon,
     SliceAssignedUserPipe,
     AssignedUserOverflowPipe,
-    MatChip
+    MatChip,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
@@ -65,19 +67,21 @@ import {TaskDataService} from '../../../core/services/task-data.service';
   ],
 })
 export class AddTaskComponent implements OnInit {
-  destroyRef: DestroyRef    = inject(DestroyRef);
-  private fb: FormBuilder   = inject(FormBuilder);
-  assignableUser: Contact[] = [];
-  assignedUser: Contact[]   = [];
-  subtaskInput: FormControl = new FormControl('');
-  today: Date               = new Date();
+  dialog: MatDialog          = inject(MatDialog);
+  @Input() taskState: string = 'todo';
+  destroyRef: DestroyRef     = inject(DestroyRef);
+  private fb: FormBuilder    = inject(FormBuilder);
+  assignableUser: Contact[]  = [];
+  assignedUser: Contact[]    = [];
+  subtaskInput: FormControl  = new FormControl('');
+  today: Date                = new Date();
   addTaskForm: FormGroup;
   subtaskList: FormArray;
 
 
   constructor(private fireBase: FirebaseService,
               private taskData: TaskDataService,
-              private dateFormatter: DateFormatterService) {
+              private dateFormatter: DateFormatterService,) {
     this.addTaskForm = this.fb.group({
       title:       ['', Validators.required],
       due_date:    ['', [Validators.required, this.dateValidator],],
@@ -165,8 +169,9 @@ export class AddTaskComponent implements OnInit {
   onSubmit() {
     if (this.addTaskForm.valid) {
       this.formatDate();
-      this.taskData.addTask(this.addTaskForm.value, 'todo');
+      this.taskData.addTask(this.addTaskForm.value);
       this.clearForm();
+      this.dialog.closeAll();
     } else {
       console.log('Formular ungültig');
     }
