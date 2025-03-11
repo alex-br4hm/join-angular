@@ -17,7 +17,7 @@ class DeleteConfirmDialog {
   styleUrl: './delete-dialog.component.scss'
 })
 export class DeleteDialogComponent {
-  constructor(public dialogRef: MatDialogRef<DeleteConfirmDialog>) {}
+  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>) {}
 
   onConfirm(): void {
     this.dialogRef.close(true);
