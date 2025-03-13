@@ -5,7 +5,7 @@ import {MatFormField} from '@angular/material/form-field';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {FirebaseService} from '../../core/services/firebase.service';
-import { Task } from '../../core/models/tasks';
+import {Task, TaskCategories} from '../../core/models/tasks';
 import {TaskCardComponent} from './task-card/task-card.component';
 import {
   CdkDrag,
@@ -53,10 +53,7 @@ export class BoardComponent implements OnInit {
   awaitFeedbackList: Task[] = [];
   doneList: Task[]          = [];
 
-  taskCategories: {
-    name: string;
-    state: string;
-    list: Task[]}[] = []
+  taskCategories: TaskCategories[] = []
 
   searchFormControl: FormControl<string> = new FormControl();
   searchInput: string = "";
