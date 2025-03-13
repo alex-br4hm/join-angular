@@ -1,3 +1,8 @@
-<app-add-task></app-add-task>
-<div>{{ data }}</div>
+<div class="dialog-content">
+    <h2>Add Task
+      <span>[{{ data | addTaskState }}]</span>
+    </h2>
+    <app-add-task></app-add-task>
+</div>
+
 <mat-icon (click)="onConfirm()">close</mat-icon>
