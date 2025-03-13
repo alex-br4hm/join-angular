@@ -4,11 +4,11 @@
 </div>
 
 <div class="header-end-wrapper">
-  <div class="dark-light-wrapper" (click)="switchMode()">
-      <mat-icon [ngClass]="{ 'moon': mode === 'dark' }">dark_mode</mat-icon>
-        <div class="toggle-btn" [ngClass]="{ 'light-mode': mode === 'light' }"></div>
-      <mat-icon [ngClass]="{ 'sun': mode === 'light' }">light_mode</mat-icon>
-  </div>
+<!--  <div class="dark-light-wrapper" (click)="switchMode()">-->
+<!--      <mat-icon [ngClass]="{ 'moon': mode === 'dark' }">dark_mode</mat-icon>-->
+<!--        <div class="toggle-btn" [ngClass]="{ 'light-mode': mode === 'light' }"></div>-->
+<!--      <mat-icon [ngClass]="{ 'sun': mode === 'light' }">light_mode</mat-icon>-->
+<!--  </div>-->
 
   @if (this.route != '/help') {
     <mat-icon [matTooltip]="'help'" routerLink="help">help_outlined</mat-icon>

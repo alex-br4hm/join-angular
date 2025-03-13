@@ -9,6 +9,8 @@ export class ActiveRouteService {
   currentRoute = signal<string>('');
 
   constructor(private router: Router) {
+    this.currentRoute.set(this.router.url.replace(/^\/+/, ''));
+
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
