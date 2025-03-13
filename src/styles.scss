@@ -60,7 +60,7 @@ body {
   --font-color-primary: rgba(240, 240, 240, 0.85);
   --font-color-secondary: rgba(240, 240, 240, 0.85);
   --spacer-color: rgba(255, 255, 255, 0.1);
-  --active-color: #444;
+  --active-color: rgba(41, 171, 226, 0.2);
   --mat-sys-surface-container: var(--secondary-color);
   --mat-sys-on-surface: var(--font-color-primary);
   --mat-sys-primary: #F0F0F0;
@@ -134,11 +134,10 @@ h1 {
 
 
 .mat-mdc-menu-panel {
-  margin-top:28px !important;
+  margin-top:17px !important;
   border-radius: 16px !important;
   border-top-right-radius: 0 !important;
-  box-shadow: none !important;
-  transform: translateY(-2px);
+  box-shadow: 0 0 5px var(--primary-color) !important;
 }
 
 mdc-button__label {
@@ -147,6 +146,10 @@ mdc-button__label {
 }
 
 // general
+
+a {
+  color: var(--accent-color);
+}
 
 .initials {
   display: flex;
@@ -175,8 +178,6 @@ mdc-button__label {
 .mdc-checkbox__checkmark {
   --mat-sys-on-primary: var(--font-color-primary);
 }
-
-
 
 // Add-task Formular
 
@@ -218,6 +219,7 @@ app-add-task {
   }
 }
 
+
 .mat-mdc-unelevated-button[disabled], .mat-mdc-unelevated-button.mat-mdc-button-disabled {
   opacity: .5;
 }
@@ -235,7 +237,7 @@ app-add-task {
 }
 
 .full-screen-dialog {
-  width: 90vw !important;
+  width: 70% !important;
   height: fit-content !important;
   max-width: unset !important;
   max-height: unset!important;

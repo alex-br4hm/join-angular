@@ -4,17 +4,17 @@
   <div class="nav-links-wrapper">
     @for (link of navLinks; track $index) {
       <div class="link" [routerLink]="link.link" [ngClass]="{ 'active-route': link.link === currentRoute }">
-        <span class="link-inside">
-          <img src="{{ link.icon }}" alt=" {{ link.name }} icon">
-          <span>{{ link.name }}</span>
-        </span>
+          <span class="nav-link-icon-wrapper">
+             <img src="{{ link.icon }}" alt=" {{ link.name }} icon">
+          </span>
+          <span class="nav-link-name">{{ link.name }}</span>
       </div>
     }
   </div>
 
   <div class="legal-help-links-wrapper">
-      <span [routerLink]="'privacy'" [ngClass]="{ 'active-route': 'privacy' === currentRoute }">Privacy Policy</span>
-      <span [routerLink]="'legal'" [ngClass]="{ 'active-route': 'legal' === currentRoute }">Legal notice</span>
+      <span [routerLink]="'privacy'" [ngClass]="{ 'active-route-privacy-legal': 'privacy' === currentRoute }">Privacy Policy</span>
+      <span [routerLink]="'legal'" [ngClass]="{ 'active-route-privacy-legal': 'legal' === currentRoute }">Legal notice</span>
   </div>
 </div>
 

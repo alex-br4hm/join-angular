@@ -2,12 +2,14 @@ import {Component, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
 import {MatIcon} from '@angular/material/icon';
+import {AddTaskStatePipe} from '../../../shared/utils/add-task-state.pipe';
 
 @Component({
   selector: 'app-add-task-dialog',
   imports: [
     AddTaskComponent,
-    MatIcon
+    MatIcon,
+    AddTaskStatePipe
   ],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss'
