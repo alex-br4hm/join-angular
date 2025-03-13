@@ -31,7 +31,6 @@ import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-over
 import {MatChip} from '@angular/material/chips';
 import {TaskDataService} from '../../../core/services/task-data.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {AddTaskDialogComponent} from '../../board/add-task-dialog/add-task-dialog.component';
 
 @Component({
   selector: 'app-add-task',
@@ -67,8 +66,8 @@ import {AddTaskDialogComponent} from '../../board/add-task-dialog/add-task-dialo
   ],
 })
 export class AddTaskComponent implements OnInit {
-  dialog: MatDialog          = inject(MatDialog);
   @Input() taskState: string = 'todo';
+  dialog: MatDialog          = inject(MatDialog);
   destroyRef: DestroyRef     = inject(DestroyRef);
   private fb: FormBuilder    = inject(FormBuilder);
   assignableUser: Contact[]  = [];
