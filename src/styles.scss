@@ -179,8 +179,6 @@ a {
   --mat-sys-on-primary: var(--font-color-primary);
 }
 
-
-
 // Add-task Formular
 
 .mat-mdc-option:focus.mdc-list-item, .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
@@ -221,6 +219,7 @@ app-add-task {
   }
 }
 
+
 .mat-mdc-unelevated-button[disabled], .mat-mdc-unelevated-button.mat-mdc-button-disabled {
   opacity: .5;
 }
@@ -238,7 +237,7 @@ app-add-task {
 }
 
 .full-screen-dialog {
-  width: 90vw !important;
+  width: 70% !important;
   height: fit-content !important;
   max-width: unset !important;
   max-height: unset!important;
