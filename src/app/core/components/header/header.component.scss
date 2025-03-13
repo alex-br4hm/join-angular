@@ -49,6 +49,7 @@
 
   span {
     color: var(--font-color-secondary);
+    user-select: none;
   }
 
   &:hover {
