@@ -6,30 +6,35 @@ import {Task} from '../models/tasks';
   providedIn: 'root'
 })
 export class TaskDataService {
-  private db = inject(Database);
-  taskState: string = 'todo';
+  private db         = inject(Database);
+  taskState: string             = 'todo';
+  tasksRef   = ref(this.db, 'tasks');
+  newTaskRef = push(this.tasksRef);
 
 
   constructor() { }
 
   addTask(task: Task) {
     console.log(task);
-    const tasksRef    = ref(this.db, 'tasks');
-    const newTaskRef  = push(tasksRef);
+    task.state = this.taskState;
+    task.due_date_unix = this.getUnixTimeStamp(task.due_date);
 
-    if (newTaskRef.key != null) {
-      task.id = newTaskRef.key;
+    if (this.newTaskRef.key != null) {
+      task.id = this.newTaskRef.key;
     }
 
-    task.state = this.taskState;
-    console.log(this.taskState);
-
-    set(newTaskRef, task)
+    set(this.newTaskRef, task)
       .then(() => {
         console.log('Task added successfully');
       })
       .catch((error) => {
         console.error('Error adding contact: ', error);
       });
+  }
+
+  getUnixTimeStamp(dateStr: string) {
+    const [day, month, year] = dateStr.split('/').map(Number);
+    const date               = new Date(year, month - 1, day);
+    return Math.floor(date.getTime() / 1000);
   }
 }

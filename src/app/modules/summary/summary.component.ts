@@ -99,6 +99,7 @@ export class SummaryComponent implements OnInit {
    */
   setUpcomingDeadline() {
     const taskListValues: Task[]    = Object.values(this.taskList);
+    console.log(taskListValues);
     const lowestTimestamp: number   = Math.min(...taskListValues.map(task => task.due_date_unix));
 
     const date        = new Date(lowestTimestamp * 1000);

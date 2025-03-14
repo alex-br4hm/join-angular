@@ -77,18 +77,18 @@ export class AddTaskComponent implements OnInit {
   addTaskForm: FormGroup;
   subtaskList: FormArray;
 
-
   constructor(private fireBase: FirebaseService,
               private taskData: TaskDataService,
               private dateFormatter: DateFormatterService,) {
     this.addTaskForm = this.fb.group({
-      title:       ['', Validators.required],
-      due_date:    ['', [Validators.required, this.dateValidator],],
-      category:    ['', Validators.required],
-      description: '',
-      assigned_to: '',
-      priority:    ['', Validators.required],
-      subtasks:    this.fb.array([]),
+      title:         ['', Validators.required],
+      due_date:      ['', [Validators.required, this.dateValidator],],
+      due_date_unix: '',
+      category:      ['', Validators.required],
+      description:   '',
+      assigned_to:   '',
+      priority:      ['', Validators.required],
+      subtasks:      this.fb.array([]),
     });
 
     this.subtaskList = this.addTaskForm.get('subtasks') as FormArray;
