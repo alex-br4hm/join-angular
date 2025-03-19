@@ -1,0 +1,95 @@
+<div class="detail-view-content">
+  @if (!editTask) {
+  <div class="head-wrapper">
+    @if (task.category === "user_story") {
+      <div class="category-chip user-story">User Story</div>
+    } @else if (task.category === "technical_task") {
+      <div class="category-chip technical-task">Technical Task</div>
+    }
+
+    <mat-icon (click)="closeDetailView()">close</mat-icon>
+  </div>
+
+
+  <h2>{{ task.title }}</h2>
+
+  <div>
+    <span class="info-title">Description:</span>
+    <p class="task-description ">
+      @if (!task.description) {
+        <span class="opacity-05">No description</span>
+      } @else {
+        {{task.description}}
+      }
+    </p>
+  </div>
+
+  <div class="due-date-prio-wrapper">
+    <div class="detail-view-row">
+      <span class="info-title">Due Date:</span>
+      <span>{{ task.due_date }}</span>
+    </div>
+
+    <div class="detail-view-row">
+      <span class="info-title">Priority:</span>
+      <div class="priority">
+        <mat-icon class="{{ task.priority }}">
+          {{ task.priority | prioIcon }}
+        </mat-icon>
+      </div>
+    </div>
+  </div>
+
+
+  <span>Subtasks: [{{task.subtasks?.length ? task.subtasks?.length : 0}}]</span>
+  <div class="subtask-list">
+    @for (subtask of task.subtasks; track $index) {
+      <mat-checkbox
+        class="subtask-wrapper"
+        (click)="checkSubtask($index)"
+        [checked]="subtask.isDone">
+        {{subtask.title}}
+      </mat-checkbox>
+    }
+
+    @if (!task.subtasks) {
+      <div class="opacity-05">No subtasks</div>
+    }
+  </div>
+
+  @if (task.assigned_user) {
+    <span>Assigned To: [{{task.assigned_user.length ? task.assigned_user.length : 0}}]</span>
+  }
+
+    <div class="assigned-user-list">
+      @for (user of task.assigned_user; track $index) {
+        <div class="assigned-user-wrapper">
+            <div class="initials" [ngStyle]="{ 'background-color': user.color }">
+              {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
+            </div>
+            <span> {{ (user.firstname) + ' ' + (user.lastname) }} </span>
+        </div>
+      }
+
+      @if (!task.assigned_user) {
+        <div class="opacity-05">No assigned user</div>
+      }
+    </div>
+
+  <div class="button-wrapper">
+    <button mat-flat-button (click)="openEditTask()">
+      <mat-icon matSuffix>edit</mat-icon>
+      Edit
+    </button>
+    <button mat-flat-button (click)="deleteTask(task.id)">
+      <mat-icon matSuffix>delete</mat-icon>
+      Delete
+    </button>
+  </div>
+
+  } @else {
+    <h2>Edit Task</h2><span>Task-ID: {{task.id}}</span>
+    <app-add-task [task]="task"></app-add-task>
+  }
+</div>
+
