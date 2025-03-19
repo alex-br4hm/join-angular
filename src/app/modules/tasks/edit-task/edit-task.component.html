@@ -1,1 +1,19 @@
-<p>edit-task works!</p>
+<form [formGroup]="editTaskForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" placeholder="Enter a title" />
+    <mat-error></mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <input matInput
+           [min]="today"
+           [matDatepicker]="picker"
+           formControlName="due_date"
+           placeholder="DD.MM.YYYY">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-label>DD.MM.YYYY</mat-label>
+    <mat-error>Due date has to be today or in future.</mat-error>
+  </mat-form-field>
+</form>
