@@ -3,9 +3,7 @@ import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-privacy-policy',
-  imports: [
-    MatIcon
-  ],
+  imports: [],
   templateUrl: './privacy-policy.component.html',
   styleUrl: './privacy-policy.component.scss'
 })
