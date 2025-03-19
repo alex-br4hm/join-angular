@@ -25,8 +25,7 @@ import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
     EmailPipe,
     NgIf,
     PopupContactFormComponent,
-    FirstLetterPipe,
-    DeleteDialogComponent
+    FirstLetterPipe
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',

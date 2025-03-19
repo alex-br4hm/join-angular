@@ -7,7 +7,7 @@
         <span>
           <input matInput type="text"
                  [formControl]="searchFormControl"
-                 placeholder="find task">
+                 placeholder="Search">
           <button mat-icon-button>
             @if (!searchInput.length) {
               <mat-icon>search</mat-icon>
@@ -51,7 +51,7 @@
 
       <div class="col-content">
         @for (task of category.list; track $index) {
-          <app-task-card [task]="task" cdkDrag>
+          <app-task-card [task]="task" cdkDrag (click)="openDetailView(task)">
             {{ task }}>
           </app-task-card>
         }

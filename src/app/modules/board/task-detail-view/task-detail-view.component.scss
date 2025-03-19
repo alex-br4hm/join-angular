@@ -1,0 +1,144 @@
+.detail-view-content {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap:24px;
+}
+
+.head-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  mat-icon {
+    cursor: pointer;
+  }
+}
+
+h2 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.category-chip {
+  width: fit-content;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: whitesmoke;
+}
+
+.user-story {
+  background-color: #0038FF;
+}
+
+.technical-task {
+  background-color: #0d9180;
+}
+
+.task-description {
+  word-break: break-word;
+  white-space: wrap;
+  max-height: 15vh;
+  overflow: auto;
+  margin-bottom: 0;
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  padding: 12px 8px 16px 8px;
+}
+
+.due-date-prio-wrapper {
+  display: flex;
+  border-bottom: 1px solid var(--spacer-color);
+  padding-bottom: 16px;
+}
+
+.detail-view-row {
+  display: flex;
+  align-items: center;
+  gap:16px;
+  flex:1;
+}
+
+.info-title {
+  white-space: nowrap;
+}
+
+.priority {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+
+  .high, .urgent {
+    rotate: -90deg;
+    color: #FF3D00;
+  }
+
+  .medium {
+    rotate: 90deg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #FFA800;
+    padding-bottom: 10px;
+  }
+
+  .low {
+    rotate: 90deg;
+    color: #7AE229;
+  }
+}
+
+
+.assigned-user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 12px;
+  max-height: 10vh;
+  overflow-y: auto;
+}
+
+.assigned-user-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtask-list {
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+  max-height: 25vh;
+  padding-right: 12px;
+  overflow: auto;
+}
+
+.subtask-wrapper {
+  background-color: var(--secondary-color);
+  border-radius: 12px;
+  cursor: pointer;
+  word-break: break-word;
+
+  &:hover {
+    filter: brightness(.9);
+  }
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+  margin-top: 32px;
+
+  button {
+    flex:1;
+    max-width: 120px;
+  }
+}
+
+.opacity-05 {
+  opacity: 0.5;
+}

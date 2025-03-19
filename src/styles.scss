@@ -65,6 +65,7 @@ body {
   --mat-sys-on-surface: var(--font-color-primary);
   --mat-sys-primary: #F0F0F0;
   --board-col-bg-color: #333;
+  --mdc-filled-button-container-color: var(--secondary-color);
 
   @include mat.dialog-overrides((
     container-color: var(--primary-color),
@@ -151,6 +152,7 @@ a {
   color: var(--accent-color);
 }
 
+
 .initials {
   display: flex;
   align-items: center;
@@ -209,6 +211,32 @@ a {
   background-color: #7AE229 !important;
 }
 
+.priority {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .high, .urgent {
+    rotate: -90deg;
+    color: #FF3D00;
+  }
+
+  .medium {
+    rotate: 90deg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #FFA800;
+    padding-bottom: 10px;
+  }
+
+  .low {
+    rotate: 90deg;
+    color: #7AE229;
+  }
+}
+
 app-add-task {
   .mat-mdc-form-field-infix {
     display: flex;
@@ -218,7 +246,6 @@ app-add-task {
     padding: 0 12px 0 8px !important;
   }
 }
-
 
 .mat-mdc-unelevated-button[disabled], .mat-mdc-unelevated-button.mat-mdc-button-disabled {
   opacity: .5;
@@ -238,9 +265,12 @@ app-add-task {
 
 .full-screen-dialog {
   width: 70% !important;
-  height: fit-content !important;
   max-width: unset !important;
-  max-height: unset!important;
+  max-height: 90vh !important;
+
+  .mat-mdc-dialog-surface {
+    border: 2px solid #333;
+  }
 
   h1 {
     display: none;
@@ -260,5 +290,7 @@ app-add-task {
   border: 1px solid var(--warn);
   font-weight: bold;
 }
+
+
 
 

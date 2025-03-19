@@ -1,7 +1,5 @@
 <h1>Add Task</h1>
 
-
-
 <form [formGroup]="addTaskForm">
   <div class="form-left-side">
 
@@ -30,48 +28,53 @@
     <!##############>
     <!-- Assigned -->
     <!##############>
-    <h3 class="input-headline">Assigned to [{{assignedUser.length}}]</h3>
-    <mat-form-field appearance="outline">
-      <mat-select formControlName="assigned_to"
-                  placeholder="Select contacts to assign"
-                  multiple>
-        <mat-select-trigger>
-          @for (user of assignedUser; track $index) {
-            @if ($index === assignedUser.length - 1) {
-              <span>{{ user.firstname + ' ' + user.lastname }}</span>
-            } @else {
-              <span>{{ user.firstname + ' ' + user.lastname }}, </span>
-            }
-          }
-        </mat-select-trigger>
+    <h3 class="input-headline">Assigned to [{{assignedUserList.value.length}}]</h3>
+    @if (assignableUser.length > 0) {
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="assigned_user"
+                    placeholder="contacts to assign"
+                    multiple>
+<!--          <mat-select-trigger>-->
+<!--            @for (user of this.assignedUserList.value; track $index) {-->
+<!--              @if ($index === this.assignedUserList.value.length - 1) {-->
+<!--                <span>{{ user.firstname + ' ' + user.lastname }}</span>-->
+<!--              } @else {-->
+<!--                <span>{{ user.firstname + ' ' + user.lastname }}, </span>-->
+<!--              }-->
+<!--            }-->
+<!--          </mat-select-trigger>-->
 
-        @for (user of assignableUser; track $index) {
-          <mat-option [value]="user.id">
-                        <span>
-                            <div class="initials" [ngStyle]="{ 'background-color': user.color }">
-                                {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
-                            </div>
-                          {{ user.firstname }} {{ user.lastname }}
-                        </span>
-          </mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+
+          @for (user of assignableUser; track $index) {
+            <mat-option [value]="user" (click)="addAssignedUser(user)">
+              <span>
+                <div class="initials"
+                     [ngStyle]="{ 'background-color': user.color }">
+                  {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
+                </div>
+                {{ user.firstname }} {{ user.lastname }}
+              </span>
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
 
     <div class="assigned-user-display-list">
-      @for (user of assignedUser | sliceAssignedUser; track $index) {
+      @for (user of assignedUserList.value; track $index) {
         <div class="initials"
-             (click)="removeUserFromAssignedList(user.id)"
-             [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
+             (click)="testClick(user.id)"
+             [matTooltip]="'remove'"
              [ngStyle]="{ 'background-color': user.color }">
           {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
         </div>
       }
-      @if (assignedUser.length > 5) {
-        <span [matTooltip]="assignedUser | assignedUserOverflow"
+      @if (assignedUserList.value.length > 5) {
+        <span [matTooltip]="assignedUserList.value | assignedUserOverflow"
               class="assigned-user-overflow"
               [matTooltipPosition]="'after'">
-          +{{ assignedUser.length - 5 }} more
+          +{{ assignedUserList.value.length - 5 }} more
         </span>
       }
     </div>
@@ -100,7 +103,7 @@
     <h3 class="input-headline">Prio<span>*</span></h3>
     <mat-button-toggle-group formControlName="priority">
         <span>
-            <mat-button-toggle value="urgent">Urgent</mat-button-toggle>
+            <mat-button-toggle value="high">Urgent</mat-button-toggle>
             <mat-button-toggle value="medium">Medium</mat-button-toggle>
             <mat-button-toggle value="low">Low</mat-button-toggle>
         </span>
@@ -121,8 +124,11 @@
     <!-- Subtasks -->
     <!##############>
     <h3 class="input-headline">Subtasks [{{ subtaskList.length }}]</h3>
-    <mat-form-field appearance="outline" formArrayName="subtasks">
-      <input matInput [formControl]="subtaskInput" placeholder="Enter a subtask title">
+    <mat-form-field appearance="outline"
+                    formArrayName="subtasks">
+      <input matInput
+             [formControl]="subtaskInput"
+             placeholder="Enter a subtask title">
         @if (subtaskInput.value.length > 0) {
           <mat-icon matSuffix
                     [matTooltip]="'add subtask'"
@@ -136,7 +142,7 @@
       @for (subtask of subtaskList.value; track $index) {
         <div class="subtask-ele">
             &#8226;
-            {{ subtask.name }}
+            {{ subtask.title }}
             <div class="subtask-icon-wrapper">
               <mat-icon (click)="deleteSubtask($index)">delete</mat-icon>
             </div>
@@ -150,16 +156,31 @@
   <div class="required-hint"><span>*</span>This field is required</div>
 
   <div class="button-wrapper">
-      <button mat-flat-button
-              (click)="clearForm()">
-        <span>Clear</span>
-      </button>
+      @if (task) {
+        <button mat-flat-button
+                (click)="cancelEditView()">
+          <span>Cancel</span>
+        </button>
 
-      <button mat-flat-button
-              class="create-btn"
-              [disabled]="!addTaskForm.valid"
-              (click)="onSubmit()">
-        <span>Create Task</span>
-      </button>
+        <button mat-flat-button
+                class="create-btn"
+                [disabled]="!addTaskForm.valid && addTaskForm.value == task"
+                (click)="saveEditedTask()">
+          <span>Save Task</span>
+        </button>
+      } @else {
+        <button mat-flat-button
+                (click)="clearForm()">
+          <span>Clear</span>
+        </button>
+
+        <button mat-flat-button
+                class="create-btn"
+                [disabled]="!addTaskForm.valid"
+                (click)="onSubmit()">
+          <span>Create Task</span>
+        </button>
+      }
+
   </div>
 </div>

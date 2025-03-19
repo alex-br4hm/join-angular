@@ -1,4 +1,4 @@
-import {Component, DestroyRef, Inject, inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, DestroyRef, Inject, inject, Input, OnInit} from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -31,6 +31,7 @@ import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-over
 import {MatChip} from '@angular/material/chips';
 import {TaskDataService} from '../../../core/services/task-data.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {AssignedUser, Task} from '../../../core/models/tasks';
 
 @Component({
   selector: 'app-add-task',
@@ -56,7 +57,6 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
     MatIcon,
     SliceAssignedUserPipe,
     AssignedUserOverflowPipe,
-    MatChip,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
@@ -67,36 +67,110 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 })
 export class AddTaskComponent implements OnInit {
   @Input() taskState: string = 'todo';
+  @Input() task?: Task;
   dialog: MatDialog          = inject(MatDialog);
   destroyRef: DestroyRef     = inject(DestroyRef);
   private fb: FormBuilder    = inject(FormBuilder);
   assignableUser: Contact[]  = [];
-  assignedUser: Contact[]    = [];
+  assignedUser: AssignedUser[] = []
   subtaskInput: FormControl  = new FormControl('');
   today: Date                = new Date();
   addTaskForm: FormGroup;
   subtaskList: FormArray;
-
+  assignedUserList: FormArray;
 
   constructor(private fireBase: FirebaseService,
               private taskData: TaskDataService,
               private dateFormatter: DateFormatterService,) {
     this.addTaskForm = this.fb.group({
-      title:       ['', Validators.required],
-      due_date:    ['', [Validators.required, this.dateValidator],],
-      category:    ['', Validators.required],
-      description: '',
-      assigned_to: '',
-      priority:    ['', Validators.required],
-      subtasks:    this.fb.array([]),
+      title:         ['', Validators.required],
+      due_date:      ['', [Validators.required, this.dateValidator],],
+      due_date_unix: '',
+      category:      ['', Validators.required],
+      description:   '',
+      assigned_user: '',
+      priority:      ['', Validators.required],
+      subtasks:      this.fb.array([]),
     });
 
-    this.subtaskList = this.addTaskForm.get('subtasks') as FormArray;
+    this.subtaskList      = this.addTaskForm.get('subtasks') as FormArray;
+    this.assignedUserList = this.addTaskForm.get('assigned_user') as FormArray;
   }
 
   ngOnInit() {
     this.getContacts();
-    this.patchStandardValues();
+    console.log(this.task);
+    if (this.task) {
+      this.patchValues();
+      console.log('here?')
+    } else {
+      this.patchStandardValues();
+    }
+  }
+
+  patchValues() {
+    this.addTaskForm.controls['title'].patchValue(this.task?.title);
+    this.addTaskForm.controls['description'].patchValue(this.task?.description);
+    this.addTaskForm.controls['category'].patchValue(this.task?.category);
+    this.addTaskForm.controls['priority'].patchValue(this.task?.priority);
+    if (this.task?.assigned_user) {
+      this.task.assigned_user.forEach((assignedUser: AssignedUser) => {
+        this.assignedUserList.push(this.fb.group({
+          color:     assignedUser.color,
+          firstname: assignedUser.firstname,
+          lastname:  assignedUser.lastname,
+          id:        assignedUser.id,
+          email:     assignedUser.email,
+          phone:     assignedUser.phone
+        }));
+      })
+
+
+      console.log( this.assignedUserList.value);
+      console.log(this.addTaskForm.get('assigned_user')?.value)
+    }
+
+    if(this.task?.subtasks) {
+      this.task.subtasks.forEach(subtask => {
+        this.subtaskList.push(this.fb.group({
+          title: subtask.title,
+          done: subtask.isDone
+        }))
+      })
+    }
+  }
+
+
+  saveEditedTask() {
+    this.taskData.patchTask(this.addTaskForm.value);
+  }
+
+  cancelEditView() {
+    this.dialog.closeAll();
+  }
+
+  addAssignedUser(assignedUser: Contact) {
+    this.assignedUserList.push(this.fb.group({
+      color:     assignedUser.color,
+      firstname: assignedUser.firstname,
+      lastname:  assignedUser.lastname,
+      id:        assignedUser.id,
+      email:     assignedUser.email,
+      phone:     assignedUser.phone
+    }))
+  }
+
+  test(user: any) {
+    this.assignedUserList.value.forEach((assignedUser: AssignedUser) => {
+      console.log(assignedUser);
+    })
+  }
+
+  testClick(userID: any) {
+    console.log(userID);
+    this.assignedUserList.setValue(
+      this.assignedUserList.value.filter((userId: string) => userId !== userID)
+    )
   }
 
   clearForm() {
@@ -104,6 +178,7 @@ export class AddTaskComponent implements OnInit {
     this.patchStandardValues();
     this.subtaskList.clear();
     this.assignedUser = [];
+    this.assignedUserList.clear();
   }
 
   patchStandardValues() {
@@ -114,7 +189,7 @@ export class AddTaskComponent implements OnInit {
 
   addSubtask() {
     this.subtaskList.push(this.fb.group({
-      name: this.subtaskInput.value,
+      title: this.subtaskInput.value,
       done: false
     }));
 
@@ -140,11 +215,10 @@ export class AddTaskComponent implements OnInit {
   }
 
   getAssignedUser() {
-    this.addTaskForm.get('assigned_to')?.valueChanges.subscribe((assignedValue) => {
+    this.addTaskForm.get('assigned_user')?.valueChanges.subscribe((assignedValue) => {
+      console.log(assignedValue);
       if (!assignedValue) return;
-      this.assignedUser = assignedValue.map((id: string)  => {
-        return this.assignableUser.find(user => user.id === id);
-      })
+
     });
   }
 
@@ -157,17 +231,23 @@ export class AddTaskComponent implements OnInit {
       phone:     user.phone,
       email:     user.email,
     }));
+
+    console.log('ASSIGNABLE:', this.assignableUser);
   }
 
   removeUserFromAssignedList(id: string) {
-    this.addTaskForm.get('assigned_to')?.setValue(
-      this.addTaskForm.get('assigned_to')?.value.filter((userId: string) => userId !== id)
+    console.log(id);
+    this.addTaskForm.get('assigned_user')?.setValue(
+      this.addTaskForm.get('assigned_user')?.value.filter((userId: string) => userId !== id)
     );
   }
+
+
 
   onSubmit() {
     if (this.addTaskForm.valid) {
       this.formatDate();
+      this.addTaskForm.get('assigned_user')?.setValue(this.assignedUserList.value);
       this.taskData.addTask(this.addTaskForm.value);
       this.clearForm();
       this.dialog.closeAll();

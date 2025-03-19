@@ -22,6 +22,7 @@ import {AddTaskComponent} from '../tasks/add-task/add-task.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AddTaskDialogComponent} from './add-task-dialog/add-task-dialog.component';
 import {TaskDataService} from '../../core/services/task-data.service';
+import {TaskDetailViewComponent} from './task-detail-view/task-detail-view.component';
 
 @Component({
   selector: 'app-board',
@@ -165,9 +166,16 @@ export class BoardComponent implements OnInit {
   openAddTask(state: string) {
     this.taskData.taskState = state;
 
-    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
+    this.dialog.open(AddTaskDialogComponent, {
       panelClass: 'full-screen-dialog',
       data: state
+    });
+  }
+
+  openDetailView(task: Task) {
+    this.dialog.open(TaskDetailViewComponent, {
+      panelClass: 'full-screen-dialog',
+      data: task
     });
   }
 }

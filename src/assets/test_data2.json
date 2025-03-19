@@ -3,7 +3,7 @@
     "0": {
       "color": "#FF8C00",
       "email": "marty@hillvalley.com",
-      "id": 0,
+      "id": "0",
       "firstname": "Marty",
       "lastname": "McFly",
       "phone": "1234567890"
@@ -11,7 +11,7 @@
     "1": {
       "color": "#FF4500",
       "email": "doc@hillvalley.com",
-      "id": 1,
+      "id": "1",
       "firstname": "Doc",
       "lastname": "Brown",
       "phone": "1234567891"
@@ -19,7 +19,7 @@
     "2": {
       "color": "#FF1493",
       "email": "jennifer@hillvalley.com",
-      "id": 2,
+      "id": "2",
       "firstname": "Jennifer",
       "lastname": "Parker",
       "phone": "1234567892"
@@ -27,7 +27,7 @@
     "4": {
       "color": "#2E8B57",
       "email": "george@hillvalley.com",
-      "id": 4,
+      "id": "4",
       "firstname": "George",
       "lastname": "McFly",
       "phone": "1234567894"
@@ -35,7 +35,7 @@
     "5": {
       "color": "#9400D3",
       "email": "lorraine@hillvalley.com",
-      "id": 5,
+      "id": "5",
       "firstname": "Lorraine",
       "lastname": "Baines",
       "phone": "1234567895"
@@ -43,7 +43,7 @@
     "6": {
       "color": "#483D8B",
       "email": "strickland@hillvalley.com",
-      "id": 6,
+      "id": "6",
       "firstname": "",
       "lastname": "Strickland",
       "phone": "1234567896"
@@ -51,7 +51,7 @@
     "7": {
       "color": "#FFD700",
       "email": "einstein@hillvalley.com",
-      "id": 7,
+      "id": "7",
       "firstname": "",
       "lastname": "Einstein",
       "phone": "1234567897"
@@ -59,7 +59,7 @@
     "8": {
       "color": "#FF69B4",
       "email": "clara@hillvalley.com",
-      "id": 8,
+      "id": "8",
       "firstname": "Clara",
       "lastname": "Clayton",
       "phone": "1234567898"
@@ -67,7 +67,7 @@
     "9": {
       "color": "#8B0000",
       "email": "griff@hillvalley.com",
-      "id": 9,
+      "id": "9",
       "firstname": "Griff",
       "lastname": "Tannen",
       "phone": "1234567899"
@@ -75,7 +75,7 @@
     "10": {
       "color": "#FFD700",
       "email": "goldie@hillvalley.com",
-      "id": 10,
+      "id": "10",
       "firstname": "Goldie",
       "lastname": "Wilson",
       "phone": "1234567800"
@@ -83,7 +83,7 @@
     "11": {
       "color": "#8B4513",
       "email": "needles@hillvalley.com",
-      "id": 11,
+      "id": "11",
       "firstname": "",
       "lastname": "Needles",
       "phone": "1234567801"
@@ -92,8 +92,16 @@
   "tasks": {
     "31": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "Doc",
+          "lastname": "Brown",
+          "color": "#FF4500"
+        }
       ],
       "category": "technical_task",
       "description": "Ensure the DeLorean reaches 88mph to activate time travel.",
@@ -104,14 +112,28 @@
       "priority": "high",
       "state": "done",
       "subtasks": [
-        { "isDone": false, "title": "Check fuel levels" },
-        { "isDone": false, "title": "Adjust time circuits" }
+        {
+          "isDone": false,
+          "title": "Check fuel levels"
+        },
+        {
+          "isDone": false,
+          "title": "Adjust time circuits"
+        }
       ]
     },
     "32": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "McFly", "lastname": "George", "color": "#2E8B57" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "George",
+          "lastname": "McFly",
+          "color": "#2E8B57"
+        }
       ],
       "category": "user_story",
       "description": "Ensure Biff does not alter the timeline in 1955.",
@@ -124,8 +146,16 @@
     },
     "33": {
       "assigned_user": [
-        { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" },
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" }
+        {
+          "firstname": "Doc",
+          "lastname": "Brown",
+          "color": "#FF4500"
+        },
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        }
       ],
       "category": "technical_task",
       "description": "Repair the DeLorean after it gets damaged.",
@@ -136,16 +166,38 @@
       "priority": "medium",
       "state": "inprogress",
       "subtasks": [
-        { "isDone": true, "title": "Replace the flux capacitor" },
-        { "isDone": false, "title": "Recharge the time circuits" }
+        {
+          "isDone": true,
+          "title": "Replace the flux capacitor"
+        },
+        {
+          "isDone": false,
+          "title": "Recharge the time circuits"
+        }
       ]
     },
     "34": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "Baines", "lastname": "Lorraine", "color": "#9400D3" },
-        { "firstname": "McFly", "lastname": "George", "color": "#2E8B57" },
-        { "firstname": "Clayton", "lastname": "Clara", "color": "#FF69B4" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "Lorraine",
+          "lastname": "Baines",
+          "color": "#9400D3"
+        },
+        {
+          "firstname": "George",
+          "lastname": "McFly",
+          "color": "#2E8B57"
+        },
+        {
+          "firstname": "Clara",
+          "lastname": "Clayton",
+          "color": "#FF69B4"
+        }
       ],
       "category": "user_story",
       "description": "Ensure Marty and his parents attend the dance to secure the future.",
@@ -156,14 +208,28 @@
       "priority": "low",
       "state": "todo",
       "subtasks": [
-        { "isDone": false, "title": "Find a suit for Marty" },
-        { "isDone": true, "title": "Prepare the DeLorean for the escape" }
+        {
+          "isDone": false,
+          "title": "Find a suit for Marty"
+        },
+        {
+          "isDone": true,
+          "title": "Prepare the DeLorean for the escape"
+        }
       ]
     },
     "35": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "Doc",
+          "lastname": "Brown",
+          "color": "#FF4500"
+        }
       ],
       "category": "user_story",
       "description": "Retrieve Jennifer from 2015 and return her to the correct timeline.",
@@ -174,13 +240,23 @@
       "priority": "medium",
       "state": "done",
       "subtasks": [
-        { "isDone": true, "title": "Locate Jennifer in Hill Valley" },
-        { "isDone": true, "title": "Avoid future Biff" }
+        {
+          "isDone": true,
+          "title": "Locate Jennifer in Hill Valley"
+        },
+        {
+          "isDone": true,
+          "title": "Avoid future Biff"
+        }
       ]
     },
     "36": {
       "assigned_user": [
-        { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
+        {
+          "firstname": "Doc",
+          "lastname": "Brown",
+          "color": "#FF4500"
+        }
       ],
       "category": "user_story",
       "description": "Ensure the clock tower lightning strike occurs as planned.",
@@ -191,14 +267,28 @@
       "priority": "high",
       "state": "awaitfeedback",
       "subtasks": [
-        { "isDone": true, "title": "Prepare the cable connection" },
-        { "isDone": false, "title": "Synchronize the DeLorean's speed" }
+        {
+          "isDone": true,
+          "title": "Prepare the cable connection"
+        },
+        {
+          "isDone": false,
+          "title": "Synchronize the DeLorean's speed"
+        }
       ]
     },
     "37": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "Doc",
+          "lastname": "Brown",
+          "color": "#FF4500"
+        }
       ],
       "category": "user_story",
       "description": "Prevent Biff from acquiring the sports almanac and altering the future.",
@@ -209,14 +299,28 @@
       "priority": "high",
       "state": "awaitfeedback",
       "subtasks": [
-        { "isDone": true, "title": "Locate the almanac" },
-        { "isDone": false, "title": "Avoid 1955 Biff" }
+        {
+          "isDone": true,
+          "title": "Locate the almanac"
+        },
+        {
+          "isDone": false,
+          "title": "Avoid 1955 Biff"
+        }
       ]
     },
     "38": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "Parker", "lastname": "Jennifer", "color": "#FF1493" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "Jennifer",
+          "lastname": "Parker",
+          "color": "#FF1493"
+        }
       ],
       "category": "user_story",
       "description": "Celebrate the history of Hill Valley while ensuring no disruptions to the timeline.",
@@ -225,16 +329,20 @@
       "id": 38,
       "title": "Attend the Hill Valley Festival",
       "priority": "medium",
-      "state": "todo",
-      "subtasks": [
-        { "isDone": false, "title": "Check historical displays" },
-        { "isDone": false, "title": "Avoid interaction with past selves" }
-      ]
+      "state": "todo"
     },
     "39": {
       "assigned_user": [
-        { "firstname": "McFly", "lastname": "Marty", "color": "#FF8C00" },
-        { "firstname": "Brown", "lastname": "Doc", "color": "#FF4500" }
+        {
+          "firstname": "Marty",
+          "lastname": "McFly",
+          "color": "#FF8C00"
+        },
+        {
+          "firstname": "Doc",
+          "lastname": "Brown",
+          "color": "#FF4500"
+        }
       ],
       "category": "technical_task",
       "description": "Ensure that Marty and Doc safely return to 1985 without altering the timeline.",
@@ -243,11 +351,7 @@
       "id": 39,
       "title": "Return to 1985",
       "priority": "high",
-      "state": "awaitfeedback",
-      "subtasks": [
-        { "isDone": false, "title": "Adjust time circuits to 1985" },
-        { "isDone": false, "title": "Ensure no items from the past are brought back" }
-      ]
+      "state": "awaitfeedback"
     }
   }
 }

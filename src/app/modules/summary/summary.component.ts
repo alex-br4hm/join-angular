@@ -67,7 +67,7 @@ export class SummaryComponent implements OnInit {
       if (task.state === 'inprogress')    this.progressCount++;
       if (task.state === 'awaitfeedback') this.awaitCount++;
       if (task.state === 'done')          this.doneCount++;
-      if (task.state)                     this.tasksCount++;
+      if (task)                           this.tasksCount++;
       if (task.priority === 'high')       this.urgentCount++;
 
       if (this.tasksCount === Object.values(this.taskList).length) {
@@ -98,8 +98,8 @@ export class SummaryComponent implements OnInit {
    * Sets the next deadline based on the earliest due date in the task list.
    */
   setUpcomingDeadline() {
-    const taskListValues: Task[]    = Object.values(this.taskList);
-    const lowestTimestamp: number   = Math.min(...taskListValues.map(task => task.due_date_unix));
+    const taskListValues: Task[]  = Object.values(this.taskList);
+    const lowestTimestamp: number = Math.min(...taskListValues.map(task => task.due_date_unix));
 
     const date        = new Date(lowestTimestamp * 1000);
     this.nextDeadline = date.toLocaleDateString('en-US', {

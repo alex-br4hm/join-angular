@@ -17,7 +17,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
   selector: 'app-header',
   imports: [
     MatIcon,
-    NgClass,
     MatTooltip,
     RouterLink,
     MatMenu,

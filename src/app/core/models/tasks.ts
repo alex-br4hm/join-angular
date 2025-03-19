@@ -19,11 +19,14 @@ export interface TaskCategories {
 
 export interface Subtask {
   isDone: boolean;
-  name:   string;
+  title:  string;
 }
 
 export interface AssignedUser {
+  id:        string;
   firstname: string;
   lastname:  string;
+  email:     string;
   color:     string;
+  phone:     string;
 }

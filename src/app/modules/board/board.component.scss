@@ -58,7 +58,8 @@ h1 {
 }
 
 .board-col {
-  width: 25%;
+  width: 20%;
+  flex:1;
   position: relative;
   background-color: var(--board-col-bg-color);
   padding: 8px 6px;
