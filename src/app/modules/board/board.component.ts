@@ -66,6 +66,8 @@ export class BoardComponent implements OnInit {
 
   addTaskPopUp: boolean = false;
 
+  tasksCount: number = 0;
+
   constructor(private firebase: FirebaseService,
               private taskData: TaskDataService,) {}
 
@@ -80,6 +82,7 @@ export class BoardComponent implements OnInit {
     ).subscribe({
       next: data => {
         this.taskList = data;
+        this.tasksCount = Object.values(this.taskList).length;
         this.sortTasks();
       },
       error: error => {

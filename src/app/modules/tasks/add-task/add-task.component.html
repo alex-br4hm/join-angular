@@ -28,25 +28,24 @@
     <!##############>
     <!-- Assigned -->
     <!##############>
-    <h3 class="input-headline">Assigned to [{{assignedUserList.value.length}}]</h3>
-    @if (assignableUser.length > 0) {
+    <h3 class="input-headline">Assigned to [{{assignedUser.length}}]</h3>
       <mat-form-field appearance="outline">
         <mat-select formControlName="assigned_user"
-                    placeholder="contacts to assign"
+                    [compareWith]="compareUsers"
+                    placeholder="Contacts to assign"
                     multiple>
-<!--          <mat-select-trigger>-->
-<!--            @for (user of this.assignedUserList.value; track $index) {-->
-<!--              @if ($index === this.assignedUserList.value.length - 1) {-->
-<!--                <span>{{ user.firstname + ' ' + user.lastname }}</span>-->
-<!--              } @else {-->
-<!--                <span>{{ user.firstname + ' ' + user.lastname }}, </span>-->
-<!--              }-->
-<!--            }-->
-<!--          </mat-select-trigger>-->
-
+          <mat-select-trigger>
+            @for (user of assignedUser; track $index) {
+              @if ($index === assignedUser.length - 1) {
+                <span>{{ user.firstname + ' ' + user.lastname }}</span>
+              } @else {
+                <span>{{ user.firstname + ' ' + user.lastname }}, </span>
+              }
+            }
+          </mat-select-trigger>
 
           @for (user of assignableUser; track $index) {
-            <mat-option [value]="user" (click)="addAssignedUser(user)">
+            <mat-option [value]="user">
               <span>
                 <div class="initials"
                      [ngStyle]="{ 'background-color': user.color }">
@@ -58,23 +57,21 @@
           }
         </mat-select>
       </mat-form-field>
-    }
-
 
     <div class="assigned-user-display-list">
-      @for (user of assignedUserList.value; track $index) {
+      @for (user of assignedUser; track $index) {
         <div class="initials"
-             (click)="testClick(user.id)"
-             [matTooltip]="'remove'"
+             (click)="removeUserFromAssignedList(user.id)"
+             [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
              [ngStyle]="{ 'background-color': user.color }">
           {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
         </div>
       }
-      @if (assignedUserList.value.length > 5) {
-        <span [matTooltip]="assignedUserList.value | assignedUserOverflow"
+      @if (assignedUser.length > 5) {
+        <span [matTooltip]="assignedUser| assignedUserOverflow"
               class="assigned-user-overflow"
               [matTooltipPosition]="'after'">
-          +{{ assignedUserList.value.length - 5 }} more
+          +{{ assignedUser.length - 5 }} more
         </span>
       }
     </div>
@@ -154,12 +151,12 @@
 
 <div class="action-bar">
   <div class="required-hint"><span>*</span>This field is required</div>
-
   <div class="button-wrapper">
       @if (task) {
         <button mat-flat-button
                 (click)="cancelEditView()">
           <span>Cancel</span>
+          <mat-icon matPrefix>close</mat-icon>
         </button>
 
         <button mat-flat-button
@@ -167,18 +164,22 @@
                 [disabled]="!addTaskForm.valid && addTaskForm.value == task"
                 (click)="saveEditedTask()">
           <span>Save Task</span>
+          <mat-icon matPrefix>check</mat-icon>
         </button>
       } @else {
         <button mat-flat-button
                 (click)="clearForm()">
           <span>Clear</span>
+          <mat-icon matPrefix>close</mat-icon>
         </button>
 
         <button mat-flat-button
                 class="create-btn"
                 [disabled]="!addTaskForm.valid"
                 (click)="onSubmit()">
+
           <span>Create Task</span>
+          <mat-icon>add</mat-icon>
         </button>
       }
 

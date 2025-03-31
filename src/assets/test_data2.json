@@ -93,14 +93,20 @@
     "31": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#FF4500",
+          "email": "doc@hillvalley.com",
+          "id": "1",
           "firstname": "Doc",
           "lastname": "Brown",
-          "color": "#FF4500"
+          "phone": "1234567891"
         }
       ],
       "category": "technical_task",
@@ -125,14 +131,20 @@
     "32": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#2E8B57",
+          "email": "george@hillvalley.com",
+          "id": "4",
           "firstname": "George",
           "lastname": "McFly",
-          "color": "#2E8B57"
+          "phone": "1234567894"
         }
       ],
       "category": "user_story",
@@ -147,14 +159,20 @@
     "33": {
       "assigned_user": [
         {
+          "color": "#FF4500",
+          "email": "doc@hillvalley.com",
+          "id": "1",
           "firstname": "Doc",
           "lastname": "Brown",
-          "color": "#FF4500"
+          "phone": "1234567891"
         },
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         }
       ],
       "category": "technical_task",
@@ -179,24 +197,36 @@
     "34": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#9400D3",
+          "email": "lorraine@hillvalley.com",
+          "id": "5",
           "firstname": "Lorraine",
           "lastname": "Baines",
-          "color": "#9400D3"
+          "phone": "1234567895"
         },
         {
+          "color": "#2E8B57",
+          "email": "george@hillvalley.com",
+          "id": "4",
           "firstname": "George",
           "lastname": "McFly",
-          "color": "#2E8B57"
+          "phone": "1234567894"
         },
         {
+          "color": "#FF69B4",
+          "email": "clara@hillvalley.com",
+          "id": "8",
           "firstname": "Clara",
           "lastname": "Clayton",
-          "color": "#FF69B4"
+          "phone": "1234567898"
         }
       ],
       "category": "user_story",
@@ -221,14 +251,20 @@
     "35": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#FF4500",
+          "email": "doc@hillvalley.com",
+          "id": "1",
           "firstname": "Doc",
           "lastname": "Brown",
-          "color": "#FF4500"
+          "phone": "1234567891"
         }
       ],
       "category": "user_story",
@@ -253,9 +289,12 @@
     "36": {
       "assigned_user": [
         {
+          "color": "#FF4500",
+          "email": "doc@hillvalley.com",
+          "id": "1",
           "firstname": "Doc",
           "lastname": "Brown",
-          "color": "#FF4500"
+          "phone": "1234567891"
         }
       ],
       "category": "user_story",
@@ -280,14 +319,20 @@
     "37": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#FF4500",
+          "email": "doc@hillvalley.com",
+          "id": "1",
           "firstname": "Doc",
           "lastname": "Brown",
-          "color": "#FF4500"
+          "phone": "1234567891"
         }
       ],
       "category": "user_story",
@@ -312,14 +357,20 @@
     "38": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#FF1493",
+          "email": "jennifer@hillvalley.com",
+          "id": "2",
           "firstname": "Jennifer",
           "lastname": "Parker",
-          "color": "#FF1493"
+          "phone": "1234567892"
         }
       ],
       "category": "user_story",
@@ -334,14 +385,20 @@
     "39": {
       "assigned_user": [
         {
+          "color": "#FF8C00",
+          "email": "marty@hillvalley.com",
+          "id": "0",
           "firstname": "Marty",
           "lastname": "McFly",
-          "color": "#FF8C00"
+          "phone": "1234567890"
         },
         {
+          "color": "#FF4500",
+          "email": "doc@hillvalley.com",
+          "id": "1",
           "firstname": "Doc",
           "lastname": "Brown",
-          "color": "#FF4500"
+          "phone": "1234567891"
         }
       ],
       "category": "technical_task",

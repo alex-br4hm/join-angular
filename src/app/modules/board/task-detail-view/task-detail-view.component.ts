@@ -9,8 +9,8 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {MatButton} from '@angular/material/button';
 import {MatSuffix} from '@angular/material/form-field';
 import {TaskDataService} from '../../../core/services/task-data.service';
-import {EditTaskComponent} from '../../tasks/edit-task/edit-task.component';
 import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
+import {UnixToDatePipe} from '../../../shared/utils/unix-to-date.pipe';
 
 @Component({
   selector: 'app-task-detail-view',
@@ -22,7 +22,8 @@ import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
     MatCheckbox,
     MatButton,
     MatSuffix,
-    AddTaskComponent
+    AddTaskComponent,
+    UnixToDatePipe
   ],
   templateUrl: './task-detail-view.component.html',
   styleUrl: './task-detail-view.component.scss'
