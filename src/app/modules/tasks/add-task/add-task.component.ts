@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, DestroyRef, Inject, inject, Input, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -28,10 +28,10 @@ import {DateFormatterService} from '../../../core/services/date-formatter.servic
 import {MatIcon} from '@angular/material/icon';
 import {SliceAssignedUserPipe} from '../../../shared/utils/slice-assigned-user.pipe';
 import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-overflow.pipe';
-import {MatChip} from '@angular/material/chips';
 import {TaskDataService} from '../../../core/services/task-data.service';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {AssignedUser, Task} from '../../../core/models/tasks';
+
 
 @Component({
   selector: 'app-add-task',
@@ -66,18 +66,17 @@ import {AssignedUser, Task} from '../../../core/models/tasks';
   ],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() taskState: string = 'todo';
+  @Input() taskState: string   = 'todo';
   @Input() task?: Task;
-  dialog: MatDialog          = inject(MatDialog);
-  destroyRef: DestroyRef     = inject(DestroyRef);
-  private fb: FormBuilder    = inject(FormBuilder);
-  assignableUser: Contact[]  = [];
+  dialog: MatDialog            = inject(MatDialog);
+  destroyRef: DestroyRef       = inject(DestroyRef);
+  private fb: FormBuilder      = inject(FormBuilder);
+  assignableUser: Contact[]    = [];
   assignedUser: AssignedUser[] = []
-  subtaskInput: FormControl  = new FormControl('');
-  today: Date                = new Date();
+  subtaskInput: FormControl    = new FormControl('');
+  today: Date                  = new Date();
   addTaskForm: FormGroup;
   subtaskList: FormArray;
-  assignedUserList: FormArray;
 
   constructor(private fireBase: FirebaseService,
               private taskData: TaskDataService,
@@ -91,21 +90,33 @@ export class AddTaskComponent implements OnInit {
       assigned_user: '',
       priority:      ['', Validators.required],
       subtasks:      this.fb.array([]),
+      id:            ''
     });
 
-    this.subtaskList      = this.addTaskForm.get('subtasks') as FormArray;
-    this.assignedUserList = this.addTaskForm.get('assigned_user') as FormArray;
+    this.subtaskList = this.addTaskForm.get('subtasks') as FormArray;
   }
 
   ngOnInit() {
     this.getContacts();
-    console.log(this.task);
     if (this.task) {
       this.patchValues();
-      console.log('here?')
     } else {
       this.patchStandardValues();
     }
+  }
+
+  getContacts() {
+    this.fireBase.getContacts().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: data => {
+        this.getAssignableUser(data);
+        this.getAssignedUser();
+      },
+      error: error => {
+        console.log(error);
+      }
+    })
   }
 
   patchValues() {
@@ -113,64 +124,49 @@ export class AddTaskComponent implements OnInit {
     this.addTaskForm.controls['description'].patchValue(this.task?.description);
     this.addTaskForm.controls['category'].patchValue(this.task?.category);
     this.addTaskForm.controls['priority'].patchValue(this.task?.priority);
+    const dueDateAsDate = this.dateFormatter.unixToDate(this.task?.due_date_unix);
+    console.log(dueDateAsDate);
+    this.addTaskForm.controls['due_date'].patchValue(dueDateAsDate);
+    this.addTaskForm.controls['due_date_unix'].patchValue(this.task?.due_date_unix);
+
     if (this.task?.assigned_user) {
       this.task.assigned_user.forEach((assignedUser: AssignedUser) => {
-        this.assignedUserList.push(this.fb.group({
+        this.assignedUser.push({
           color:     assignedUser.color,
           firstname: assignedUser.firstname,
           lastname:  assignedUser.lastname,
           id:        assignedUser.id,
           email:     assignedUser.email,
           phone:     assignedUser.phone
-        }));
+        });
       })
 
-
-      console.log( this.assignedUserList.value);
-      console.log(this.addTaskForm.get('assigned_user')?.value)
+      this.addTaskForm.controls['assigned_user'].patchValue(this.assignedUser);
     }
 
     if(this.task?.subtasks) {
       this.task.subtasks.forEach(subtask => {
         this.subtaskList.push(this.fb.group({
           title: subtask.title,
-          done: subtask.isDone
+          done:  subtask.isDone
         }))
       })
     }
   }
 
+  compareUsers(user1: Contact, user2: Contact): boolean {
+    return user1 && user2 ? user1.id === user2.id : user1 === user2;
+  }
 
   saveEditedTask() {
+    this.formatDate();
+    this.addTaskForm.get('id')?.setValue(this.task?.id);
     this.taskData.patchTask(this.addTaskForm.value);
+    this.cancelEditView();
   }
 
   cancelEditView() {
     this.dialog.closeAll();
-  }
-
-  addAssignedUser(assignedUser: Contact) {
-    this.assignedUserList.push(this.fb.group({
-      color:     assignedUser.color,
-      firstname: assignedUser.firstname,
-      lastname:  assignedUser.lastname,
-      id:        assignedUser.id,
-      email:     assignedUser.email,
-      phone:     assignedUser.phone
-    }))
-  }
-
-  test(user: any) {
-    this.assignedUserList.value.forEach((assignedUser: AssignedUser) => {
-      console.log(assignedUser);
-    })
-  }
-
-  testClick(userID: any) {
-    console.log(userID);
-    this.assignedUserList.setValue(
-      this.assignedUserList.value.filter((userId: string) => userId !== userID)
-    )
   }
 
   clearForm() {
@@ -178,7 +174,6 @@ export class AddTaskComponent implements OnInit {
     this.patchStandardValues();
     this.subtaskList.clear();
     this.assignedUser = [];
-    this.assignedUserList.clear();
   }
 
   patchStandardValues() {
@@ -200,28 +195,6 @@ export class AddTaskComponent implements OnInit {
     this.subtaskList.removeAt(index);
   }
 
-  getContacts() {
-    this.fireBase.getContacts().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe({
-      next: data => {
-        this.getAssignableUser(data);
-        this.getAssignedUser();
-      },
-      error: error => {
-        console.log(error);
-      }
-    })
-  }
-
-  getAssignedUser() {
-    this.addTaskForm.get('assigned_user')?.valueChanges.subscribe((assignedValue) => {
-      console.log(assignedValue);
-      if (!assignedValue) return;
-
-    });
-  }
-
   getAssignableUser(users: Contact[]) {
     this.assignableUser = Object.values(users).map((user: Contact) => ({
       id:        user.id,
@@ -231,23 +204,22 @@ export class AddTaskComponent implements OnInit {
       phone:     user.phone,
       email:     user.email,
     }));
+  }
 
-    console.log('ASSIGNABLE:', this.assignableUser);
+  getAssignedUser() {
+    this.addTaskForm.get('assigned_user')?.valueChanges.subscribe(value => {
+      this.assignedUser = value;
+    });
   }
 
   removeUserFromAssignedList(id: string) {
-    console.log(id);
-    this.addTaskForm.get('assigned_user')?.setValue(
-      this.addTaskForm.get('assigned_user')?.value.filter((userId: string) => userId !== id)
-    );
+    this.assignedUser = this.assignedUser.filter((user: any) => user.id !== id);
+    this.addTaskForm.get('assigned_user')?.setValue(this.assignedUser);
   }
-
-
 
   onSubmit() {
     if (this.addTaskForm.valid) {
       this.formatDate();
-      this.addTaskForm.get('assigned_user')?.setValue(this.assignedUserList.value);
       this.taskData.addTask(this.addTaskForm.value);
       this.clearForm();
       this.dialog.closeAll();
