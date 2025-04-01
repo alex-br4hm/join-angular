@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <button mat-flat-button class="add-task-btn" (click)="openAddTask('todo')">
-               <span>Add task
+               <span>create task
                  <mat-icon>add</mat-icon>
                </span>
     </button>
@@ -33,7 +33,7 @@
     <div class="board-col"
          [cdkDropListData]="category.list"
          cdkDropList
-         (cdkDropListDropped)="drop($event)">
+         (cdkDropListDropped)="drop($event, category.state)">
 
       <div class="col-header">
         <h3> {{ category.name }}
@@ -42,7 +42,7 @@
         @if (category.name != "Done") {
           <div class="add-task-hover-btn"
                (click)="openAddTask(category.state)"
-               [matTooltip]="'create task in ' + category.name"
+               [matTooltip]="'create task'"
                [ngClass]="{ 'test': category.name == 'To do' }">
             <mat-icon>add</mat-icon>
           </div>

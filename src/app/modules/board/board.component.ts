@@ -153,10 +153,12 @@ export class BoardComponent implements OnInit {
     this.searchFormControl.setValue('');
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
+  drop(event: CdkDragDrop<Task[]>, state: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      const task = event.previousContainer.data[event.previousIndex];
+      this.moveItemInDB(task, state);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -164,6 +166,11 @@ export class BoardComponent implements OnInit {
         event.currentIndex,
       );
     }
+  }
+
+  moveItemInDB(task: Task, state: string) {
+    task.state = state;
+    this.taskData.patchTask(task);
   }
 
   openAddTask(state: string) {
