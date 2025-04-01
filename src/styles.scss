@@ -263,6 +263,10 @@ app-add-task {
   }
 }
 
+.mat-mdc-dialog-surface {
+  border: 2px solid #333;
+}
+
 .full-screen-dialog {
   width: 70% !important;
   max-width: unset !important;

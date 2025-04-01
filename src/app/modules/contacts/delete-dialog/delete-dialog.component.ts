@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 
-class DeleteConfirmDialog {
-}
-
 @Component({
   selector: 'app-delete-dialog',
   imports: [
