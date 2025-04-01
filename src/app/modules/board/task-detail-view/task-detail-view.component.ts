@@ -1,5 +1,5 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {Component, inject, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Task } from '../../../core/models/tasks';
 import {MatIcon} from '@angular/material/icon';
 import {PrioIconPipe} from '../../../shared/utils/prio-icon.pipe';
@@ -11,6 +11,7 @@ import {MatSuffix} from '@angular/material/form-field';
 import {TaskDataService} from '../../../core/services/task-data.service';
 import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
 import {UnixToDatePipe} from '../../../shared/utils/unix-to-date.pipe';
+import {DeleteDialogComponent} from '../../contacts/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-task-detail-view',
@@ -31,6 +32,7 @@ import {UnixToDatePipe} from '../../../shared/utils/unix-to-date.pipe';
 export class TaskDetailViewComponent {
   task!: Task;
   editTask: boolean = false;
+  dialog: MatDialog = inject(MatDialog);
 
   constructor(
     public taskDataService: TaskDataService,
@@ -45,8 +47,17 @@ export class TaskDetailViewComponent {
   }
 
   deleteTask(taskID: string) {
-    this.taskDataService.deleteTask(taskID);
-    this.closeDetailView();
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '25vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.taskDataService.deleteTask(taskID);
+        this.closeDetailView();
+      }
+    })
+
   }
 
   openEditTask() {

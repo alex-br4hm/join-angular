@@ -45,10 +45,10 @@
   <div class="subtask-list">
     @for (subtask of task.subtasks; track $index) {
       <mat-checkbox
-        class="subtask-wrapper"
-        (click)="checkSubtask($index)"
-        [checked]="subtask.isDone">
-        {{subtask.title}}
+          class="subtask-wrapper"
+          (click)="checkSubtask($index)"
+          [checked]="subtask.isDone">
+          {{subtask.title}}
       </mat-checkbox>
     }
 
