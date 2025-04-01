@@ -7,7 +7,6 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {NgIf, NgStyle} from '@angular/common';
 import {PhoneNumberPipe} from '../../shared/utils/phone-number.pipe';
 import {EmailPipe} from '../../shared/utils/email.pipe';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form.component';
 import {FirstLetterPipe} from '../../shared/utils/first-letter.pipe';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
