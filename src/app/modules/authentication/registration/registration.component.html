@@ -74,7 +74,7 @@
 
     <div class="button-wrapper">
       <button class="log-in-btn"
-              mat-stroked-button
+              mat-flat-button
               [disabled]="!registrationForm.valid"
               (click)="submitRegistration()">
         Sign up
@@ -88,7 +88,7 @@
   <button mat-button><span>Privacy Policy</span></button>
   <button mat-button><span>Legal notice</span></button>
 
-  <button (click)="testPatch()">PATCH</button>
+<!--  <button (click)="testPatch()">PATCH</button>-->
 </div>
 
 @if (registerSuccess) {

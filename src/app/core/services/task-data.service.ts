@@ -9,8 +9,6 @@ export class TaskDataService {
   private db         = inject(Database);
   taskState: string             = 'todo';
 
-
-
   constructor() { }
 
   addTask(task: Task) {
@@ -51,7 +49,7 @@ export class TaskDataService {
 
     update(taskRef, task)
       .then(() => {
-        console.log('Task successfully updated', task);
+        // console.log('Task successfully updated', task);
       })
       .catch((error) => {
         console.error('Error updating task:', error);
