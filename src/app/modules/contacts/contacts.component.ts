@@ -31,13 +31,13 @@ import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent implements OnInit {
-  cdr: ChangeDetectorRef = inject(ChangeDetectorRef)
-  dialog: MatDialog = inject(MatDialog);
   @Output() popUpType!: string;
   @Output() selectedContact?: Contact;
-  destroyRef: DestroyRef = inject(DestroyRef);
 
-  contactList: Contact[]   = [];
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef)
+  dialog: MatDialog      = inject(MatDialog);
+  destroyRef: DestroyRef = inject(DestroyRef);
+  contactList: Contact[] = [];
   sortedList!: Contact[];
   availableLetters!: string[];
 
