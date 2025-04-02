@@ -44,7 +44,7 @@
       "color": "#483D8B",
       "email": "strickland@hillvalley.com",
       "id": "6",
-      "firstname": "",
+      "firstname": "Mister",
       "lastname": "Strickland",
       "phone": "1234567896"
     },
@@ -52,7 +52,7 @@
       "color": "#FFD700",
       "email": "einstein@hillvalley.com",
       "id": "7",
-      "firstname": "",
+      "firstname": "Steini",
       "lastname": "Einstein",
       "phone": "1234567897"
     },
@@ -84,7 +84,7 @@
       "color": "#8B4513",
       "email": "needles@hillvalley.com",
       "id": "11",
-      "firstname": "",
+      "firstname": "Douglas J.",
       "lastname": "Needles",
       "phone": "1234567801"
     }
