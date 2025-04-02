@@ -52,8 +52,9 @@
 
       <div class="col-content">
         @for (task of category.list; track $index) {
-          <app-task-card [task]="task" cdkDrag (click)="openDetailView(task)">
-            {{ task }}>
+          <app-task-card [task]="task"
+                         cdkDrag
+                         (click)="openDetailView(task)">
           </app-task-card>
         }
       </div>
