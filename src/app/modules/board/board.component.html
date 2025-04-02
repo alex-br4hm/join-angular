@@ -29,6 +29,7 @@
 </div>
 
 <div class="board-container" cdkDropListGroup>
+
   @for (category of taskCategories; track $index) {
     <div class="board-col"
          [cdkDropListData]="category.list"
@@ -58,6 +59,7 @@
       </div>
     </div>
   }
+
 </div>
 
 @if (addTaskPopUp) {
