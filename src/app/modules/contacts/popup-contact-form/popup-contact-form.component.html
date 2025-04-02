@@ -82,28 +82,28 @@
           <button mat-flat-button
                   (click)="clearForm()">
             Clear
-<!--            <mat-icon matSuffix>close</mat-icon>-->
+            <mat-icon matSuffix>close</mat-icon>
           </button>
 
             <button mat-flat-button
                     [disabled]="!contactForm.valid"
                     (click)="addContact()">
               Create contact
-<!--              <mat-icon matSuffix>check</mat-icon>-->
+              <mat-icon matSuffix>check</mat-icon>
             </button>
         </div>
       } @else {
         <div class="action-btn-group">
           <button mat-flat-button (click)="deleteContact()">
             Delete
-<!--            <mat-icon matSuffix>close</mat-icon>-->
+            <mat-icon matSuffix>close</mat-icon>
           </button>
 
           <button mat-flat-button
                   [disabled]="!(selectedContactChanged && contactForm.valid)"
                   (click)="editContact()">
             Save
-<!--            <mat-icon matSuffix>check</mat-icon>-->
+            <mat-icon matSuffix>save</mat-icon>
           </button>
         </div>
       }

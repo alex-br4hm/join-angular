@@ -12,6 +12,7 @@ import {Contact} from '../../models/contacts';
 import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
 import {User} from '@angular/fire/auth';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatPrefix} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,9 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
     MatMenu,
     MatMenuTrigger,
     MatMenuItem,
-    FirstLetterPipe
+    FirstLetterPipe,
+    MatButton,
+    MatPrefix
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -32,18 +35,33 @@ export class HeaderComponent implements OnInit{
   router: Router         = inject(Router);
   mode: string           = 'light';
   route: string          = '';
+  loggedIn: boolean      = false;
 
   constructor(private authService: AuthService,
               protected userService: UserService) {}
 
   ngOnInit() {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
+    this.router.events.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
         this.route = event.urlAfterRedirects;
       });
     this.switchMode();
     this.userService.getActiveUser();
+    this.checkIfLoggedIn();
+  }
+
+  checkIfLoggedIn() {
+    this.authService.getUser().pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.loggedIn = true;
+        }
+      }
+    })
   }
 
   switchMode() {

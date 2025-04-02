@@ -1,8 +1,7 @@
-:host {
-  background-color: var(--primary-color);
-
-  .mdc-button {
+:host .mdc-button {
     flex: 1;
     background-color: var(--secondary-color) !important;
-  }
 }
+
+
+

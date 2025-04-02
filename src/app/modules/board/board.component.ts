@@ -23,6 +23,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AddTaskDialogComponent} from './add-task-dialog/add-task-dialog.component';
 import {TaskDataService} from '../../core/services/task-data.service';
 import {TaskDetailViewComponent} from './task-detail-view/task-detail-view.component';
+import {Contact} from '../../core/models/contacts';
 
 @Component({
   selector: 'app-board',
@@ -57,7 +58,7 @@ export class BoardComponent implements OnInit {
   taskCategories: TaskCategories[] = []
 
   searchFormControl: FormControl<string> = new FormControl();
-  searchInput: string = "";
+  searchInput: string                    = "";
 
   originalTodoList: Task[]           = [];
   originalInProgressList: Task[]     = [];
@@ -68,11 +69,14 @@ export class BoardComponent implements OnInit {
 
   tasksCount: number = 0;
 
+  contactList: Contact[]  = [];
+
   constructor(private firebase: FirebaseService,
               private taskData: TaskDataService,) {}
 
   ngOnInit() {
     this.getTasks();
+    this.getContacts();
     this.getSearchInput();
   }
 
@@ -81,9 +85,11 @@ export class BoardComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: data => {
-        this.taskList = data;
-        this.tasksCount = Object.values(this.taskList).length;
-        this.sortTasks();
+        if (data) {
+          this.taskList   = Object.values(data);
+          this.tasksCount = Object.values(this.taskList).length;
+          this.sortTasks();
+        }
       },
       error: error => {
         console.log(error);
@@ -91,11 +97,45 @@ export class BoardComponent implements OnInit {
     })
   }
 
+  /**
+   * need contacts to check if assigned user in tasks is contact
+   * if not => the contact will be deleted as assigned user
+   * */
+  getContacts() {
+    this.firebase.getContacts().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: data => {
+        if (data) {
+          this.contactList = Object.values(data);
+          this.compareContactsWithAssignedUser();
+        }
+      },
+      error: error => {
+        console.log(error);
+      }
+    })
+  }
+
+  compareContactsWithAssignedUser() {
+    this.taskList.forEach(task => {
+      if (Array.isArray(task.assigned_user)) {
+        task.assigned_user = task.assigned_user.filter(user =>
+          this.contactList.some(contact => contact.id === user.id)
+        );
+      }
+
+      this.taskData.patchTask(task);
+    });
+
+    this.sortTasks();
+  }
+
   sortTasks() {
-    this.todoList          = Object.values(this.taskList).filter(task => task.state === 'todo');
-    this.inProgressList    = Object.values(this.taskList).filter(task => task.state === 'inprogress');
-    this.awaitFeedbackList = Object.values(this.taskList).filter(task => task.state === 'awaitfeedback');
-    this.doneList          = Object.values(this.taskList).filter(task => task.state === 'done');
+    this.todoList          = this.taskList.filter(task => task.state === 'todo');
+    this.inProgressList    = this.taskList.filter(task => task.state === 'inprogress');
+    this.awaitFeedbackList = this.taskList.filter(task => task.state === 'awaitfeedback');
+    this.doneList          = this.taskList.filter(task => task.state === 'done');
 
     this.originalTodoList          = this.todoList;
     this.originalInProgressList    = this.inProgressList;
@@ -153,10 +193,12 @@ export class BoardComponent implements OnInit {
     this.searchFormControl.setValue('');
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
+  drop(event: CdkDragDrop<Task[]>, state: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
+      const task = event.previousContainer.data[event.previousIndex];
+      this.moveItemInDB(task, state);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -164,6 +206,11 @@ export class BoardComponent implements OnInit {
         event.currentIndex,
       );
     }
+  }
+
+  moveItemInDB(task: Task, state: string) {
+    task.state = state;
+    this.taskData.patchTask(task);
   }
 
   openAddTask(state: string) {

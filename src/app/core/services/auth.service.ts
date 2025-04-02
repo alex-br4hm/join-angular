@@ -1,8 +1,7 @@
-import {Injectable, inject, signal} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
 import { user } from 'rxfire/auth';
-import {Contact} from '../models/contacts';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,11 @@
-import {AfterViewInit, Component, effect, inject, OnInit} from '@angular/core';
-import {NavigationEnd, Router, RouterLink} from '@angular/router';
+import {Component, DestroyRef, effect, inject, OnInit} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
 import {ActiveRouteService} from '../../services/active-route.service';
 import {NgClass} from '@angular/common';
-import {filter} from 'rxjs';
+import {UserService} from '../../services/user.service';
+import {AuthService} from '../../services/auth.service';
+import {MatIcon} from '@angular/material/icon';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 export interface NavLink {
   name: string;
@@ -14,13 +17,16 @@ export interface NavLink {
   selector: 'app-side-nav',
   imports: [
     RouterLink,
-    NgClass
+    NgClass,
+    MatIcon
   ],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss'
 })
 export class SideNavComponent implements OnInit{
-  router: Router = inject(Router);
+  router: Router         = inject(Router);
+  destroyRef: DestroyRef = inject(DestroyRef);
+  loggedIn: boolean      = false;
   currentRoute!: string;
 
   navLinks: NavLink[] = [
@@ -46,10 +52,11 @@ export class SideNavComponent implements OnInit{
     },
   ]
 
-  constructor(private activeRouteService: ActiveRouteService) {
+  constructor(private activeRouteService: ActiveRouteService,
+              private authService: AuthService,
+              private userService: UserService) {
     effect(() => {
       this.currentRoute = this.activeRouteService.currentRoute();
-      console.log(this.currentRoute);
     });
   }
 
@@ -58,6 +65,18 @@ export class SideNavComponent implements OnInit{
       this.currentRoute = this.router.url;
     }
 
-    console.log(this.currentRoute);
+    this.checkIfLoggedIn();
+  }
+
+  checkIfLoggedIn() {
+    this.authService.getUser().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.loggedIn = true;
+        }
+      },
+    });
   }
 }
