@@ -2,14 +2,24 @@
   <img src="/join_logo.svg" alt="join logo">
 
   <div class="nav-links-wrapper">
-    @for (link of navLinks; track $index) {
-      <div class="link" [routerLink]="link.link" [ngClass]="{ 'active-route': link.link === currentRoute }">
+    @if (loggedIn) {
+      @for (link of navLinks; track $index) {
+        <div class="link" [routerLink]="link.link" [ngClass]="{ 'active-route': link.link === currentRoute }">
           <span class="nav-link-icon-wrapper">
              <img src="{{ link.icon }}" alt=" {{ link.name }} icon">
           </span>
           <span class="nav-link-name">{{ link.name }}</span>
+        </div>
+      }
+    } @else {
+      <div class="link" [routerLink]="'/login'">
+          <span class="nav-link-icon-wrapper">
+            <mat-icon>login</mat-icon>
+          </span>
+        <span class="nav-link-name">Login</span>
       </div>
     }
+
   </div>
 
   <div class="legal-help-links-wrapper">

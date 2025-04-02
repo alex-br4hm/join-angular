@@ -7,10 +7,9 @@ export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   if (auth.currentUser) {
-    return true;  // User ist eingeloggt -> Route erlauben
-  } else {
     return true;
-    // router.navigate(['/login']);
-    // return false; // Route blockieren
+  } else {
+    router.navigate(['/login']);
+    return false;
   }
 };
