@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {NavigationEnd, Router, RouterEvent, RouterOutlet} from '@angular/router';
 import {AngularFirestoreModule} from '@angular/fire/compat/firestore';
 import {SideNavComponent} from './core/components/side-nav/side-nav.component';
 import {HeaderComponent} from './core/components/header/header.component';
@@ -16,8 +16,8 @@ import {filter} from 'rxjs';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  title: string       = 'Join';
-  activeRoute: string = '/';
+  title       = 'Join';
+  activeRoute = '/';
 
   constructor(private router: Router) {
   }
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
+      .subscribe((event: RouterEvent) => {
         this.activeRoute = event.url;
       });
   }
