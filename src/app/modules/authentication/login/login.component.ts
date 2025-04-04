@@ -1,16 +1,14 @@
 import {Component, DestroyRef, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatError, MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
+import {MatFormField, MatLabel, MatSuffix} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {Router, RouterLink} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {AuthService} from '../../../core/services/auth.service';
 import {UserService} from '../../../core/services/user.service';
-import {log} from '@angular-devkit/build-angular/src/builders/ssr-dev-server';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {Contact} from '../../../core/models/contacts';
 import {FirebaseService} from '../../../core/services/firebase.service';
 
 @Component({
@@ -33,9 +31,11 @@ export class LoginComponent {
   fb: FormBuilder        = inject(FormBuilder);
   router: Router         = inject(Router);
   destroyRef: DestroyRef = inject(DestroyRef);
-  loginSuccess: boolean  = false;
-  loginFailed: boolean   = false;
-  hidePassword: boolean  = true;
+
+  loginSuccess = false;
+  loginFailed  = false;
+  hidePassword = true;
+
   loginForm: FormGroup;
 
   constructor(private authService: AuthService,
@@ -57,11 +57,11 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (data) => {
+      next: () => {
           this.userService.getActiveUser();
           this.loginSucceeded();
       },
-      error: (err) => this.loginFailed = true,
+      error: () => this.loginFailed = true,
     });
   }
 

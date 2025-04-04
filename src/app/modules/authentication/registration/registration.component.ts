@@ -53,8 +53,8 @@ export class RegistrationComponent {
   registrationForm: FormGroup;
   errorMessage?: string;
   contact?: Contact;
-  registerSuccess: boolean = false;
   passwordsDontMatch?: boolean;
+  registerSuccess = false;
 
   constructor(private authService: AuthService,
               private firebase: FirebaseService,
@@ -119,7 +119,7 @@ export class RegistrationComponent {
    */
   login() {
     this.authService.login(this.registrationForm.value.email, this.registrationForm.value.password).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/summary']);
       },
       error: (err) => console.log(err),
