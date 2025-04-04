@@ -62,18 +62,13 @@
       @for (user of assignedUser; track $index) {
         <div class="initials"
              (click)="removeUserFromAssignedList(user.id)"
+             (keydown.escape)="removeUserFromAssignedList(user.id)"
+             tabindex="0"
              [matTooltip]="'remove ' + user.firstname + ' ' + user.lastname"
              [ngStyle]="{ 'background-color': user.color }">
           {{ (user.firstname | firstLetter) + (user.lastname | firstLetter) }}
         </div>
       }
-<!--      @if (assignedUser.length > 5) {-->
-<!--        <span [matTooltip]="assignedUser| assignedUserOverflow"-->
-<!--              class="assigned-user-overflow"-->
-<!--              [matTooltipPosition]="'after'">-->
-<!--          +{{ assignedUser.length - 5 }} more-->
-<!--        </span>-->
-<!--      }-->
     </div>
   </div>
 
@@ -161,7 +156,7 @@
 
         <button mat-flat-button
                 class="create-btn"
-                [disabled]="!addTaskForm.valid && addTaskForm.value == task"
+                [disabled]="!addTaskForm.valid && addTaskForm.value === task"
                 (click)="saveEditedTask()">
           <span>Save Task</span>
           <mat-icon matPrefix>check</mat-icon>

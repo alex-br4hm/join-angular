@@ -26,8 +26,6 @@ import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/de';
 import {DateFormatterService} from '../../../core/services/date-formatter.service';
 import {MatIcon} from '@angular/material/icon';
-import {SliceAssignedUserPipe} from '../../../shared/utils/slice-assigned-user.pipe';
-import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-overflow.pipe';
 import {TaskDataService} from '../../../core/services/task-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AssignedUser, Task} from '../../../core/models/tasks';
@@ -54,9 +52,7 @@ import {AssignedUser, Task} from '../../../core/models/tasks';
     MatButtonToggleGroup,
     MatButtonToggle,
     FirstLetterPipe,
-    MatIcon,
-    SliceAssignedUserPipe,
-    AssignedUserOverflowPipe,
+    MatIcon
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
@@ -66,11 +62,13 @@ import {AssignedUser, Task} from '../../../core/models/tasks';
   ],
 })
 export class AddTaskComponent implements OnInit {
-  @Input() taskState: string   = 'todo';
+  @Input() taskState   = 'todo';
   @Input() task?: Task;
+
   dialog: MatDialog            = inject(MatDialog);
   destroyRef: DestroyRef       = inject(DestroyRef);
   private fb: FormBuilder      = inject(FormBuilder);
+
   assignableUser: Contact[]    = [];
   assignedUser: AssignedUser[] = []
   subtaskInput: FormControl    = new FormControl('');
@@ -208,12 +206,13 @@ export class AddTaskComponent implements OnInit {
 
   getAssignedUser() {
     this.addTaskForm.get('assigned_user')?.valueChanges.subscribe(value => {
+      console.log(value);
       this.assignedUser = value;
     });
   }
 
   removeUserFromAssignedList(id: string) {
-    this.assignedUser = this.assignedUser.filter((user: any) => user.id !== id);
+    this.assignedUser = this.assignedUser.filter((user: Contact) => user.id !== id);
     this.addTaskForm.get('assigned_user')?.setValue(this.assignedUser);
   }
 
