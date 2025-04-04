@@ -1,4 +1,4 @@
-import {Component, Inject, Output} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
 import {MatIcon} from '@angular/material/icon';
