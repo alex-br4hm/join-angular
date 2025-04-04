@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { Task } from '../../../core/models/tasks';
 import {SubtaskProgressPipe} from '../../../shared/utils/subtask-progress.pipe';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -23,11 +23,6 @@ import {AssignedUserOverflowPipe} from '../../../shared/utils/assigned-user-over
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss'
 })
-export class TaskCardComponent implements OnInit {
+export class TaskCardComponent {
   @Input() task!: Task;
-
-  ngOnInit() {
-
-  }
-
 }

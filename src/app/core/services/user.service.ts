@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {AuthService} from './auth.service';
 import {Contact} from '../models/contacts';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {filter, take} from 'rxjs';
+import {take} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

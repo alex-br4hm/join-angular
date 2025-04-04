@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, DestroyRef, inject, OnInit, Signal, signal} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {FirebaseService} from '../../core/services/firebase.service';
 import { Task } from '../../core/models/tasks';
 import {MatIcon} from '@angular/material/icon';
@@ -6,8 +6,6 @@ import {Router, RouterLink} from '@angular/router';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {UserService} from '../../core/services/user.service';
-import {Contact} from '../../core/models/contacts';
-import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-summary',
@@ -22,15 +20,16 @@ import {AuthService} from '../../core/services/auth.service';
 export class SummaryComponent implements OnInit {
   destroyRef: DestroyRef = inject(DestroyRef);
   router: Router         = inject(Router);
-  todoCount: number      = 0;
-  doneCount: number      = 0;
-  awaitCount: number     = 0;
-  progressCount: number  = 0;
-  urgentCount: number    = 0;
-  tasksCount: number     = 0;
-  isLoading: boolean     = true;
-  welcomeMessage: string = '';
-  nextDeadline: string   = '';
+
+  todoCount    = 0;
+  doneCount    = 0;
+  awaitCount   = 0;
+  progressCount= 0;
+  urgentCount  = 0;
+  tasksCount   = 0;
+  isLoading    = true;
+  welcomeMessage = '';
+  nextDeadline   = '';
   taskList!: Task[];
 
   constructor(private firebase: FirebaseService,

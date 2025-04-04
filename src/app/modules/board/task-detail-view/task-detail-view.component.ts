@@ -30,9 +30,11 @@ import {DeleteDialogComponent} from '../../contacts/delete-dialog/delete-dialog.
   styleUrl: './task-detail-view.component.scss'
 })
 export class TaskDetailViewComponent {
-  task!: Task;
-  editTask: boolean = false;
   dialog: MatDialog = inject(MatDialog);
+
+  task!: Task;
+  editTask = false;
+
 
   constructor(
     public taskDataService: TaskDataService,

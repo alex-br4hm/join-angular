@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -8,5 +7,4 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './privacy-policy.component.scss'
 })
 export class PrivacyPolicyComponent {
-
 }

@@ -29,6 +29,4 @@ export class ThemeService {
   setTheme(theme: 'light' | 'dark' | 'system') {
     this.appTheme.set(theme);
   }
-
-  constructor() { }
 }

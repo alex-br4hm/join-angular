@@ -1,5 +1,4 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -21,6 +20,7 @@ import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
 import {RandomColorService} from '../../../core/services/random-color.service';
 import {DeleteDialogComponent} from '../delete-dialog/delete-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {CompareObjectsService} from '../../../core/services/compare-objects.service';
 
 @Component({
   selector: 'app-popup-contact-form',
@@ -40,16 +40,20 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrl: './popup-contact-form.component.scss'
 })
 export class PopupContactFormComponent implements OnInit, AfterViewInit{
-  dialog: MatDialog       = inject(MatDialog);
-  private fb: FormBuilder = inject(FormBuilder);
   @Output() popUp = new EventEmitter<boolean>();
   @Input() type!: string;
   @Input() selectedContact?: Contact;
   @ViewChild('successBtn', { static: false }) successBtn!: ElementRef<HTMLButtonElement>;
-  selectedContactChanged: boolean = false;
+
+  dialog: MatDialog       = inject(MatDialog);
+  private fb: FormBuilder = inject(FormBuilder);
+
+  selectedContactChanged= false;
   contactForm: FormGroup;
 
-  constructor(private firebase: FirebaseService, private colorService: RandomColorService) {
+  constructor(private firebase: FirebaseService,
+              private colorService: RandomColorService,
+              private compareObjectsService: CompareObjectsService) {
     this.contactForm = this.fb.group({
       id:        '',
       firstname: ['', Validators.required],
@@ -66,7 +70,7 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
       this.patchValues();
       this.contactForm.valueChanges.subscribe({
         next: data => {
-          this.selectedContactChanged = !this.deepCompare(data, this.selectedContact);
+          this.selectedContactChanged = !this.compareObjectsService.compare(data, this.selectedContact);
         }
       })
     }
@@ -118,6 +122,7 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
   deleteContact(): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '25vw',
+      minWidth: '400px'
     });
 
     if (this.selectedContact) {
@@ -138,20 +143,5 @@ export class PopupContactFormComponent implements OnInit, AfterViewInit{
   closePopUp() {
     this.popUp.emit(false);
   }
-
-  /**
-   * Maybe later in a service? Maybe pipe?
-   * A pipe to compare two objects deeply, nice
-   * lets think about it.
-   * */
-  deepCompare(obj1: any, obj2: any): boolean {
-    const keys1 = Object.keys(obj1).sort();
-    const keys2 = Object.keys(obj2).sort();
-
-    if (keys1.length !== keys2.length) return false;
-
-    return keys1.every(key => obj1[key] === obj2[key]);
-  }
-
 }
 
