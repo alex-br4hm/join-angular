@@ -1,5 +1,8 @@
 @if (popUp) {
-  <div class="popup-bg-container" (click)="closePopUp()">
+  <div class="popup-bg-container"
+       (click)="closePopUp()"
+       (keydown.escape)="closePopUp()"
+       tabindex="0">
         <app-popup-contact-form (click)="$event.stopPropagation()"
                                 [selectedContact]="selectedContact ?? selectedContact"
                                 [type]="popUpType"
@@ -28,6 +31,8 @@
           @for (contact of groupedContacts[letter]; track $index) {
             <div class="single-contact-wrapper"
                  (click)="selectContact(contact.id)"
+                 (keydown.escape)="selectContact(contact.id)"
+                 tabindex="0"
                  [class]="{ 'selected-user' : contact.id === selectedContact?.id }">
 
                 <div class="initials"
@@ -100,7 +105,11 @@
                   <div class="phone-wrapper">
                     <div>Phone</div>
                     @if (!selectedContact.phone) {
-                      <div (click)="openPopUp('Edit')">{{ selectedContact.phone | phoneNumber }}</div>
+                      <div (click)="openPopUp('Edit')"
+                           (keydown.escape)="openPopUp('Edit')"
+                           tabindex="0">
+                        {{ selectedContact.phone | phoneNumber }}
+                      </div>
                     } @else {
                       <div>{{ selectedContact.phone | phoneNumber }}</div>
                     }

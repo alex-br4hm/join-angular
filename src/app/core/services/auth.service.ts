@@ -9,18 +9,15 @@ import { user } from 'rxfire/auth';
 export class AuthService {
   private auth: Auth = inject(Auth);
 
-  constructor() {
-  }
-
   getUser(): Observable<User | null> {
     return user(this.auth);
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<object> {
     return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
-  register(email: string, password: string): Observable<any> {
+  register(email: string, password: string): Observable<object> {
     return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 

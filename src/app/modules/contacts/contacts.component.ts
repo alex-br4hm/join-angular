@@ -40,10 +40,10 @@ export class ContactsComponent implements OnInit {
   sortedList!: Contact[];
   availableLetters!: string[];
 
-  isLoading: boolean = true;
-  popUp: boolean     = false;
+  isLoading = true;
+  popUp     = false;
 
-  groupedContacts: { [letter: string]: Contact[] } = {};
+  groupedContacts: Record<string, Contact[]> = {};
 
   constructor(private firebase: FirebaseService) {}
 
@@ -101,7 +101,7 @@ export class ContactsComponent implements OnInit {
   selectContact(id: string) {
     this.selectedContact = undefined;
     this.cdr.detectChanges();
-    this.selectedContact = <Contact>this.sortedList.find(contact => contact.id === id);
+    this.selectedContact = this.sortedList.find(contact => contact.id === id) as Contact;
   }
 
   openPopUp(type: string) {

@@ -8,10 +8,10 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import {environment} from '../environments/environment';
 import {provideAnimations} from '@angular/platform-browser/animations';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter} from '@angular/material/core';
+import {provideNativeDateAdapter} from '@angular/material/core';
 import {getAuth, provideAuth} from '@angular/fire/auth';
 import {registerLocaleData} from '@angular/common';
-import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter, provideMomentDateAdapter} from '@angular/material-moment-adapter';
+import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 

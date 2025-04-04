@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Database, objectVal, push, ref, remove, set, update} from '@angular/fire/database';
 import {Contact} from '../models/contacts';
+import { Task } from '../models/tasks';
 
 
 @Injectable({
@@ -10,12 +11,12 @@ import {Contact} from '../models/contacts';
 export class FirebaseService {
   private db = inject(Database);
 
-  getTasks():Observable<any> {
+  getTasks():Observable<Task[]> {
     const tasksRef = ref(this.db, 'tasks');
     return objectVal(tasksRef);
   }
 
-  getContacts():Observable<any> {
+  getContacts():Observable<Contact[]> {
     const contactsRef = ref(this.db, 'contacts');
     return objectVal(contactsRef);
   }

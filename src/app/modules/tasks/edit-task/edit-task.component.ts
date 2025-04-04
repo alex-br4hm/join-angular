@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import { Task } from '../../../core/models/tasks';
 import {TaskDataService} from '../../../core/services/task-data.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -22,9 +22,11 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/m
   templateUrl: './edit-task.component.html',
   styleUrl: './edit-task.component.scss'
 })
-export class EditTaskComponent {
+export class EditTaskComponent implements OnInit{
   @Input() task!: Task;
-  fb: FormBuilder    = inject(FormBuilder);
+
+  fb: FormBuilder = inject(FormBuilder);
+
   editTaskForm!: FormGroup;
   today: Date = new Date();
 
@@ -34,7 +36,7 @@ export class EditTaskComponent {
   ngOnInit() {
     console.log(this.task);
     this.editTaskForm = this.fb.group({
-      title: [this.task.title, Validators.required],
+      title:    [this.task.title, Validators.required],
       due_date: ['12-10-2025', Validators.required],
     })
   }

@@ -6,10 +6,9 @@ import {Task} from '../models/tasks';
   providedIn: 'root'
 })
 export class TaskDataService {
-  private db         = inject(Database);
-  taskState: string             = 'todo';
+  private db= inject(Database);
 
-  constructor() { }
+  taskState= 'todo';
 
   addTask(task: Task) {
     const tasksRef   = ref(this.db, 'tasks');

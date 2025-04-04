@@ -10,7 +10,7 @@
 <!--      <mat-icon [ngClass]="{ 'sun': mode === 'light' }">light_mode</mat-icon>-->
 <!--  </div>-->
 
-  @if (this.route != '/help') {
+  @if (this.route !== '/help') {
     <mat-icon [matTooltip]="'help'" routerLink="help">help_outlined</mat-icon>
   }
 
