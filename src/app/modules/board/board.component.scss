@@ -133,11 +133,13 @@ h1 {
   cursor: pointer;
   color: transparent;
   transition: all 125ms ease;
+  border: none;
+  background-color: transparent;
+  opacity: .7;
 
   &:hover {
-    background-color: var(--primary-color);
+    opacity: 1;
   }
-
 }
 
 .add-task-btn {

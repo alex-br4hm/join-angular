@@ -58,16 +58,16 @@ export class BoardComponent implements OnInit {
   taskCategories: TaskCategories[] = []
 
   searchFormControl: FormControl<string> = new FormControl();
-  searchInput: string                    = "";
+  searchInput                            = "";
 
   originalTodoList: Task[]           = [];
   originalInProgressList: Task[]     = [];
   originalAwaitFeedbackList: Task[]  = [];
   originalDoneList: Task[]           = [];
 
-  addTaskPopUp: boolean = false;
+  addTaskPopUp = false;
 
-  tasksCount: number = 0;
+  tasksCount = 0;
 
   contactList: Contact[]  = [];
 

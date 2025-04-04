@@ -40,13 +40,13 @@
         <h3> {{ category.name }}
           <span class="count">[{{ category.list.length }}]</span>
         </h3>
-        @if (category.name != "Done") {
-          <div class="add-task-hover-btn"
+        @if (category.name !== "Done") {
+          <button class="add-task-hover-btn"
                (click)="openAddTask(category.state)"
                [matTooltip]="'create task'"
-               [ngClass]="{ 'test': category.name == 'To do' }">
+               [ngClass]="{ 'test': category.name === 'To do' }">
             <mat-icon>add</mat-icon>
-          </div>
+          </button>
         }
       </div>
 
@@ -64,7 +64,10 @@
 </div>
 
 @if (addTaskPopUp) {
-  <div class="add-task-container" (click)="addTaskPopUp = false">
+  <div class="add-task-container"
+       tabindex="0"
+       (keydown.escape)="addTaskPopUp = false"
+       (click)="addTaskPopUp = false">
     <mat-icon>close</mat-icon>
     <app-add-task></app-add-task>
   </div>
