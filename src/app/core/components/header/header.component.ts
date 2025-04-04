@@ -1,16 +1,13 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from '@angular/material/icon';
-import {NgClass} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
-import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
+import {NavigationEnd, Router, RouterLink} from '@angular/router';
 import {filter} from 'rxjs';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {AuthService} from '../../services/auth.service';
 import {UserService} from '../../services/user.service';
-import {Contact} from '../../models/contacts';
 import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
-import {User} from '@angular/fire/auth';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatPrefix} from '@angular/material/form-field';
 
@@ -33,9 +30,10 @@ import {MatPrefix} from '@angular/material/form-field';
 export class HeaderComponent implements OnInit{
   destroyRef: DestroyRef = inject(DestroyRef);
   router: Router         = inject(Router);
-  mode: string           = 'light';
-  route: string          = '';
-  loggedIn: boolean      = false;
+
+  mode           = 'light';
+  route          = '';
+  loggedIn     = false;
 
   constructor(private authService: AuthService,
               protected userService: UserService) {}
@@ -80,7 +78,7 @@ export class HeaderComponent implements OnInit{
     this.authService.logout().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['login']);
       },
       error: (error) => {console.log(error)}
