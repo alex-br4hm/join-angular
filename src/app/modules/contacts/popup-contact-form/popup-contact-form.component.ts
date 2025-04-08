@@ -18,7 +18,7 @@ import {NgStyle} from '@angular/common';
 import {FirebaseService} from '../../../core/services/firebase.service';
 import {FirstLetterPipe} from '../../../shared/utils/first-letter.pipe';
 import {RandomColorService} from '../../../core/services/random-color.service';
-import {DeleteDialogComponent} from '../delete-dialog/delete-dialog.component';
+import {DeleteDialogComponent} from '../../../shared/ui/delete-dialog/delete-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {CompareObjectsService} from '../../../core/services/compare-objects.service';
 

@@ -11,7 +11,7 @@ import {PopupContactFormComponent} from './popup-contact-form/popup-contact-form
 import {FirstLetterPipe} from '../../shared/utils/first-letter.pipe';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MatDialog} from '@angular/material/dialog';
-import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
+import {DeleteDialogComponent} from '../../shared/ui/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-contacts',
