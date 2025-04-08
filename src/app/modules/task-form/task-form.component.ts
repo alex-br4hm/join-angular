@@ -29,6 +29,7 @@ import {MatIcon} from '@angular/material/icon';
 import {TaskDataService} from '../../core/services/task-data.service';
 import {MatDialog} from '@angular/material/dialog';
 import {AssignedUser, Task} from '../../core/models/tasks';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -67,7 +68,8 @@ export class TaskFormComponent implements OnInit {
 
   dialog: MatDialog            = inject(MatDialog);
   destroyRef: DestroyRef       = inject(DestroyRef);
-  private fb: FormBuilder      = inject(FormBuilder);
+  fb: FormBuilder              = inject(FormBuilder);
+  router: Router               = inject(Router);
 
   assignableUser: Contact[]    = [];
   assignedUser: AssignedUser[] = []
@@ -222,6 +224,9 @@ export class TaskFormComponent implements OnInit {
       this.taskData.addTask(this.addTaskForm.value);
       this.clearForm();
       this.dialog.closeAll();
+      setTimeout(() => {
+        this.router.navigate(['/board']);
+      }, 1000)
     } else {
       console.log('Formular ungültig');
     }
