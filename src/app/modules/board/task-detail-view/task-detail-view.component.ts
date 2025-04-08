@@ -9,7 +9,7 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {MatButton} from '@angular/material/button';
 import {MatSuffix} from '@angular/material/form-field';
 import {TaskDataService} from '../../../core/services/task-data.service';
-import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
+import {TaskFormComponent} from '../../task-form/task-form.component';
 import {UnixToDatePipe} from '../../../shared/utils/unix-to-date.pipe';
 import {DeleteDialogComponent} from '../../../shared/ui/delete-dialog/delete-dialog.component';
 
@@ -23,7 +23,7 @@ import {DeleteDialogComponent} from '../../../shared/ui/delete-dialog/delete-dia
     MatCheckbox,
     MatButton,
     MatSuffix,
-    AddTaskComponent,
+    TaskFormComponent,
     UnixToDatePipe
   ],
   templateUrl: './task-detail-view.component.html',
