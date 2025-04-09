@@ -10,6 +10,7 @@
 
     <div class="close-edit-btn-wrapper">
       @if (task) {
+        <mat-icon (click)="deleteTask(task.id)">delete</mat-icon>
         <mat-icon (click)="openEditTask()">edit</mat-icon>
       }
 
