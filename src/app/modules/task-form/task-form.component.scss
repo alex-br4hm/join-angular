@@ -1,5 +1,6 @@
 :host {
   max-width: 1440px;
+  width: 100%;
   display: block;
 }
 
@@ -12,12 +13,10 @@ form {
   max-height: 60vh;
   overflow: auto;
   overflow-x: hidden;
-  margin-top: 5vh;
   display: flex;
   justify-content: space-between;
   padding-left: 4px;
   padding-right: 12px;
-  margin-bottom: 2.5vh;
 }
 
 .form-left-side, .form-right-side {
@@ -56,6 +55,7 @@ form {
   align-items: center;
   padding-left: 4px;
   padding-right: 12px;
+  margin-top: 2.5vh;
 }
 
 .required-hint span {

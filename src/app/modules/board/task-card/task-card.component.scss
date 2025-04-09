@@ -43,14 +43,19 @@
   background-color: #0d9180;
 }
 
-h5 {
+.task-card-title {
   font-size: 16px;
   margin: 1em 0;
   word-break: break-word;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .description {
   opacity: .7;
+}
+
+.text-overflow-prevention {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

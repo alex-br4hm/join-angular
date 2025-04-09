@@ -18,7 +18,7 @@ import {
 import {NgClass} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {AddTaskComponent} from '../tasks/add-task/add-task.component';
+import {TaskFormComponent} from '../task-form/task-form.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AddTaskDialogComponent} from './add-task-dialog/add-task-dialog.component';
 import {TaskDataService} from '../../core/services/task-data.service';
@@ -41,7 +41,7 @@ import {Contact} from '../../core/models/contacts';
     ReactiveFormsModule,
     NgClass,
     MatTooltip,
-    AddTaskComponent
+    TaskFormComponent
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'

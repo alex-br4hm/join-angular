@@ -1,5 +1,5 @@
 import {Component, inject, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
 import { Task } from '../../../core/models/tasks';
 import {MatIcon} from '@angular/material/icon';
 import {PrioIconPipe} from '../../../shared/utils/prio-icon.pipe';
@@ -9,9 +9,9 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {MatButton} from '@angular/material/button';
 import {MatSuffix} from '@angular/material/form-field';
 import {TaskDataService} from '../../../core/services/task-data.service';
-import {AddTaskComponent} from '../../tasks/add-task/add-task.component';
+import {TaskFormComponent} from '../../task-form/task-form.component';
 import {UnixToDatePipe} from '../../../shared/utils/unix-to-date.pipe';
-import {DeleteDialogComponent} from '../../contacts/delete-dialog/delete-dialog.component';
+import {DeleteDialogComponent} from '../../../shared/ui/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-task-detail-view',
@@ -23,8 +23,9 @@ import {DeleteDialogComponent} from '../../contacts/delete-dialog/delete-dialog.
     MatCheckbox,
     MatButton,
     MatSuffix,
-    AddTaskComponent,
-    UnixToDatePipe
+    TaskFormComponent,
+    UnixToDatePipe,
+    MatDialogContent
   ],
   templateUrl: './task-detail-view.component.html',
   styleUrl: './task-detail-view.component.scss'

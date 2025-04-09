@@ -5,19 +5,35 @@
   gap:24px;
 }
 
+.mat-mdc-dialog-content {
+  max-height: unset !important;
+}
+
+.detail-view-content::-webkit-scrollbar-track {
+  margin: 20px 0;
+}
+
 .head-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
   mat-icon {
     cursor: pointer;
   }
 }
 
+.close-edit-btn-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 h2 {
   margin: 0;
   font-size: 32px;
+  line-height: 32px;
 }
 
 .category-chip {
@@ -92,13 +108,10 @@ h2 {
   }
 }
 
-
 .assigned-user-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-gap: 12px;
-  max-height: 10vh;
-  overflow-y: auto;
 }
 
 .assigned-user-wrapper {
@@ -111,9 +124,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap:8px;
-  max-height: 25vh;
   padding-right: 12px;
-  overflow: auto;
 }
 
 .subtask-wrapper {

@@ -27,7 +27,7 @@ export class SideNavComponent implements OnInit{
   router: Router         = inject(Router);
   destroyRef: DestroyRef = inject(DestroyRef);
 
-  loggedIn= false;
+  loggedIn = false;
   currentRoute!: string;
 
   navLinks: NavLink[] = [

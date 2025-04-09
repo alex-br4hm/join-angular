@@ -31,9 +31,9 @@ export class HeaderComponent implements OnInit{
   destroyRef: DestroyRef = inject(DestroyRef);
   router: Router         = inject(Router);
 
-  mode           = 'light';
-  route          = '';
-  loggedIn     = false;
+  mode       = 'light';
+  route      = '';
+  loggedIn = false;
 
   constructor(private authService: AuthService,
               protected userService: UserService) {}

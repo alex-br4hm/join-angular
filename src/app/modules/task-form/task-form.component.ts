@@ -15,24 +15,25 @@ import {MatOption, MatSelect, MatSelectTrigger} from '@angular/material/select';
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from '@angular/material/datepicker';
 import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {MatButton} from '@angular/material/button';
-import {FirebaseService} from '../../../core/services/firebase.service';
-import {Contact} from '../../../core/models/contacts';
+import {FirebaseService} from '../../core/services/firebase.service';
+import {Contact} from '../../core/models/contacts';
 import {NgStyle} from '@angular/common';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
-import {FirstLetterPipe} from "../../../shared/utils/first-letter.pipe";
+import {FirstLetterPipe} from "../../shared/utils/first-letter.pipe";
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import 'moment/locale/de';
-import {DateFormatterService} from '../../../core/services/date-formatter.service';
+import {DateFormatterService} from '../../core/services/date-formatter.service';
 import {MatIcon} from '@angular/material/icon';
-import {TaskDataService} from '../../../core/services/task-data.service';
+import {TaskDataService} from '../../core/services/task-data.service';
 import {MatDialog} from '@angular/material/dialog';
-import {AssignedUser, Task} from '../../../core/models/tasks';
+import {AssignedUser, Task} from '../../core/models/tasks';
+import {Router} from '@angular/router';
 
 
 @Component({
-  selector: 'app-add-task',
+  selector: 'app-task-form',
   imports: [
     ReactiveFormsModule,
     MatFormField,
@@ -54,20 +55,21 @@ import {AssignedUser, Task} from '../../../core/models/tasks';
     FirstLetterPipe,
     MatIcon
   ],
-  templateUrl: './add-task.component.html',
-  styleUrl: './add-task.component.scss',
+  templateUrl: './task-form.component.html',
+  styleUrl: './task-form.component.scss',
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'de-DE'},
     provideMomentDateAdapter(),
   ],
 })
-export class AddTaskComponent implements OnInit {
+export class TaskFormComponent implements OnInit {
   @Input() taskState   = 'todo';
   @Input() task?: Task;
 
   dialog: MatDialog            = inject(MatDialog);
   destroyRef: DestroyRef       = inject(DestroyRef);
-  private fb: FormBuilder      = inject(FormBuilder);
+  fb: FormBuilder              = inject(FormBuilder);
+  router: Router               = inject(Router);
 
   assignableUser: Contact[]    = [];
   assignedUser: AssignedUser[] = []
@@ -222,6 +224,9 @@ export class AddTaskComponent implements OnInit {
       this.taskData.addTask(this.addTaskForm.value);
       this.clearForm();
       this.dialog.closeAll();
+      setTimeout(() => {
+        this.router.navigate(['/board']);
+      }, 1000)
     } else {
       console.log('Formular ungültig');
     }
