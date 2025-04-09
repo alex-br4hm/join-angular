@@ -6,9 +6,11 @@
   }
 </div>
 
-<h5> {{ task.title }} </h5>
+<h5 class="task-card-title text-overflow-prevention" [matTooltip]="task.title">
+  {{ task.title }}
+</h5>
 
-<div class="description">
+<div class="description text-overflow-prevention">
   {{ task.description}}
 </div>
 
