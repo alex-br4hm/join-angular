@@ -1,4 +1,4 @@
-<div class="detail-view-content">
+<div class="detail-view-content"  mat-dialog-content>
   @if (!editTask) {
   <div class="head-wrapper">
     @if (task.category === "user_story") {
@@ -7,9 +7,16 @@
       <div class="category-chip technical-task">Technical Task</div>
     }
 
-    <mat-icon (click)="closeDetailView()">close</mat-icon>
-  </div>
 
+    <div class="close-edit-btn-wrapper">
+      @if (task) {
+        <mat-icon (click)="openEditTask()">edit</mat-icon>
+      }
+
+      <mat-icon (click)="closeDetailView()">close</mat-icon>
+    </div>
+
+  </div>
 
   <h2>{{ task.title }}</h2>
 

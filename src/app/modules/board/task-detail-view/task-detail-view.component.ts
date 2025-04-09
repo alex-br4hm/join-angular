@@ -1,5 +1,5 @@
 import {Component, inject, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
 import { Task } from '../../../core/models/tasks';
 import {MatIcon} from '@angular/material/icon';
 import {PrioIconPipe} from '../../../shared/utils/prio-icon.pipe';
@@ -24,7 +24,8 @@ import {DeleteDialogComponent} from '../../../shared/ui/delete-dialog/delete-dia
     MatButton,
     MatSuffix,
     TaskFormComponent,
-    UnixToDatePipe
+    UnixToDatePipe,
+    MatDialogContent
   ],
   templateUrl: './task-detail-view.component.html',
   styleUrl: './task-detail-view.component.scss'
