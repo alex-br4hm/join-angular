@@ -71,7 +71,10 @@ export class ContactsComponent implements OnInit {
       a.firstname.localeCompare(b.firstname)
     );
 
-    this.extractAvailableLetters()
+    if (this.sortedList) {
+      this.selectedContact = this.sortedList[0];
+      this.extractAvailableLetters();
+    }
   }
 
   extractAvailableLetters(): void {
