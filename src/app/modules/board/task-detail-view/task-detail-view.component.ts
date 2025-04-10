@@ -36,7 +36,6 @@ export class TaskDetailViewComponent {
   task!: Task;
   editTask = false;
 
-
   constructor(
     public taskDataService: TaskDataService,
     public dialogRef: MatDialogRef<TaskDetailViewComponent>,

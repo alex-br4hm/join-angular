@@ -97,7 +97,11 @@
   </div>
 
   } @else {
-    <h2>Edit Task</h2><span>Task-ID: {{task.id}}</span>
+    <div class="head-wrapper">
+      <h2>Edit Task</h2>
+      <mat-icon (click)="closeDetailView()">close</mat-icon>
+    </div>
+    <span>Task-ID: {{task.id}}</span>
     <app-task-form [task]="task"></app-task-form>
   }
 </div>

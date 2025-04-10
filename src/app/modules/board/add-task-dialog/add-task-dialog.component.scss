@@ -12,21 +12,23 @@ h2, app-add-task {
 }
 
 h2 {
-  margin-top: 0;
+  margin: 0;
+  width: fit-content;
+
   span {
     font-size: 14px;
   }
 }
 
-mat-icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  float: right;
-  padding: 32px;
+.head-wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+mat-icon {
   cursor: pointer;
 }
 
