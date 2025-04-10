@@ -1,8 +1,12 @@
 <div class="dialog-content">
-    <h2>Add Task
-      <span>[{{ data | addTaskState }}]</span>
-    </h2>
+    <div class="head-wrapper">
+        <h2>Add Task
+          <span>[{{ data | addTaskState }}]</span>
+        </h2>
+        <mat-icon (click)="onConfirm()">close</mat-icon>
+    </div>
+
     <app-task-form></app-task-form>
 </div>
 
-<mat-icon (click)="onConfirm()">close</mat-icon>
+
