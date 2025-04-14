@@ -45,6 +45,7 @@ export class TaskDataService {
 
   patchTask(task: Task) {
     const taskRef = ref(this.db, `tasks/${task.id}`);
+    task.due_date_unix = this.getUnixTimeStamp(task.due_date);
 
     update(taskRef, task)
       .then(() => {
