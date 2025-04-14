@@ -54,8 +54,7 @@ export class SideNavComponent implements OnInit{
   ]
 
   constructor(private activeRouteService: ActiveRouteService,
-              private authService: AuthService,
-              private userService: UserService) {
+              private authService: AuthService) {
     effect(() => {
       this.currentRoute = this.activeRouteService.currentRoute();
     });
