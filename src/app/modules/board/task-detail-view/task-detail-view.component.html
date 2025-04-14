@@ -10,7 +10,7 @@
 
     <div class="close-edit-btn-wrapper">
       @if (task) {
-        <mat-icon (click)="deleteTask(task.id)">delete</mat-icon>
+        <mat-icon (click)="deleteTask(task.id)">delete_outline</mat-icon>
         <mat-icon (click)="openEditTask()">edit</mat-icon>
       }
 
@@ -86,7 +86,7 @@
 
   <div class="button-wrapper">
     <button mat-flat-button (click)="deleteTask(task.id)">
-      <mat-icon matSuffix>delete</mat-icon>
+      <mat-icon matSuffix>delete_outline</mat-icon>
       Delete
     </button>
 
