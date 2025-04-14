@@ -1,6 +1,16 @@
-<h2 mat-dialog-title>Confirm Deletion</h2>
+<h2>
+  Confirm Deletion
+  <mat-icon class="close-window-icon" (click)="onCancel()">close</mat-icon>
+</h2>
+
 <mat-dialog-content> Are you sure you want to delete? </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-flat-button (click)="onCancel()">Cancel</button>
-  <button mat-flat-button color="warn" (click)="onConfirm()">Delete</button>
+    <button mat-flat-button (click)="onCancel()">
+      <mat-icon matSuffix>close</mat-icon>
+      Cancel
+    </button>
+    <button mat-flat-button color="warn" (click)="onConfirm()">
+      <mat-icon matSuffix>delete_outline</mat-icon>
+      Delete
+    </button>
 </mat-dialog-actions>
