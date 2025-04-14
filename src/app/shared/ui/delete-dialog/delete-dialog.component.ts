@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
+import {MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from "@angular/material/icon";
 import {MatSuffix} from "@angular/material/form-field";
@@ -8,7 +8,6 @@ import {MatSuffix} from "@angular/material/form-field";
   selector: 'app-delete-dialog',
     imports: [
         MatDialogContent,
-        MatDialogTitle,
         MatDialogActions,
         MatButton,
         MatIcon,
